@@ -1,60 +1,24 @@
-# Authentication
+# Verification
 
 Types:
 
 ```python
-from prelude.types import AuthenticationCreateResponse, AuthenticationRetrieveResponse
+from prelude_sdk.types import VerificationCreateResponse, VerificationCheckResponse
 ```
 
 Methods:
 
-- <code title="post /authentication">client.authentication.<a href="./src/prelude/resources/authentication/authentication.py">create</a>(\*\*<a href="src/prelude/types/authentication_create_params.py">params</a>) -> <a href="./src/prelude/types/authentication_create_response.py">AuthenticationCreateResponse</a></code>
-- <code title="get /authentication/{auth_uuid}">client.authentication.<a href="./src/prelude/resources/authentication/authentication.py">retrieve</a>(auth_uuid) -> <a href="./src/prelude/types/authentication_retrieve_response.py">AuthenticationRetrieveResponse</a></code>
+- <code title="post /v2/verification">client.verification.<a href="./src/prelude_sdk/resources/verification.py">create</a>(\*\*<a href="src/prelude_sdk/types/verification_create_params.py">params</a>) -> <a href="./src/prelude_sdk/types/verification_create_response.py">VerificationCreateResponse</a></code>
+- <code title="post /v2/verification/check">client.verification.<a href="./src/prelude_sdk/resources/verification.py">check</a>(\*\*<a href="src/prelude_sdk/types/verification_check_params.py">params</a>) -> <a href="./src/prelude_sdk/types/verification_check_response.py">VerificationCheckResponse</a></code>
 
-## Feedback
+# Transactional
 
 Types:
 
 ```python
-from prelude.types.authentication import FeedbackCreateResponse
+from prelude_sdk.types import TransactionalSendResponse
 ```
 
 Methods:
 
-- <code title="post /authentication/feedback">client.authentication.feedback.<a href="./src/prelude/resources/authentication/feedback.py">create</a>(\*\*<a href="src/prelude/types/authentication/feedback_create_params.py">params</a>) -> <a href="./src/prelude/types/authentication/feedback_create_response.py">FeedbackCreateResponse</a></code>
-
-# Check
-
-Types:
-
-```python
-from prelude.types import CheckCreateResponse
-```
-
-Methods:
-
-- <code title="post /check">client.check.<a href="./src/prelude/resources/check.py">create</a>(\*\*<a href="src/prelude/types/check_create_params.py">params</a>) -> <a href="./src/prelude/types/check_create_response.py">CheckCreateResponse</a></code>
-
-# Retry
-
-Types:
-
-```python
-from prelude.types import RetryCreateResponse
-```
-
-Methods:
-
-- <code title="post /retry">client.retry.<a href="./src/prelude/resources/retry.py">create</a>(\*\*<a href="src/prelude/types/retry_create_params.py">params</a>) -> <a href="./src/prelude/types/retry_create_response.py">RetryCreateResponse</a></code>
-
-# Lookup
-
-Types:
-
-```python
-from prelude.types import LookupRetrieveResponse
-```
-
-Methods:
-
-- <code title="get /lookup/{phone_number}">client.lookup.<a href="./src/prelude/resources/lookup.py">retrieve</a>(phone_number) -> <a href="./src/prelude/types/lookup_retrieve_response.py">LookupRetrieveResponse</a></code>
+- <code title="post /v2/transactional">client.transactional.<a href="./src/prelude_sdk/resources/transactional.py">send</a>(\*\*<a href="src/prelude_sdk/types/transactional_send_params.py">params</a>) -> <a href="./src/prelude_sdk/types/transactional_send_response.py">TransactionalSendResponse</a></code>

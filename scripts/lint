@@ -8,5 +8,5 @@ echo "==> Running lints"
 rye run lint
 
 echo "==> Making sure it imports"
-rye run python -c 'import prelude'
+rye run python -c 'import prelude_sdk'
 

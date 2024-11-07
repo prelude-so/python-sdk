@@ -2,7 +2,7 @@ import operator
 from typing import Any
 from typing_extensions import override
 
-from prelude._utils import LazyProxy
+from prelude_sdk._utils import LazyProxy
 
 
 class RecursiveLazyProxy(LazyProxy[Any]):
