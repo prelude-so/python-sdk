@@ -20,14 +20,16 @@ class TestLookup:
     @parametrize
     def test_method_retrieve(self, client: Prelude) -> None:
         lookup = client.lookup.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LookupRetrieveResponse, lookup, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Prelude) -> None:
         response = client.lookup.with_raw_response.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -38,7 +40,8 @@ class TestLookup:
     @parametrize
     def test_streaming_response_retrieve(self, client: Prelude) -> None:
         with client.lookup.with_streaming_response.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -52,7 +55,8 @@ class TestLookup:
     def test_path_params_retrieve(self, client: Prelude) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `phone_number` but received ''"):
             client.lookup.with_raw_response.retrieve(
-                "",
+                phone_number="",
+                customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
 
@@ -62,14 +66,16 @@ class TestAsyncLookup:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncPrelude) -> None:
         lookup = await async_client.lookup.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LookupRetrieveResponse, lookup, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncPrelude) -> None:
         response = await async_client.lookup.with_raw_response.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -80,7 +86,8 @@ class TestAsyncLookup:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncPrelude) -> None:
         async with async_client.lookup.with_streaming_response.retrieve(
-            "string",
+            phone_number="phone_number",
+            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -94,5 +101,6 @@ class TestAsyncLookup:
     async def test_path_params_retrieve(self, async_client: AsyncPrelude) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `phone_number` but received ''"):
             await async_client.lookup.with_raw_response.retrieve(
-                "",
+                phone_number="",
+                customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )

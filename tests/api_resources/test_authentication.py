@@ -30,16 +30,16 @@ class TestAuthentication:
         authentication = client.authentication.create(
             customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             phone_number="+1234567890",
-            app_realm="string",
-            app_version="string",
-            callback_url="string",
-            device_id="string",
-            device_model="string",
+            app_realm="app_realm",
+            app_version="app_version",
+            callback_url="callback_url",
+            device_id="device_id",
+            device_model="device_model",
             device_type="IOS",
-            ip="string",
+            ip="ip",
             is_returning_user=True,
-            os_version="string",
-            template_id="string",
+            os_version="os_version",
+            template_id="template_id",
         )
         assert_matches_type(AuthenticationCreateResponse, authentication, path=["response"])
 
@@ -86,16 +86,16 @@ class TestAsyncAuthentication:
         authentication = await async_client.authentication.create(
             customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             phone_number="+1234567890",
-            app_realm="string",
-            app_version="string",
-            callback_url="string",
-            device_id="string",
-            device_model="string",
+            app_realm="app_realm",
+            app_version="app_version",
+            callback_url="callback_url",
+            device_id="device_id",
+            device_model="device_model",
             device_type="IOS",
-            ip="string",
+            ip="ip",
             is_returning_user=True,
-            os_version="string",
-            template_id="string",
+            os_version="os_version",
+            template_id="template_id",
         )
         assert_matches_type(AuthenticationCreateResponse, authentication, path=["response"])
 

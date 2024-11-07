@@ -8,7 +8,7 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from prelude._types import NoneType
+from prelude._types import Omit, NoneType
 from prelude._utils import (
     is_dict,
     is_list,
@@ -97,7 +97,22 @@ def assert_matches_type(
             assert_matches_type(key_type, key, path=[*path, "<dict key>"])
             assert_matches_type(items_type, item, path=[*path, "<dict item>"])
     elif is_union_type(type_):
-        for i, variant in enumerate(get_args(type_)):
+        variants = get_args(type_)
+
+        try:
+            none_index = variants.index(type(None))
+        except ValueError:
+            pass
+        else:
+            # special case Optional[T] for better error messages
+            if len(variants) == 2:
+                if value is None:
+                    # valid
+                    return
+
+                return assert_matches_type(type_=variants[not none_index], value=value, path=path)
+
+        for i, variant in enumerate(variants):
             try:
                 assert_matches_type(variant, value, path=[*path, f"variant {i}"])
                 return
@@ -124,11 +139,15 @@ def _assert_list_type(type_: type[object], value: object) -> None:
 
 
 @contextlib.contextmanager
-def update_env(**new_env: str) -> Iterator[None]:
+def update_env(**new_env: str | Omit) -> Iterator[None]:
     old = os.environ.copy()
 
     try:
-        os.environ.update(new_env)
+        for name, value in new_env.items():
+            if isinstance(value, Omit):
+                os.environ.pop(name, None)
+            else:
+                os.environ[name] = value
 
         yield None
     finally:

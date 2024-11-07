@@ -19,22 +19,32 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import (
-    make_request_options,
-)
-from ...types.authentication import FeedbackCreateResponse, feedback_create_params
+from ..._base_client import make_request_options
+from ...types.authentication import feedback_create_params
+from ...types.authentication.feedback_create_response import FeedbackCreateResponse
 
-__all__ = ["Feedback", "AsyncFeedback"]
+__all__ = ["FeedbackResource", "AsyncFeedbackResource"]
 
 
-class Feedback(SyncAPIResource):
+class FeedbackResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> FeedbackWithRawResponse:
-        return FeedbackWithRawResponse(self)
+    def with_raw_response(self) -> FeedbackResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return FeedbackResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> FeedbackWithStreamingResponse:
-        return FeedbackWithStreamingResponse(self)
+    def with_streaming_response(self) -> FeedbackResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return FeedbackResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -84,14 +94,25 @@ class Feedback(SyncAPIResource):
         )
 
 
-class AsyncFeedback(AsyncAPIResource):
+class AsyncFeedbackResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncFeedbackWithRawResponse:
-        return AsyncFeedbackWithRawResponse(self)
+    def with_raw_response(self) -> AsyncFeedbackResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncFeedbackResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncFeedbackWithStreamingResponse:
-        return AsyncFeedbackWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncFeedbackResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return AsyncFeedbackResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -141,8 +162,8 @@ class AsyncFeedback(AsyncAPIResource):
         )
 
 
-class FeedbackWithRawResponse:
-    def __init__(self, feedback: Feedback) -> None:
+class FeedbackResourceWithRawResponse:
+    def __init__(self, feedback: FeedbackResource) -> None:
         self._feedback = feedback
 
         self.create = to_raw_response_wrapper(
@@ -150,8 +171,8 @@ class FeedbackWithRawResponse:
         )
 
 
-class AsyncFeedbackWithRawResponse:
-    def __init__(self, feedback: AsyncFeedback) -> None:
+class AsyncFeedbackResourceWithRawResponse:
+    def __init__(self, feedback: AsyncFeedbackResource) -> None:
         self._feedback = feedback
 
         self.create = async_to_raw_response_wrapper(
@@ -159,8 +180,8 @@ class AsyncFeedbackWithRawResponse:
         )
 
 
-class FeedbackWithStreamingResponse:
-    def __init__(self, feedback: Feedback) -> None:
+class FeedbackResourceWithStreamingResponse:
+    def __init__(self, feedback: FeedbackResource) -> None:
         self._feedback = feedback
 
         self.create = to_streamed_response_wrapper(
@@ -168,8 +189,8 @@ class FeedbackWithStreamingResponse:
         )
 
 
-class AsyncFeedbackWithStreamingResponse:
-    def __init__(self, feedback: AsyncFeedback) -> None:
+class AsyncFeedbackResourceWithStreamingResponse:
+    def __init__(self, feedback: AsyncFeedbackResource) -> None:
         self._feedback = feedback
 
         self.create = async_to_streamed_response_wrapper(

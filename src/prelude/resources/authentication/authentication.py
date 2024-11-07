@@ -6,19 +6,19 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import AuthenticationCreateResponse, authentication_create_params
+from ...types import authentication_create_params
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
     async_maybe_transform,
 )
 from .feedback import (
-    Feedback,
-    AsyncFeedback,
-    FeedbackWithRawResponse,
-    AsyncFeedbackWithRawResponse,
-    FeedbackWithStreamingResponse,
-    AsyncFeedbackWithStreamingResponse,
+    FeedbackResource,
+    AsyncFeedbackResource,
+    FeedbackResourceWithRawResponse,
+    AsyncFeedbackResourceWithRawResponse,
+    FeedbackResourceWithStreamingResponse,
+    AsyncFeedbackResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -28,25 +28,35 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import (
-    make_request_options,
-)
+from ..._base_client import make_request_options
+from ...types.authentication_create_response import AuthenticationCreateResponse
 
-__all__ = ["Authentication", "AsyncAuthentication"]
+__all__ = ["AuthenticationResource", "AsyncAuthenticationResource"]
 
 
-class Authentication(SyncAPIResource):
+class AuthenticationResource(SyncAPIResource):
     @cached_property
-    def feedback(self) -> Feedback:
-        return Feedback(self._client)
-
-    @cached_property
-    def with_raw_response(self) -> AuthenticationWithRawResponse:
-        return AuthenticationWithRawResponse(self)
+    def feedback(self) -> FeedbackResource:
+        return FeedbackResource(self._client)
 
     @cached_property
-    def with_streaming_response(self) -> AuthenticationWithStreamingResponse:
-        return AuthenticationWithStreamingResponse(self)
+    def with_raw_response(self) -> AuthenticationResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return AuthenticationResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AuthenticationResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return AuthenticationResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -134,18 +144,29 @@ class Authentication(SyncAPIResource):
         )
 
 
-class AsyncAuthentication(AsyncAPIResource):
+class AsyncAuthenticationResource(AsyncAPIResource):
     @cached_property
-    def feedback(self) -> AsyncFeedback:
-        return AsyncFeedback(self._client)
+    def feedback(self) -> AsyncFeedbackResource:
+        return AsyncFeedbackResource(self._client)
 
     @cached_property
-    def with_raw_response(self) -> AsyncAuthenticationWithRawResponse:
-        return AsyncAuthenticationWithRawResponse(self)
+    def with_raw_response(self) -> AsyncAuthenticationResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncAuthenticationResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncAuthenticationWithStreamingResponse:
-        return AsyncAuthenticationWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncAuthenticationResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return AsyncAuthenticationResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -233,8 +254,8 @@ class AsyncAuthentication(AsyncAPIResource):
         )
 
 
-class AuthenticationWithRawResponse:
-    def __init__(self, authentication: Authentication) -> None:
+class AuthenticationResourceWithRawResponse:
+    def __init__(self, authentication: AuthenticationResource) -> None:
         self._authentication = authentication
 
         self.create = to_raw_response_wrapper(
@@ -242,12 +263,12 @@ class AuthenticationWithRawResponse:
         )
 
     @cached_property
-    def feedback(self) -> FeedbackWithRawResponse:
-        return FeedbackWithRawResponse(self._authentication.feedback)
+    def feedback(self) -> FeedbackResourceWithRawResponse:
+        return FeedbackResourceWithRawResponse(self._authentication.feedback)
 
 
-class AsyncAuthenticationWithRawResponse:
-    def __init__(self, authentication: AsyncAuthentication) -> None:
+class AsyncAuthenticationResourceWithRawResponse:
+    def __init__(self, authentication: AsyncAuthenticationResource) -> None:
         self._authentication = authentication
 
         self.create = async_to_raw_response_wrapper(
@@ -255,12 +276,12 @@ class AsyncAuthenticationWithRawResponse:
         )
 
     @cached_property
-    def feedback(self) -> AsyncFeedbackWithRawResponse:
-        return AsyncFeedbackWithRawResponse(self._authentication.feedback)
+    def feedback(self) -> AsyncFeedbackResourceWithRawResponse:
+        return AsyncFeedbackResourceWithRawResponse(self._authentication.feedback)
 
 
-class AuthenticationWithStreamingResponse:
-    def __init__(self, authentication: Authentication) -> None:
+class AuthenticationResourceWithStreamingResponse:
+    def __init__(self, authentication: AuthenticationResource) -> None:
         self._authentication = authentication
 
         self.create = to_streamed_response_wrapper(
@@ -268,12 +289,12 @@ class AuthenticationWithStreamingResponse:
         )
 
     @cached_property
-    def feedback(self) -> FeedbackWithStreamingResponse:
-        return FeedbackWithStreamingResponse(self._authentication.feedback)
+    def feedback(self) -> FeedbackResourceWithStreamingResponse:
+        return FeedbackResourceWithStreamingResponse(self._authentication.feedback)
 
 
-class AsyncAuthenticationWithStreamingResponse:
-    def __init__(self, authentication: AsyncAuthentication) -> None:
+class AsyncAuthenticationResourceWithStreamingResponse:
+    def __init__(self, authentication: AsyncAuthenticationResource) -> None:
         self._authentication = authentication
 
         self.create = async_to_streamed_response_wrapper(
@@ -281,5 +302,5 @@ class AsyncAuthenticationWithStreamingResponse:
         )
 
     @cached_property
-    def feedback(self) -> AsyncFeedbackWithStreamingResponse:
-        return AsyncFeedbackWithStreamingResponse(self._authentication.feedback)
+    def feedback(self) -> AsyncFeedbackResourceWithStreamingResponse:
+        return AsyncFeedbackResourceWithStreamingResponse(self._authentication.feedback)
