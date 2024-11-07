@@ -1,6 +1,6 @@
 # Prelude Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/prelude-sdk.svg)](https://pypi.org/project/prelude-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/prelude_sdk.svg)](https://pypi.org/project/prelude_sdk/)
 
 The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/prelude-so/python-sdk.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre prelude-sdk`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre prelude_sdk`
 
 ## Usage
 
