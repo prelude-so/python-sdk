@@ -30,6 +30,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.authentication_create_response import AuthenticationCreateResponse
+from ...types.authentication_retrieve_response import AuthenticationRetrieveResponse
 
 __all__ = ["AuthenticationResource", "AsyncAuthenticationResource"]
 
@@ -66,12 +67,15 @@ class AuthenticationResource(SyncAPIResource):
         app_realm: str | NotGiven = NOT_GIVEN,
         app_version: str | NotGiven = NOT_GIVEN,
         callback_url: str | NotGiven = NOT_GIVEN,
+        correlation_id: str | NotGiven = NOT_GIVEN,
         device_id: str | NotGiven = NOT_GIVEN,
         device_model: str | NotGiven = NOT_GIVEN,
         device_type: Literal["IOS", "ANDROID", "WEB"] | NotGiven = NOT_GIVEN,
         ip: str | NotGiven = NOT_GIVEN,
         is_returning_user: bool | NotGiven = NOT_GIVEN,
+        locale: str | NotGiven = NOT_GIVEN,
         os_version: str | NotGiven = NOT_GIVEN,
+        sender_id: str | NotGiven = NOT_GIVEN,
         template_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -95,6 +99,8 @@ class AuthenticationResource(SyncAPIResource):
 
           callback_url: A webhook URL to which delivery statuses will be sent.
 
+          correlation_id: A unique, user-defined identifier that will be included in webhook events
+
           device_id: Unique identifier for the user's device. For Android, this corresponds to the
               `ANDROID_ID` and for iOS, this corresponds to the `identifierForVendor`.
 
@@ -104,9 +110,18 @@ class AuthenticationResource(SyncAPIResource):
 
           ip: The IP address of the user's device.
 
-          is_returning_user: Whether the user is a returning user on your app.
+          is_returning_user: This signal should do more than just confirm if a user is returning to your app;
+              it should provide a higher level of trust, indicating that the user is genuine.
+              For more details, refer to [Signals](/guides/prevent-fraud#signals).
+
+          locale: A BCP-47 locale indicating the language the SMS should be sent to; if this is
+              not set, the SMS will be sent to the language specified by the country code of
+              the message. If we don't support the language set, the message will be sent in
+              US English (en-US).
 
           os_version: The version of the user's device operating system.
+
+          sender_id: The Sender ID to use when sending the message.
 
           template_id: The template id associated with the message content variant to be sent.
 
@@ -127,12 +142,15 @@ class AuthenticationResource(SyncAPIResource):
                     "app_realm": app_realm,
                     "app_version": app_version,
                     "callback_url": callback_url,
+                    "correlation_id": correlation_id,
                     "device_id": device_id,
                     "device_model": device_model,
                     "device_type": device_type,
                     "ip": ip,
                     "is_returning_user": is_returning_user,
+                    "locale": locale,
                     "os_version": os_version,
+                    "sender_id": sender_id,
                     "template_id": template_id,
                 },
                 authentication_create_params.AuthenticationCreateParams,
@@ -141,6 +159,41 @@ class AuthenticationResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AuthenticationCreateResponse,
+        )
+
+    def retrieve(
+        self,
+        auth_uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AuthenticationRetrieveResponse:
+        """
+        Get authentication status
+
+        Args:
+          auth_uuid: The UUID of the authentication.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not auth_uuid:
+            raise ValueError(f"Expected a non-empty value for `auth_uuid` but received {auth_uuid!r}")
+        return self._get(
+            f"/authentication/{auth_uuid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthenticationRetrieveResponse,
         )
 
 
@@ -176,12 +229,15 @@ class AsyncAuthenticationResource(AsyncAPIResource):
         app_realm: str | NotGiven = NOT_GIVEN,
         app_version: str | NotGiven = NOT_GIVEN,
         callback_url: str | NotGiven = NOT_GIVEN,
+        correlation_id: str | NotGiven = NOT_GIVEN,
         device_id: str | NotGiven = NOT_GIVEN,
         device_model: str | NotGiven = NOT_GIVEN,
         device_type: Literal["IOS", "ANDROID", "WEB"] | NotGiven = NOT_GIVEN,
         ip: str | NotGiven = NOT_GIVEN,
         is_returning_user: bool | NotGiven = NOT_GIVEN,
+        locale: str | NotGiven = NOT_GIVEN,
         os_version: str | NotGiven = NOT_GIVEN,
+        sender_id: str | NotGiven = NOT_GIVEN,
         template_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -205,6 +261,8 @@ class AsyncAuthenticationResource(AsyncAPIResource):
 
           callback_url: A webhook URL to which delivery statuses will be sent.
 
+          correlation_id: A unique, user-defined identifier that will be included in webhook events
+
           device_id: Unique identifier for the user's device. For Android, this corresponds to the
               `ANDROID_ID` and for iOS, this corresponds to the `identifierForVendor`.
 
@@ -214,9 +272,18 @@ class AsyncAuthenticationResource(AsyncAPIResource):
 
           ip: The IP address of the user's device.
 
-          is_returning_user: Whether the user is a returning user on your app.
+          is_returning_user: This signal should do more than just confirm if a user is returning to your app;
+              it should provide a higher level of trust, indicating that the user is genuine.
+              For more details, refer to [Signals](/guides/prevent-fraud#signals).
+
+          locale: A BCP-47 locale indicating the language the SMS should be sent to; if this is
+              not set, the SMS will be sent to the language specified by the country code of
+              the message. If we don't support the language set, the message will be sent in
+              US English (en-US).
 
           os_version: The version of the user's device operating system.
+
+          sender_id: The Sender ID to use when sending the message.
 
           template_id: The template id associated with the message content variant to be sent.
 
@@ -237,12 +304,15 @@ class AsyncAuthenticationResource(AsyncAPIResource):
                     "app_realm": app_realm,
                     "app_version": app_version,
                     "callback_url": callback_url,
+                    "correlation_id": correlation_id,
                     "device_id": device_id,
                     "device_model": device_model,
                     "device_type": device_type,
                     "ip": ip,
                     "is_returning_user": is_returning_user,
+                    "locale": locale,
                     "os_version": os_version,
+                    "sender_id": sender_id,
                     "template_id": template_id,
                 },
                 authentication_create_params.AuthenticationCreateParams,
@@ -253,6 +323,41 @@ class AsyncAuthenticationResource(AsyncAPIResource):
             cast_to=AuthenticationCreateResponse,
         )
 
+    async def retrieve(
+        self,
+        auth_uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AuthenticationRetrieveResponse:
+        """
+        Get authentication status
+
+        Args:
+          auth_uuid: The UUID of the authentication.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not auth_uuid:
+            raise ValueError(f"Expected a non-empty value for `auth_uuid` but received {auth_uuid!r}")
+        return await self._get(
+            f"/authentication/{auth_uuid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthenticationRetrieveResponse,
+        )
+
 
 class AuthenticationResourceWithRawResponse:
     def __init__(self, authentication: AuthenticationResource) -> None:
@@ -260,6 +365,9 @@ class AuthenticationResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             authentication.create,
+        )
+        self.retrieve = to_raw_response_wrapper(
+            authentication.retrieve,
         )
 
     @cached_property
@@ -274,6 +382,9 @@ class AsyncAuthenticationResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             authentication.create,
         )
+        self.retrieve = async_to_raw_response_wrapper(
+            authentication.retrieve,
+        )
 
     @cached_property
     def feedback(self) -> AsyncFeedbackResourceWithRawResponse:
@@ -287,6 +398,9 @@ class AuthenticationResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             authentication.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            authentication.retrieve,
+        )
 
     @cached_property
     def feedback(self) -> FeedbackResourceWithStreamingResponse:
@@ -299,6 +413,9 @@ class AsyncAuthenticationResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             authentication.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            authentication.retrieve,
         )
 
     @cached_property

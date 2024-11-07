@@ -13,10 +13,11 @@ class CheckCreateResponse(BaseModel):
     """The UUID of the corresponding authentication."""
 
     status: Optional[
-        Literal["valid", "invalid", "without_attempt", "rate_limited", "already_validated", "expired_auth"]
+        Literal["unknown", "valid", "invalid", "without_attempt", "rate_limited", "already_validated", "expired_auth"]
     ] = None
     """The status of the check. Possible values are:
 
+    - `unknown` - The status is unknown.
     - `valid` - The code is valid.
     - `invalid` - The code is invalid.
     - `without_attempt` - No attempt was sent yet, so a check cannot be completed.

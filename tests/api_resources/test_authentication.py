@@ -9,7 +9,7 @@ import pytest
 
 from prelude import Prelude, AsyncPrelude
 from tests.utils import assert_matches_type
-from prelude.types import AuthenticationCreateResponse
+from prelude.types import AuthenticationCreateResponse, AuthenticationRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -33,12 +33,15 @@ class TestAuthentication:
             app_realm="app_realm",
             app_version="app_version",
             callback_url="callback_url",
+            correlation_id="correlation_id",
             device_id="device_id",
             device_model="device_model",
             device_type="IOS",
             ip="ip",
             is_returning_user=True,
+            locale="en-US",
             os_version="os_version",
+            sender_id="sender_id",
             template_id="template_id",
         )
         assert_matches_type(AuthenticationCreateResponse, authentication, path=["response"])
@@ -69,6 +72,44 @@ class TestAuthentication:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_retrieve(self, client: Prelude) -> None:
+        authentication = client.authentication.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+    @parametrize
+    def test_raw_response_retrieve(self, client: Prelude) -> None:
+        response = client.authentication.with_raw_response.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authentication = response.parse()
+        assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+    @parametrize
+    def test_streaming_response_retrieve(self, client: Prelude) -> None:
+        with client.authentication.with_streaming_response.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authentication = response.parse()
+            assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_retrieve(self, client: Prelude) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `auth_uuid` but received ''"):
+            client.authentication.with_raw_response.retrieve(
+                "",
+            )
+
 
 class TestAsyncAuthentication:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -89,12 +130,15 @@ class TestAsyncAuthentication:
             app_realm="app_realm",
             app_version="app_version",
             callback_url="callback_url",
+            correlation_id="correlation_id",
             device_id="device_id",
             device_model="device_model",
             device_type="IOS",
             ip="ip",
             is_returning_user=True,
+            locale="en-US",
             os_version="os_version",
+            sender_id="sender_id",
             template_id="template_id",
         )
         assert_matches_type(AuthenticationCreateResponse, authentication, path=["response"])
@@ -124,3 +168,41 @@ class TestAsyncAuthentication:
             assert_matches_type(AuthenticationCreateResponse, authentication, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncPrelude) -> None:
+        authentication = await async_client.authentication.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncPrelude) -> None:
+        response = await async_client.authentication.with_raw_response.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        authentication = await response.parse()
+        assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncPrelude) -> None:
+        async with async_client.authentication.with_streaming_response.retrieve(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            authentication = await response.parse()
+            assert_matches_type(AuthenticationRetrieveResponse, authentication, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncPrelude) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `auth_uuid` but received ''"):
+            await async_client.authentication.with_raw_response.retrieve(
+                "",
+            )
