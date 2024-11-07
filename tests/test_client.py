@@ -17,12 +17,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from prelude import Prelude, AsyncPrelude, APIResponseValidationError
-from prelude._types import Omit
-from prelude._models import BaseModel, FinalRequestOptions
-from prelude._constants import RAW_RESPONSE_HEADER
-from prelude._exceptions import PreludeError, APIStatusError, APITimeoutError, APIResponseValidationError
-from prelude._base_client import (
+from prelude_sdk import Prelude, AsyncPrelude, APIResponseValidationError
+from prelude_sdk._types import Omit
+from prelude_sdk._models import BaseModel, FinalRequestOptions
+from prelude_sdk._constants import RAW_RESPONSE_HEADER
+from prelude_sdk._exceptions import PreludeError, APIStatusError, APITimeoutError, APIResponseValidationError
+from prelude_sdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -32,8 +32,7 @@ from prelude._base_client import (
 from .utils import update_env
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
-api_key = "My API Key"
-customer_uuid = "My Customer Uuid"
+api_token = "My API Token"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -55,7 +54,7 @@ def _get_open_connections(client: Prelude | AsyncPrelude) -> int:
 
 
 class TestPrelude:
-    client = Prelude(base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True)
+    client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -81,13 +80,9 @@ class TestPrelude:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
-
-        copied = self.client.copy(customer_uuid="another My Customer Uuid")
-        assert copied.customer_uuid == "another My Customer Uuid"
-        assert self.client.customer_uuid == "My Customer Uuid"
+        copied = self.client.copy(api_token="another My API Token")
+        assert copied.api_token == "another My API Token"
+        assert self.client.api_token == "My API Token"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -107,11 +102,7 @@ class TestPrelude:
 
     def test_copy_default_headers(self) -> None:
         client = Prelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -145,11 +136,7 @@ class TestPrelude:
 
     def test_copy_default_query(self) -> None:
         client = Prelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_query={"foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -239,10 +226,10 @@ class TestPrelude:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "prelude/_legacy_response.py",
-                        "prelude/_response.py",
+                        "prelude_sdk/_legacy_response.py",
+                        "prelude_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "prelude/_compat.py",
+                        "prelude_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -274,11 +261,7 @@ class TestPrelude:
 
     def test_client_timeout_option(self) -> None:
         client = Prelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            timeout=httpx.Timeout(0),
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -289,11 +272,7 @@ class TestPrelude:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
             client = Prelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -303,11 +282,7 @@ class TestPrelude:
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
             client = Prelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -317,11 +292,7 @@ class TestPrelude:
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = Prelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -333,19 +304,14 @@ class TestPrelude:
             async with httpx.AsyncClient() as http_client:
                 Prelude(
                     base_url=base_url,
-                    api_key=api_key,
-                    customer_uuid=customer_uuid,
+                    api_token=api_token,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         client = Prelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -353,8 +319,7 @@ class TestPrelude:
 
         client2 = Prelude(
             base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
+            api_token=api_token,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -366,24 +331,19 @@ class TestPrelude:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-api-key") == api_key
+        assert request.headers.get("Authorization") == f"Bearer {api_token}"
 
         with pytest.raises(PreludeError):
-            with update_env(**{"PRELUDE_API_KEY": Omit()}):
-                client2 = Prelude(
-                    base_url=base_url, api_key=None, customer_uuid=customer_uuid, _strict_response_validation=True
-                )
+            with update_env(**{"API_TOKEN": Omit()}):
+                client2 = Prelude(base_url=base_url, api_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
         client = Prelude(
             base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
+            api_token=api_token,
             _strict_response_validation=True,
             default_query={"query_param": "bar"},
         )
@@ -586,10 +546,7 @@ class TestPrelude:
 
     def test_base_url_setter(self) -> None:
         client = Prelude(
-            base_url="https://example.com/from_init",
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
+            base_url="https://example.com/from_init", api_token=api_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
 
@@ -599,22 +556,18 @@ class TestPrelude:
 
     def test_base_url_env(self) -> None:
         with update_env(PRELUDE_BASE_URL="http://localhost:5000/from/env"):
-            client = Prelude(api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True)
+            client = Prelude(api_token=api_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
             Prelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             Prelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -635,15 +588,11 @@ class TestPrelude:
         "client",
         [
             Prelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             Prelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -664,15 +613,11 @@ class TestPrelude:
         "client",
         [
             Prelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             Prelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -690,9 +635,7 @@ class TestPrelude:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -703,9 +646,7 @@ class TestPrelude:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -727,11 +668,7 @@ class TestPrelude:
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             Prelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
     @pytest.mark.respx(base_url=base_url)
@@ -741,16 +678,12 @@ class TestPrelude:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        strict_client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=False
-        )
+        client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -778,25 +711,29 @@ class TestPrelude:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Prelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = Prelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/authentication").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v2/verification").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/authentication",
+                "/v2/verification",
                 body=cast(
-                    object, dict(customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890")
+                    object,
+                    dict(
+                        target={
+                            "type": "phone_number",
+                            "value": "+30123456789",
+                        }
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -804,16 +741,22 @@ class TestPrelude:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/authentication").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/verification").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/authentication",
+                "/v2/verification",
                 body=cast(
-                    object, dict(customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890")
+                    object,
+                    dict(
+                        target={
+                            "type": "phone_number",
+                            "value": "+30123456789",
+                        }
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -822,7 +765,7 @@ class TestPrelude:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -845,17 +788,20 @@ class TestPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890"
+        response = client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            }
         )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Prelude, failures_before_success: int, respx_mock: MockRouter
@@ -871,18 +817,20 @@ class TestPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            phone_number="+1234567890",
+        response = client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Prelude, failures_before_success: int, respx_mock: MockRouter
@@ -898,11 +846,13 @@ class TestPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            phone_number="+1234567890",
+        response = client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -910,9 +860,7 @@ class TestPrelude:
 
 
 class TestAsyncPrelude:
-    client = AsyncPrelude(
-        base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-    )
+    client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -940,13 +888,9 @@ class TestAsyncPrelude:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
-
-        copied = self.client.copy(customer_uuid="another My Customer Uuid")
-        assert copied.customer_uuid == "another My Customer Uuid"
-        assert self.client.customer_uuid == "My Customer Uuid"
+        copied = self.client.copy(api_token="another My API Token")
+        assert copied.api_token == "another My API Token"
+        assert self.client.api_token == "My API Token"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -966,11 +910,7 @@ class TestAsyncPrelude:
 
     def test_copy_default_headers(self) -> None:
         client = AsyncPrelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -1004,11 +944,7 @@ class TestAsyncPrelude:
 
     def test_copy_default_query(self) -> None:
         client = AsyncPrelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_query={"foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -1098,10 +1034,10 @@ class TestAsyncPrelude:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "prelude/_legacy_response.py",
-                        "prelude/_response.py",
+                        "prelude_sdk/_legacy_response.py",
+                        "prelude_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "prelude/_compat.py",
+                        "prelude_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1133,11 +1069,7 @@ class TestAsyncPrelude:
 
     async def test_client_timeout_option(self) -> None:
         client = AsyncPrelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            timeout=httpx.Timeout(0),
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1148,11 +1080,7 @@ class TestAsyncPrelude:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
             client = AsyncPrelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1162,11 +1090,7 @@ class TestAsyncPrelude:
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
             client = AsyncPrelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1176,11 +1100,7 @@ class TestAsyncPrelude:
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = AsyncPrelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                http_client=http_client,
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1192,19 +1112,14 @@ class TestAsyncPrelude:
             with httpx.Client() as http_client:
                 AsyncPrelude(
                     base_url=base_url,
-                    api_key=api_key,
-                    customer_uuid=customer_uuid,
+                    api_token=api_token,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         client = AsyncPrelude(
-            base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_token=api_token, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -1212,8 +1127,7 @@ class TestAsyncPrelude:
 
         client2 = AsyncPrelude(
             base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
+            api_token=api_token,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1225,24 +1139,19 @@ class TestAsyncPrelude:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-api-key") == api_key
+        assert request.headers.get("Authorization") == f"Bearer {api_token}"
 
         with pytest.raises(PreludeError):
-            with update_env(**{"PRELUDE_API_KEY": Omit()}):
-                client2 = AsyncPrelude(
-                    base_url=base_url, api_key=None, customer_uuid=customer_uuid, _strict_response_validation=True
-                )
+            with update_env(**{"API_TOKEN": Omit()}):
+                client2 = AsyncPrelude(base_url=base_url, api_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncPrelude(
             base_url=base_url,
-            api_key=api_key,
-            customer_uuid=customer_uuid,
+            api_token=api_token,
             _strict_response_validation=True,
             default_query={"query_param": "bar"},
         )
@@ -1445,10 +1354,7 @@ class TestAsyncPrelude:
 
     def test_base_url_setter(self) -> None:
         client = AsyncPrelude(
-            base_url="https://example.com/from_init",
-            api_key=api_key,
-            customer_uuid=customer_uuid,
-            _strict_response_validation=True,
+            base_url="https://example.com/from_init", api_token=api_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
 
@@ -1458,22 +1364,18 @@ class TestAsyncPrelude:
 
     def test_base_url_env(self) -> None:
         with update_env(PRELUDE_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncPrelude(api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True)
+            client = AsyncPrelude(api_token=api_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
             AsyncPrelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             AsyncPrelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1494,15 +1396,11 @@ class TestAsyncPrelude:
         "client",
         [
             AsyncPrelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             AsyncPrelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1523,15 +1421,11 @@ class TestAsyncPrelude:
         "client",
         [
             AsyncPrelude(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
+                base_url="http://localhost:5000/custom/path/", api_token=api_token, _strict_response_validation=True
             ),
             AsyncPrelude(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                customer_uuid=customer_uuid,
+                api_token=api_token,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1549,9 +1443,7 @@ class TestAsyncPrelude:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1563,9 +1455,7 @@ class TestAsyncPrelude:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1588,11 +1478,7 @@ class TestAsyncPrelude:
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             AsyncPrelude(
-                base_url=base_url,
-                api_key=api_key,
-                customer_uuid=customer_uuid,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
+                base_url=base_url, api_token=api_token, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
     @pytest.mark.respx(base_url=base_url)
@@ -1603,16 +1489,12 @@ class TestAsyncPrelude:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        strict_client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=False
-        )
+        client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1641,25 +1523,29 @@ class TestAsyncPrelude:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncPrelude(
-            base_url=base_url, api_key=api_key, customer_uuid=customer_uuid, _strict_response_validation=True
-        )
+        client = AsyncPrelude(base_url=base_url, api_token=api_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/authentication").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v2/verification").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/authentication",
+                "/v2/verification",
                 body=cast(
-                    object, dict(customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890")
+                    object,
+                    dict(
+                        target={
+                            "type": "phone_number",
+                            "value": "+30123456789",
+                        }
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1667,16 +1553,22 @@ class TestAsyncPrelude:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/authentication").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/verification").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/authentication",
+                "/v2/verification",
                 body=cast(
-                    object, dict(customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890")
+                    object,
+                    dict(
+                        target={
+                            "type": "phone_number",
+                            "value": "+30123456789",
+                        }
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1685,7 +1577,7 @@ class TestAsyncPrelude:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1709,17 +1601,20 @@ class TestAsyncPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = await client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", phone_number="+1234567890"
+        response = await client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            }
         )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1736,18 +1631,20 @@ class TestAsyncPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = await client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            phone_number="+1234567890",
+        response = await client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
@@ -1764,11 +1661,13 @@ class TestAsyncPrelude:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/authentication").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/verification").mock(side_effect=retry_handler)
 
-        response = await client.authentication.with_raw_response.create(
-            customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            phone_number="+1234567890",
+        response = await client.verification.with_raw_response.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
             extra_headers={"x-stainless-retry-count": "42"},
         )
 

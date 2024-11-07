@@ -1,6 +1,6 @@
 # Prelude Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/prelude.svg)](https://pypi.org/project/prelude/)
+[![PyPI version](https://img.shields.io/pypi/v/prelude-sdk.svg)](https://pypi.org/project/prelude-sdk/)
 
 The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -15,12 +15,12 @@ The REST API documentation can be found on [docs.prelude.so](https://docs.prelud
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/prelude-python.git
+# install from the production repo
+pip install git+ssh://git@github.com/prelude-so/python-sdk.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre prelude`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre prelude-sdk`
 
 ## Usage
 
@@ -28,25 +28,26 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from prelude import Prelude
+from prelude_sdk import Prelude
 
 client = Prelude(
     # This is the default and can be omitted
-    api_key=os.environ.get("PRELUDE_API_KEY"),
-    customer_uuid="My Customer Uuid",
+    api_token=os.environ.get("API_TOKEN"),
 )
 
-authentication = client.authentication.create(
-    customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    phone_number="+1234567890",
+verification = client.verification.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
 )
-print(authentication.authentication_uuid)
+print(verification.id)
 ```
 
-While you can provide an `api_key` keyword argument,
+While you can provide a `api_token` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `PRELUDE_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+to add `API_TOKEN="My API Token"` to your `.env` file
+so that your API Token is not stored in source control.
 
 ## Async usage
 
@@ -55,21 +56,22 @@ Simply import `AsyncPrelude` instead of `Prelude` and use `await` with each API 
 ```python
 import os
 import asyncio
-from prelude import AsyncPrelude
+from prelude_sdk import AsyncPrelude
 
 client = AsyncPrelude(
     # This is the default and can be omitted
-    api_key=os.environ.get("PRELUDE_API_KEY"),
-    customer_uuid="My Customer Uuid",
+    api_token=os.environ.get("API_TOKEN"),
 )
 
 
 async def main() -> None:
-    authentication = await client.authentication.create(
-        customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        phone_number="+1234567890",
+    verification = await client.verification.create(
+        target={
+            "type": "phone_number",
+            "value": "+30123456789",
+        },
     )
-    print(authentication.authentication_uuid)
+    print(verification.id)
 
 
 asyncio.run(main())
@@ -88,32 +90,32 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `prelude.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `prelude_sdk.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `prelude.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `prelude_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `prelude.APIError`.
+All errors inherit from `prelude_sdk.APIError`.
 
 ```python
-import prelude
-from prelude import Prelude
+import prelude_sdk
+from prelude_sdk import Prelude
 
-client = Prelude(
-    customer_uuid="My Customer Uuid",
-)
+client = Prelude()
 
 try:
-    client.authentication.create(
-        customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        phone_number="+1234567890",
+    client.verification.create(
+        target={
+            "type": "phone_number",
+            "value": "+30123456789",
+        },
     )
-except prelude.APIConnectionError as e:
+except prelude_sdk.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except prelude.RateLimitError as e:
+except prelude_sdk.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except prelude.APIStatusError as e:
+except prelude_sdk.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -141,19 +143,20 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from prelude import Prelude
+from prelude_sdk import Prelude
 
 # Configure the default for all requests:
 client = Prelude(
     # default is 2
     max_retries=0,
-    customer_uuid="My Customer Uuid",
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).authentication.create(
-    customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    phone_number="+1234567890",
+client.with_options(max_retries=5).verification.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
 )
 ```
 
@@ -163,25 +166,25 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from prelude import Prelude
+from prelude_sdk import Prelude
 
 # Configure the default for all requests:
 client = Prelude(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
-    customer_uuid="My Customer Uuid",
 )
 
 # More granular control:
 client = Prelude(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-    customer_uuid="My Customer Uuid",
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).authentication.create(
-    customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    phone_number="+1234567890",
+client.with_options(timeout=5.0).verification.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
 )
 ```
 
@@ -218,24 +221,24 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from prelude import Prelude
+from prelude_sdk import Prelude
 
-client = Prelude(
-    customer_uuid="My Customer Uuid",
-)
-response = client.authentication.with_raw_response.create(
-    customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    phone_number="+1234567890",
+client = Prelude()
+response = client.verification.with_raw_response.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
 )
 print(response.headers.get('X-My-Header'))
 
-authentication = response.parse()  # get the object that `authentication.create()` would have returned
-print(authentication.authentication_uuid)
+verification = response.parse()  # get the object that `verification.create()` would have returned
+print(verification.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/prelude-python/tree/main/src/prelude/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/prelude-so/python-sdk/tree/main/src/prelude_sdk/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/prelude-python/tree/main/src/prelude/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/prelude-so/python-sdk/tree/main/src/prelude_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -244,9 +247,11 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.authentication.with_streaming_response.create(
-    customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    phone_number="+1234567890",
+with client.verification.with_streaming_response.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -300,7 +305,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 - Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
-from prelude import Prelude, DefaultHttpxClient
+from prelude_sdk import Prelude, DefaultHttpxClient
 
 client = Prelude(
     # Or use the `PRELUDE_BASE_URL` env var
@@ -309,7 +314,6 @@ client = Prelude(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    customer_uuid="My Customer Uuid",
 )
 ```
 
@@ -333,7 +337,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/prelude-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/prelude-so/python-sdk/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -342,8 +346,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import prelude
-print(prelude.__version__)
+import prelude_sdk
+print(prelude_sdk.__version__)
 ```
 
 ## Requirements

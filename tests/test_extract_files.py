@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from prelude._types import FileTypes
-from prelude._utils import extract_files
+from prelude_sdk._types import FileTypes
+from prelude_sdk._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:
