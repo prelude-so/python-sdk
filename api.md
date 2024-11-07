@@ -3,12 +3,13 @@
 Types:
 
 ```python
-from prelude.types import AuthenticationCreateResponse
+from prelude.types import AuthenticationCreateResponse, AuthenticationRetrieveResponse
 ```
 
 Methods:
 
 - <code title="post /authentication">client.authentication.<a href="./src/prelude/resources/authentication/authentication.py">create</a>(\*\*<a href="src/prelude/types/authentication_create_params.py">params</a>) -> <a href="./src/prelude/types/authentication_create_response.py">AuthenticationCreateResponse</a></code>
+- <code title="get /authentication/{auth_uuid}">client.authentication.<a href="./src/prelude/resources/authentication/authentication.py">retrieve</a>(auth_uuid) -> <a href="./src/prelude/types/authentication_retrieve_response.py">AuthenticationRetrieveResponse</a></code>
 
 ## Feedback
 

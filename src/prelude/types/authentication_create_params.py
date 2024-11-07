@@ -27,6 +27,9 @@ class AuthenticationCreateParams(TypedDict, total=False):
     callback_url: str
     """A webhook URL to which delivery statuses will be sent."""
 
+    correlation_id: str
+    """A unique, user-defined identifier that will be included in webhook events"""
+
     device_id: str
     """Unique identifier for the user's device.
 
@@ -44,10 +47,25 @@ class AuthenticationCreateParams(TypedDict, total=False):
     """The IP address of the user's device."""
 
     is_returning_user: bool
-    """Whether the user is a returning user on your app."""
+    """
+    This signal should do more than just confirm if a user is returning to your app;
+    it should provide a higher level of trust, indicating that the user is genuine.
+    For more details, refer to [Signals](/guides/prevent-fraud#signals).
+    """
+
+    locale: str
+    """
+    A BCP-47 locale indicating the language the SMS should be sent to; if this is
+    not set, the SMS will be sent to the language specified by the country code of
+    the message. If we don't support the language set, the message will be sent in
+    US English (en-US).
+    """
 
     os_version: str
     """The version of the user's device operating system."""
+
+    sender_id: str
+    """The Sender ID to use when sending the message."""
 
     template_id: str
     """The template id associated with the message content variant to be sent."""

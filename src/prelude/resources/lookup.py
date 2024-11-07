@@ -52,7 +52,7 @@ class LookupResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> LookupRetrieveResponse:
         """
-        Perform a phone number lookup
+        Look up for phone number
 
         Args:
           phone_number: An E.164 formatted phone number to look up.
@@ -112,7 +112,7 @@ class AsyncLookupResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> LookupRetrieveResponse:
         """
-        Perform a phone number lookup
+        Look up for phone number
 
         Args:
           phone_number: An E.164 formatted phone number to look up.
