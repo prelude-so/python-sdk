@@ -33,6 +33,7 @@ from prelude import Prelude
 client = Prelude(
     # This is the default and can be omitted
     api_key=os.environ.get("PRELUDE_API_KEY"),
+    customer_uuid="My Customer Uuid",
 )
 
 authentication = client.authentication.create(
@@ -59,6 +60,7 @@ from prelude import AsyncPrelude
 client = AsyncPrelude(
     # This is the default and can be omitted
     api_key=os.environ.get("PRELUDE_API_KEY"),
+    customer_uuid="My Customer Uuid",
 )
 
 
@@ -97,7 +99,9 @@ All errors inherit from `prelude.APIError`.
 import prelude
 from prelude import Prelude
 
-client = Prelude()
+client = Prelude(
+    customer_uuid="My Customer Uuid",
+)
 
 try:
     client.authentication.create(
@@ -143,6 +147,7 @@ from prelude import Prelude
 client = Prelude(
     # default is 2
     max_retries=0,
+    customer_uuid="My Customer Uuid",
 )
 
 # Or, configure per-request:
@@ -164,11 +169,13 @@ from prelude import Prelude
 client = Prelude(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    customer_uuid="My Customer Uuid",
 )
 
 # More granular control:
 client = Prelude(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    customer_uuid="My Customer Uuid",
 )
 
 # Override per-request:
@@ -213,7 +220,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from prelude import Prelude
 
-client = Prelude()
+client = Prelude(
+    customer_uuid="My Customer Uuid",
+)
 response = client.authentication.with_raw_response.create(
     customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
     phone_number="+1234567890",
@@ -300,6 +309,7 @@ client = Prelude(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    customer_uuid="My Customer Uuid",
 )
 ```
 
