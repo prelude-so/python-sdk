@@ -55,11 +55,13 @@ class Prelude(SyncAPIClient):
 
     # client options
     api_key: str
+    customer_uuid: str
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        customer_uuid: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -81,7 +83,9 @@ class Prelude(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous prelude client instance.
 
-        This automatically infers the `api_key` argument from the `PRELUDE_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `PRELUDE_API_KEY`
+        - `customer_uuid` from `PRELUDE_CUSTOMER_UUID`
         """
         if api_key is None:
             api_key = os.environ.get("PRELUDE_API_KEY")
@@ -90,6 +94,14 @@ class Prelude(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the PRELUDE_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if customer_uuid is None:
+            customer_uuid = os.environ.get("PRELUDE_CUSTOMER_UUID")
+        if customer_uuid is None:
+            raise PreludeError(
+                "The customer_uuid client option must be set either by passing customer_uuid to the client or by setting the PRELUDE_CUSTOMER_UUID environment variable"
+            )
+        self.customer_uuid = customer_uuid
 
         if base_url is None:
             base_url = os.environ.get("PRELUDE_BASE_URL")
@@ -131,6 +143,7 @@ class Prelude(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "CUSTOMER_UUID": self.customer_uuid,
             **self._custom_headers,
         }
 
@@ -138,6 +151,7 @@ class Prelude(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        customer_uuid: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -172,6 +186,7 @@ class Prelude(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            customer_uuid=customer_uuid or self.customer_uuid,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -229,11 +244,13 @@ class AsyncPrelude(AsyncAPIClient):
 
     # client options
     api_key: str
+    customer_uuid: str
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        customer_uuid: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -255,7 +272,9 @@ class AsyncPrelude(AsyncAPIClient):
     ) -> None:
         """Construct a new async prelude client instance.
 
-        This automatically infers the `api_key` argument from the `PRELUDE_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `PRELUDE_API_KEY`
+        - `customer_uuid` from `PRELUDE_CUSTOMER_UUID`
         """
         if api_key is None:
             api_key = os.environ.get("PRELUDE_API_KEY")
@@ -264,6 +283,14 @@ class AsyncPrelude(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the PRELUDE_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if customer_uuid is None:
+            customer_uuid = os.environ.get("PRELUDE_CUSTOMER_UUID")
+        if customer_uuid is None:
+            raise PreludeError(
+                "The customer_uuid client option must be set either by passing customer_uuid to the client or by setting the PRELUDE_CUSTOMER_UUID environment variable"
+            )
+        self.customer_uuid = customer_uuid
 
         if base_url is None:
             base_url = os.environ.get("PRELUDE_BASE_URL")
@@ -305,6 +332,7 @@ class AsyncPrelude(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "CUSTOMER_UUID": self.customer_uuid,
             **self._custom_headers,
         }
 
@@ -312,6 +340,7 @@ class AsyncPrelude(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        customer_uuid: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -346,6 +375,7 @@ class AsyncPrelude(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            customer_uuid=customer_uuid or self.customer_uuid,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
