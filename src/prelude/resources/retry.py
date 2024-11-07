@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import RetryCreateResponse, retry_create_params
+from ..types import retry_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -18,21 +18,31 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import (
-    make_request_options,
-)
+from .._base_client import make_request_options
+from ..types.retry_create_response import RetryCreateResponse
 
-__all__ = ["Retry", "AsyncRetry"]
+__all__ = ["RetryResource", "AsyncRetryResource"]
 
 
-class Retry(SyncAPIResource):
+class RetryResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> RetryWithRawResponse:
-        return RetryWithRawResponse(self)
+    def with_raw_response(self) -> RetryResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return RetryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> RetryWithStreamingResponse:
-        return RetryWithStreamingResponse(self)
+    def with_streaming_response(self) -> RetryResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return RetryResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -78,14 +88,25 @@ class Retry(SyncAPIResource):
         )
 
 
-class AsyncRetry(AsyncAPIResource):
+class AsyncRetryResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncRetryWithRawResponse:
-        return AsyncRetryWithRawResponse(self)
+    def with_raw_response(self) -> AsyncRetryResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncRetryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncRetryWithStreamingResponse:
-        return AsyncRetryWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncRetryResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return AsyncRetryResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -131,8 +152,8 @@ class AsyncRetry(AsyncAPIResource):
         )
 
 
-class RetryWithRawResponse:
-    def __init__(self, retry: Retry) -> None:
+class RetryResourceWithRawResponse:
+    def __init__(self, retry: RetryResource) -> None:
         self._retry = retry
 
         self.create = to_raw_response_wrapper(
@@ -140,8 +161,8 @@ class RetryWithRawResponse:
         )
 
 
-class AsyncRetryWithRawResponse:
-    def __init__(self, retry: AsyncRetry) -> None:
+class AsyncRetryResourceWithRawResponse:
+    def __init__(self, retry: AsyncRetryResource) -> None:
         self._retry = retry
 
         self.create = async_to_raw_response_wrapper(
@@ -149,8 +170,8 @@ class AsyncRetryWithRawResponse:
         )
 
 
-class RetryWithStreamingResponse:
-    def __init__(self, retry: Retry) -> None:
+class RetryResourceWithStreamingResponse:
+    def __init__(self, retry: RetryResource) -> None:
         self._retry = retry
 
         self.create = to_streamed_response_wrapper(
@@ -158,8 +179,8 @@ class RetryWithStreamingResponse:
         )
 
 
-class AsyncRetryWithStreamingResponse:
-    def __init__(self, retry: AsyncRetry) -> None:
+class AsyncRetryResourceWithStreamingResponse:
+    def __init__(self, retry: AsyncRetryResource) -> None:
         self._retry = retry
 
         self.create = async_to_streamed_response_wrapper(

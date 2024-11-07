@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import CheckCreateResponse, check_create_params
+from ..types import check_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -18,21 +18,31 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import (
-    make_request_options,
-)
+from .._base_client import make_request_options
+from ..types.check_create_response import CheckCreateResponse
 
-__all__ = ["Check", "AsyncCheck"]
+__all__ = ["CheckResource", "AsyncCheckResource"]
 
 
-class Check(SyncAPIResource):
+class CheckResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> CheckWithRawResponse:
-        return CheckWithRawResponse(self)
+    def with_raw_response(self) -> CheckResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return CheckResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> CheckWithStreamingResponse:
-        return CheckWithStreamingResponse(self)
+    def with_streaming_response(self) -> CheckResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return CheckResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -82,14 +92,25 @@ class Check(SyncAPIResource):
         )
 
 
-class AsyncCheck(AsyncAPIResource):
+class AsyncCheckResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncCheckWithRawResponse:
-        return AsyncCheckWithRawResponse(self)
+    def with_raw_response(self) -> AsyncCheckResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncCheckResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncCheckWithStreamingResponse:
-        return AsyncCheckWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncCheckResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/prelude-python#with_streaming_response
+        """
+        return AsyncCheckResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -139,8 +160,8 @@ class AsyncCheck(AsyncAPIResource):
         )
 
 
-class CheckWithRawResponse:
-    def __init__(self, check: Check) -> None:
+class CheckResourceWithRawResponse:
+    def __init__(self, check: CheckResource) -> None:
         self._check = check
 
         self.create = to_raw_response_wrapper(
@@ -148,8 +169,8 @@ class CheckWithRawResponse:
         )
 
 
-class AsyncCheckWithRawResponse:
-    def __init__(self, check: AsyncCheck) -> None:
+class AsyncCheckResourceWithRawResponse:
+    def __init__(self, check: AsyncCheckResource) -> None:
         self._check = check
 
         self.create = async_to_raw_response_wrapper(
@@ -157,8 +178,8 @@ class AsyncCheckWithRawResponse:
         )
 
 
-class CheckWithStreamingResponse:
-    def __init__(self, check: Check) -> None:
+class CheckResourceWithStreamingResponse:
+    def __init__(self, check: CheckResource) -> None:
         self._check = check
 
         self.create = to_streamed_response_wrapper(
@@ -166,8 +187,8 @@ class CheckWithStreamingResponse:
         )
 
 
-class AsyncCheckWithStreamingResponse:
-    def __init__(self, check: AsyncCheck) -> None:
+class AsyncCheckResourceWithStreamingResponse:
+    def __init__(self, check: AsyncCheckResource) -> None:
         self._check = check
 
         self.create = async_to_streamed_response_wrapper(

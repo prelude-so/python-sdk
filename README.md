@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/prelude.svg)](https://pypi.org/project/prelude/)
 
-The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.7+
+The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -10,13 +10,13 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-The REST API documentation can be found [on docs.prelude.com](https://docs.prelude.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.prelude.so](https://docs.prelude.so). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
 # install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/prelude/prelude-python.git
+pip install git+ssh://git@github.com/stainless-sdks/prelude-python.git
 ```
 
 > [!NOTE]
@@ -35,11 +35,11 @@ client = Prelude(
     api_key=os.environ.get("PRELUDE_API_KEY"),
 )
 
-authentication_create_response = client.authentication.create(
+authentication = client.authentication.create(
     customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
     phone_number="+1234567890",
 )
-print(authentication_create_response.authentication_uuid)
+print(authentication.authentication_uuid)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -63,11 +63,11 @@ client = AsyncPrelude(
 
 
 async def main() -> None:
-    authentication_create_response = await client.authentication.create(
+    authentication = await client.authentication.create(
         customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         phone_number="+1234567890",
     )
-    print(authentication_create_response.authentication_uuid)
+    print(authentication.authentication_uuid)
 
 
 asyncio.run(main())
@@ -172,7 +172,7 @@ client = Prelude(
 )
 
 # Override per-request:
-client.with_options(timeout=5 * 1000).authentication.create(
+client.with_options(timeout=5.0).authentication.create(
     customer_uuid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
     phone_number="+1234567890",
 )
@@ -224,9 +224,9 @@ authentication = response.parse()  # get the object that `authentication.create(
 print(authentication.authentication_uuid)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/tree/main/src/prelude/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/prelude-python/tree/main/src/prelude/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/tree/main/src/prelude/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/prelude-python/tree/main/src/prelude/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -249,7 +249,7 @@ The context manager is required so that the response will reliably be closed.
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access the documented API.
+This library is typed for convenient access to the documented API.
 
 If you need to access undocumented endpoints, params, or response properties, the library can still be used.
 
@@ -288,7 +288,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 - Support for proxies
 - Custom transports
-- Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
+- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
 from prelude import Prelude, DefaultHttpxClient
@@ -301,6 +301,12 @@ client = Prelude(
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
+```
+
+You can also customize the client on a per-request basis by using `with_options()`:
+
+```python
+client.with_options(http_client=DefaultHttpxClient(...))
 ```
 
 ### Managing HTTP resources
@@ -317,8 +323,23 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/prelude/prelude-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/prelude-python/issues) with questions, bugs, or suggestions.
+
+### Determining the installed version
+
+If you've upgraded to the latest version but aren't seeing any new features you were expecting then your python environment is likely still using an older version.
+
+You can determine the version that is being used at runtime with:
+
+```py
+import prelude
+print(prelude.__version__)
+```
 
 ## Requirements
 
-Python 3.7 or higher.
+Python 3.8 or higher.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).

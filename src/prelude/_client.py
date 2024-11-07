@@ -46,10 +46,10 @@ __all__ = [
 
 
 class Prelude(SyncAPIClient):
-    authentication: resources.Authentication
-    check: resources.Check
-    retry: resources.Retry
-    lookup: resources.Lookup
+    authentication: resources.AuthenticationResource
+    check: resources.CheckResource
+    retry: resources.RetryResource
+    lookup: resources.LookupResource
     with_raw_response: PreludeWithRawResponse
     with_streaming_response: PreludeWithStreamedResponse
 
@@ -107,10 +107,10 @@ class Prelude(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.authentication = resources.Authentication(self)
-        self.check = resources.Check(self)
-        self.retry = resources.Retry(self)
-        self.lookup = resources.Lookup(self)
+        self.authentication = resources.AuthenticationResource(self)
+        self.check = resources.CheckResource(self)
+        self.retry = resources.RetryResource(self)
+        self.lookup = resources.LookupResource(self)
         self.with_raw_response = PreludeWithRawResponse(self)
         self.with_streaming_response = PreludeWithStreamedResponse(self)
 
@@ -220,10 +220,10 @@ class Prelude(SyncAPIClient):
 
 
 class AsyncPrelude(AsyncAPIClient):
-    authentication: resources.AsyncAuthentication
-    check: resources.AsyncCheck
-    retry: resources.AsyncRetry
-    lookup: resources.AsyncLookup
+    authentication: resources.AsyncAuthenticationResource
+    check: resources.AsyncCheckResource
+    retry: resources.AsyncRetryResource
+    lookup: resources.AsyncLookupResource
     with_raw_response: AsyncPreludeWithRawResponse
     with_streaming_response: AsyncPreludeWithStreamedResponse
 
@@ -281,10 +281,10 @@ class AsyncPrelude(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.authentication = resources.AsyncAuthentication(self)
-        self.check = resources.AsyncCheck(self)
-        self.retry = resources.AsyncRetry(self)
-        self.lookup = resources.AsyncLookup(self)
+        self.authentication = resources.AsyncAuthenticationResource(self)
+        self.check = resources.AsyncCheckResource(self)
+        self.retry = resources.AsyncRetryResource(self)
+        self.lookup = resources.AsyncLookupResource(self)
         self.with_raw_response = AsyncPreludeWithRawResponse(self)
         self.with_streaming_response = AsyncPreludeWithStreamedResponse(self)
 
@@ -395,34 +395,34 @@ class AsyncPrelude(AsyncAPIClient):
 
 class PreludeWithRawResponse:
     def __init__(self, client: Prelude) -> None:
-        self.authentication = resources.AuthenticationWithRawResponse(client.authentication)
-        self.check = resources.CheckWithRawResponse(client.check)
-        self.retry = resources.RetryWithRawResponse(client.retry)
-        self.lookup = resources.LookupWithRawResponse(client.lookup)
+        self.authentication = resources.AuthenticationResourceWithRawResponse(client.authentication)
+        self.check = resources.CheckResourceWithRawResponse(client.check)
+        self.retry = resources.RetryResourceWithRawResponse(client.retry)
+        self.lookup = resources.LookupResourceWithRawResponse(client.lookup)
 
 
 class AsyncPreludeWithRawResponse:
     def __init__(self, client: AsyncPrelude) -> None:
-        self.authentication = resources.AsyncAuthenticationWithRawResponse(client.authentication)
-        self.check = resources.AsyncCheckWithRawResponse(client.check)
-        self.retry = resources.AsyncRetryWithRawResponse(client.retry)
-        self.lookup = resources.AsyncLookupWithRawResponse(client.lookup)
+        self.authentication = resources.AsyncAuthenticationResourceWithRawResponse(client.authentication)
+        self.check = resources.AsyncCheckResourceWithRawResponse(client.check)
+        self.retry = resources.AsyncRetryResourceWithRawResponse(client.retry)
+        self.lookup = resources.AsyncLookupResourceWithRawResponse(client.lookup)
 
 
 class PreludeWithStreamedResponse:
     def __init__(self, client: Prelude) -> None:
-        self.authentication = resources.AuthenticationWithStreamingResponse(client.authentication)
-        self.check = resources.CheckWithStreamingResponse(client.check)
-        self.retry = resources.RetryWithStreamingResponse(client.retry)
-        self.lookup = resources.LookupWithStreamingResponse(client.lookup)
+        self.authentication = resources.AuthenticationResourceWithStreamingResponse(client.authentication)
+        self.check = resources.CheckResourceWithStreamingResponse(client.check)
+        self.retry = resources.RetryResourceWithStreamingResponse(client.retry)
+        self.lookup = resources.LookupResourceWithStreamingResponse(client.lookup)
 
 
 class AsyncPreludeWithStreamedResponse:
     def __init__(self, client: AsyncPrelude) -> None:
-        self.authentication = resources.AsyncAuthenticationWithStreamingResponse(client.authentication)
-        self.check = resources.AsyncCheckWithStreamingResponse(client.check)
-        self.retry = resources.AsyncRetryWithStreamingResponse(client.retry)
-        self.lookup = resources.AsyncLookupWithStreamingResponse(client.lookup)
+        self.authentication = resources.AsyncAuthenticationResourceWithStreamingResponse(client.authentication)
+        self.check = resources.AsyncCheckResourceWithStreamingResponse(client.check)
+        self.retry = resources.AsyncRetryResourceWithStreamingResponse(client.retry)
+        self.lookup = resources.AsyncLookupResourceWithStreamingResponse(client.lookup)
 
 
 Client = Prelude
