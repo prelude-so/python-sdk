@@ -4,9 +4,9 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["WatchFeedbackResponse"]
+__all__ = ["WatchFeedBackResponse"]
 
 
-class WatchFeedbackResponse(BaseModel):
+class WatchFeedBackResponse(BaseModel):
     id: Optional[str] = None
     """A unique identifier for your feedback request."""
