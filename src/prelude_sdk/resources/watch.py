@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import watch_predict_params, watch_feedback_params
+from ..types import watch_predict_params, watch_feed_back_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -20,7 +20,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.watch_predict_response import WatchPredictResponse
-from ..types.watch_feedback_response import WatchFeedbackResponse
+from ..types.watch_feed_back_response import WatchFeedBackResponse
 
 __all__ = ["WatchResource", "AsyncWatchResource"]
 
@@ -45,27 +45,27 @@ class WatchResource(SyncAPIResource):
         """
         return WatchResourceWithStreamingResponse(self)
 
-    def feedback(
+    def feed_back(
         self,
         *,
-        target: watch_feedback_params.Target,
-        feedback: watch_feedback_params.Feedback | NotGiven = NOT_GIVEN,
+        feedback: watch_feed_back_params.Feedback,
+        target: watch_feed_back_params.Target,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedbackResponse:
+    ) -> WatchFeedBackResponse:
         """
         Once the user with a trustworthy phone number demonstrates authentic behaviour,
         call this endpoint to report their authenticity to our systems.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
-
           feedback: You should send a feedback event back to Watch API when your user demonstrates
               authentic behaviour.
+
+          target: The target. Currently this can only be an E.164 formatted phone number.
 
           extra_headers: Send extra headers
 
@@ -79,15 +79,15 @@ class WatchResource(SyncAPIResource):
             "/v2/watch/feedback",
             body=maybe_transform(
                 {
-                    "target": target,
                     "feedback": feedback,
+                    "target": target,
                 },
-                watch_feedback_params.WatchFeedbackParams,
+                watch_feed_back_params.WatchFeedBackParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WatchFeedbackResponse,
+            cast_to=WatchFeedBackResponse,
         )
 
     def predict(
@@ -157,27 +157,27 @@ class AsyncWatchResource(AsyncAPIResource):
         """
         return AsyncWatchResourceWithStreamingResponse(self)
 
-    async def feedback(
+    async def feed_back(
         self,
         *,
-        target: watch_feedback_params.Target,
-        feedback: watch_feedback_params.Feedback | NotGiven = NOT_GIVEN,
+        feedback: watch_feed_back_params.Feedback,
+        target: watch_feed_back_params.Target,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedbackResponse:
+    ) -> WatchFeedBackResponse:
         """
         Once the user with a trustworthy phone number demonstrates authentic behaviour,
         call this endpoint to report their authenticity to our systems.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
-
           feedback: You should send a feedback event back to Watch API when your user demonstrates
               authentic behaviour.
+
+          target: The target. Currently this can only be an E.164 formatted phone number.
 
           extra_headers: Send extra headers
 
@@ -191,15 +191,15 @@ class AsyncWatchResource(AsyncAPIResource):
             "/v2/watch/feedback",
             body=await async_maybe_transform(
                 {
-                    "target": target,
                     "feedback": feedback,
+                    "target": target,
                 },
-                watch_feedback_params.WatchFeedbackParams,
+                watch_feed_back_params.WatchFeedBackParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WatchFeedbackResponse,
+            cast_to=WatchFeedBackResponse,
         )
 
     async def predict(
@@ -253,8 +253,8 @@ class WatchResourceWithRawResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feedback = to_raw_response_wrapper(
-            watch.feedback,
+        self.feed_back = to_raw_response_wrapper(
+            watch.feed_back,
         )
         self.predict = to_raw_response_wrapper(
             watch.predict,
@@ -265,8 +265,8 @@ class AsyncWatchResourceWithRawResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feedback = async_to_raw_response_wrapper(
-            watch.feedback,
+        self.feed_back = async_to_raw_response_wrapper(
+            watch.feed_back,
         )
         self.predict = async_to_raw_response_wrapper(
             watch.predict,
@@ -277,8 +277,8 @@ class WatchResourceWithStreamingResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feedback = to_streamed_response_wrapper(
-            watch.feedback,
+        self.feed_back = to_streamed_response_wrapper(
+            watch.feed_back,
         )
         self.predict = to_streamed_response_wrapper(
             watch.predict,
@@ -289,8 +289,8 @@ class AsyncWatchResourceWithStreamingResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feedback = async_to_streamed_response_wrapper(
-            watch.feedback,
+        self.feed_back = async_to_streamed_response_wrapper(
+            watch.feed_back,
         )
         self.predict = async_to_streamed_response_wrapper(
             watch.predict,
