@@ -4,15 +4,18 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["VerificationCheckParams", "Target"]
+__all__ = ["WatchFeedbackParams", "Target", "Feedback"]
 
 
-class VerificationCheckParams(TypedDict, total=False):
+class WatchFeedbackParams(TypedDict, total=False):
     target: Required[Target]
     """The target. Currently this can only be an E.164 formatted phone number."""
 
-    code: str
-    """The OTP code to validate."""
+    feedback: Feedback
+    """
+    You should send a feedback event back to Watch API when your user demonstrates
+    authentic behaviour.
+    """
 
 
 class Target(TypedDict, total=False):
@@ -21,3 +24,11 @@ class Target(TypedDict, total=False):
 
     value: Required[str]
     """An E.164 formatted phone number to verify."""
+
+
+class Feedback(TypedDict, total=False):
+    type: Literal["CONFIRM_PHONE_NUMBER"]
+    """
+    `CONFIRM_PHONE_NUMBER` should be sent when you are sure that the user with this
+    phone number is trustworthy.
+    """

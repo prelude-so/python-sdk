@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import verification_check_params, verification_create_params
+from ..types import watch_predict_params, watch_feedback_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -19,61 +19,53 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.verification_check_response import VerificationCheckResponse
-from ..types.verification_create_response import VerificationCreateResponse
+from ..types.watch_predict_response import WatchPredictResponse
+from ..types.watch_feedback_response import WatchFeedbackResponse
 
-__all__ = ["VerificationResource", "AsyncVerificationResource"]
+__all__ = ["WatchResource", "AsyncWatchResource"]
 
 
-class VerificationResource(SyncAPIResource):
+class WatchResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> VerificationResourceWithRawResponse:
+    def with_raw_response(self) -> WatchResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#accessing-raw-response-data-eg-headers
         """
-        return VerificationResourceWithRawResponse(self)
+        return WatchResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> VerificationResourceWithStreamingResponse:
+    def with_streaming_response(self) -> WatchResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#with_streaming_response
         """
-        return VerificationResourceWithStreamingResponse(self)
+        return WatchResourceWithStreamingResponse(self)
 
-    def create(
+    def feedback(
         self,
         *,
-        target: verification_create_params.Target,
-        metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
-        options: verification_create_params.Options | NotGiven = NOT_GIVEN,
-        signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
+        target: watch_feedback_params.Target,
+        feedback: watch_feedback_params.Feedback | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VerificationCreateResponse:
-        """Create a new verification for a specific phone number.
-
-        If another non-expired
-        verification exists (the request is performed within the verification window),
-        this endpoint will perform a retry instead.
+    ) -> WatchFeedbackResponse:
+        """
+        Once the user with a trustworthy phone number demonstrates authentic behaviour,
+        call this endpoint to report their authenticity to our systems.
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
 
-          metadata: The metadata for this verification. This object will be returned with every
-              response or webhook sent that refers to this verification.
-
-          options: Verification options
-
-          signals: The signals used for anti-fraud.
+          feedback: You should send a feedback event back to Watch API when your user demonstrates
+              authentic behaviour.
 
           extra_headers: Send extra headers
 
@@ -84,42 +76,42 @@ class VerificationResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v2/verification",
+            "/v2/watch/feedback",
             body=maybe_transform(
                 {
                     "target": target,
-                    "metadata": metadata,
-                    "options": options,
-                    "signals": signals,
+                    "feedback": feedback,
                 },
-                verification_create_params.VerificationCreateParams,
+                watch_feedback_params.WatchFeedbackParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VerificationCreateResponse,
+            cast_to=WatchFeedbackResponse,
         )
 
-    def check(
+    def predict(
         self,
         *,
-        target: verification_check_params.Target,
-        code: str | NotGiven = NOT_GIVEN,
+        target: watch_predict_params.Target,
+        signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VerificationCheckResponse:
-        """Check the validity of a verification code.
+    ) -> WatchPredictResponse:
+        """
+        Identify trustworthy phone numbers to mitigate fake trafic or trafic involved in
+        fraud and international revenue share fraud (IRSF) patterns. This endpoint must
+        be implemented in conjuction with the `watch/feedback` endpoint.
 
         Args:
-          target: The target.
+          target: The target. Currently this can only be an E.164 formatted phone number.
 
-        Currently this can only be an E.164 formatted phone number.
-
-          code: The OTP code to validate.
+          signals: It is highly recommended that you provide the signals to increase prediction
+              performance.
 
           extra_headers: Send extra headers
 
@@ -130,70 +122,62 @@ class VerificationResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v2/verification/check",
+            "/v2/watch/predict",
             body=maybe_transform(
                 {
                     "target": target,
-                    "code": code,
+                    "signals": signals,
                 },
-                verification_check_params.VerificationCheckParams,
+                watch_predict_params.WatchPredictParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VerificationCheckResponse,
+            cast_to=WatchPredictResponse,
         )
 
 
-class AsyncVerificationResource(AsyncAPIResource):
+class AsyncWatchResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncVerificationResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncWatchResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncVerificationResourceWithRawResponse(self)
+        return AsyncWatchResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncVerificationResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncWatchResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#with_streaming_response
         """
-        return AsyncVerificationResourceWithStreamingResponse(self)
+        return AsyncWatchResourceWithStreamingResponse(self)
 
-    async def create(
+    async def feedback(
         self,
         *,
-        target: verification_create_params.Target,
-        metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
-        options: verification_create_params.Options | NotGiven = NOT_GIVEN,
-        signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
+        target: watch_feedback_params.Target,
+        feedback: watch_feedback_params.Feedback | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VerificationCreateResponse:
-        """Create a new verification for a specific phone number.
-
-        If another non-expired
-        verification exists (the request is performed within the verification window),
-        this endpoint will perform a retry instead.
+    ) -> WatchFeedbackResponse:
+        """
+        Once the user with a trustworthy phone number demonstrates authentic behaviour,
+        call this endpoint to report their authenticity to our systems.
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
 
-          metadata: The metadata for this verification. This object will be returned with every
-              response or webhook sent that refers to this verification.
-
-          options: Verification options
-
-          signals: The signals used for anti-fraud.
+          feedback: You should send a feedback event back to Watch API when your user demonstrates
+              authentic behaviour.
 
           extra_headers: Send extra headers
 
@@ -204,42 +188,42 @@ class AsyncVerificationResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v2/verification",
+            "/v2/watch/feedback",
             body=await async_maybe_transform(
                 {
                     "target": target,
-                    "metadata": metadata,
-                    "options": options,
-                    "signals": signals,
+                    "feedback": feedback,
                 },
-                verification_create_params.VerificationCreateParams,
+                watch_feedback_params.WatchFeedbackParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VerificationCreateResponse,
+            cast_to=WatchFeedbackResponse,
         )
 
-    async def check(
+    async def predict(
         self,
         *,
-        target: verification_check_params.Target,
-        code: str | NotGiven = NOT_GIVEN,
+        target: watch_predict_params.Target,
+        signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VerificationCheckResponse:
-        """Check the validity of a verification code.
+    ) -> WatchPredictResponse:
+        """
+        Identify trustworthy phone numbers to mitigate fake trafic or trafic involved in
+        fraud and international revenue share fraud (IRSF) patterns. This endpoint must
+        be implemented in conjuction with the `watch/feedback` endpoint.
 
         Args:
-          target: The target.
+          target: The target. Currently this can only be an E.164 formatted phone number.
 
-        Currently this can only be an E.164 formatted phone number.
-
-          code: The OTP code to validate.
+          signals: It is highly recommended that you provide the signals to increase prediction
+              performance.
 
           extra_headers: Send extra headers
 
@@ -250,64 +234,64 @@ class AsyncVerificationResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v2/verification/check",
+            "/v2/watch/predict",
             body=await async_maybe_transform(
                 {
                     "target": target,
-                    "code": code,
+                    "signals": signals,
                 },
-                verification_check_params.VerificationCheckParams,
+                watch_predict_params.WatchPredictParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VerificationCheckResponse,
+            cast_to=WatchPredictResponse,
         )
 
 
-class VerificationResourceWithRawResponse:
-    def __init__(self, verification: VerificationResource) -> None:
-        self._verification = verification
+class WatchResourceWithRawResponse:
+    def __init__(self, watch: WatchResource) -> None:
+        self._watch = watch
 
-        self.create = to_raw_response_wrapper(
-            verification.create,
+        self.feedback = to_raw_response_wrapper(
+            watch.feedback,
         )
-        self.check = to_raw_response_wrapper(
-            verification.check,
-        )
-
-
-class AsyncVerificationResourceWithRawResponse:
-    def __init__(self, verification: AsyncVerificationResource) -> None:
-        self._verification = verification
-
-        self.create = async_to_raw_response_wrapper(
-            verification.create,
-        )
-        self.check = async_to_raw_response_wrapper(
-            verification.check,
+        self.predict = to_raw_response_wrapper(
+            watch.predict,
         )
 
 
-class VerificationResourceWithStreamingResponse:
-    def __init__(self, verification: VerificationResource) -> None:
-        self._verification = verification
+class AsyncWatchResourceWithRawResponse:
+    def __init__(self, watch: AsyncWatchResource) -> None:
+        self._watch = watch
 
-        self.create = to_streamed_response_wrapper(
-            verification.create,
+        self.feedback = async_to_raw_response_wrapper(
+            watch.feedback,
         )
-        self.check = to_streamed_response_wrapper(
-            verification.check,
+        self.predict = async_to_raw_response_wrapper(
+            watch.predict,
         )
 
 
-class AsyncVerificationResourceWithStreamingResponse:
-    def __init__(self, verification: AsyncVerificationResource) -> None:
-        self._verification = verification
+class WatchResourceWithStreamingResponse:
+    def __init__(self, watch: WatchResource) -> None:
+        self._watch = watch
 
-        self.create = async_to_streamed_response_wrapper(
-            verification.create,
+        self.feedback = to_streamed_response_wrapper(
+            watch.feedback,
         )
-        self.check = async_to_streamed_response_wrapper(
-            verification.check,
+        self.predict = to_streamed_response_wrapper(
+            watch.predict,
+        )
+
+
+class AsyncWatchResourceWithStreamingResponse:
+    def __init__(self, watch: AsyncWatchResource) -> None:
+        self._watch = watch
+
+        self.feedback = async_to_streamed_response_wrapper(
+            watch.feedback,
+        )
+        self.predict = async_to_streamed_response_wrapper(
+            watch.predict,
         )

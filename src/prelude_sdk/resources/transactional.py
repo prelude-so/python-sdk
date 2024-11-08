@@ -64,7 +64,7 @@ class TransactionalResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TransactionalSendResponse:
         """
-        Send a transactional message
+        Send a transactional message to your user.
 
         Args:
           template_id: The template identifier.
@@ -148,7 +148,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TransactionalSendResponse:
         """
-        Send a transactional message
+        Send a transactional message to your user.
 
         Args:
           template_id: The template identifier.
