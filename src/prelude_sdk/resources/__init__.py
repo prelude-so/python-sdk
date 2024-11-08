@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .watch import (
+    WatchResource,
+    AsyncWatchResource,
+    WatchResourceWithRawResponse,
+    AsyncWatchResourceWithRawResponse,
+    WatchResourceWithStreamingResponse,
+    AsyncWatchResourceWithStreamingResponse,
+)
 from .verification import (
     VerificationResource,
     AsyncVerificationResource,
@@ -18,16 +26,22 @@ from .transactional import (
 )
 
 __all__ = [
-    "VerificationResource",
-    "AsyncVerificationResource",
-    "VerificationResourceWithRawResponse",
-    "AsyncVerificationResourceWithRawResponse",
-    "VerificationResourceWithStreamingResponse",
-    "AsyncVerificationResourceWithStreamingResponse",
     "TransactionalResource",
     "AsyncTransactionalResource",
     "TransactionalResourceWithRawResponse",
     "AsyncTransactionalResourceWithRawResponse",
     "TransactionalResourceWithStreamingResponse",
     "AsyncTransactionalResourceWithStreamingResponse",
+    "VerificationResource",
+    "AsyncVerificationResource",
+    "VerificationResourceWithRawResponse",
+    "AsyncVerificationResourceWithRawResponse",
+    "VerificationResourceWithStreamingResponse",
+    "AsyncVerificationResourceWithStreamingResponse",
+    "WatchResource",
+    "AsyncWatchResource",
+    "WatchResourceWithRawResponse",
+    "AsyncWatchResourceWithRawResponse",
+    "WatchResourceWithStreamingResponse",
+    "AsyncWatchResourceWithStreamingResponse",
 ]

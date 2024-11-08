@@ -9,10 +9,7 @@ __all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "Signals
 
 class VerificationCreateParams(TypedDict, total=False):
     target: Required[Target]
-    """The target to verify.
-
-    Currently this can only be an E.164 formatted phone number.
-    """
+    """The target. Currently this can only be an E.164 formatted phone number."""
 
     metadata: Metadata
     """The metadata for this verification.
@@ -30,7 +27,7 @@ class VerificationCreateParams(TypedDict, total=False):
 
 class Target(TypedDict, total=False):
     type: Required[Literal["phone_number"]]
-    """The type of the target to verify. Currently this can only be "phone_number"."""
+    """The type of the target. Currently this can only be "phone_number"."""
 
     value: Required[str]
     """An E.164 formatted phone number to verify."""

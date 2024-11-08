@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+from .watch_predict_params import WatchPredictParams as WatchPredictParams
+from .watch_feedback_params import WatchFeedbackParams as WatchFeedbackParams
+from .watch_predict_response import WatchPredictResponse as WatchPredictResponse
+from .watch_feedback_response import WatchFeedbackResponse as WatchFeedbackResponse
 from .transactional_send_params import TransactionalSendParams as TransactionalSendParams
 from .verification_check_params import VerificationCheckParams as VerificationCheckParams
 from .verification_create_params import VerificationCreateParams as VerificationCreateParams
