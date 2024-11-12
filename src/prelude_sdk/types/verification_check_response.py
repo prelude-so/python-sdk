@@ -19,5 +19,7 @@ class VerificationCheckResponse(BaseModel):
     metadata: Optional[Metadata] = None
     """The metadata for this verification."""
 
+    request_id: Optional[str] = None
+
     status: Optional[Literal["success", "failure", "expired"]] = None
     """The status of the check."""

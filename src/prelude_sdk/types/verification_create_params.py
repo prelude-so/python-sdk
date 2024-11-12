@@ -39,6 +39,13 @@ class Metadata(TypedDict, total=False):
 
 
 class Options(TypedDict, total=False):
+    app_realm: str
+    """The Android SMS Retriever API hash code that identifies your app.
+
+    This allows you to automatically retrieve and fill the OTP code on Android
+    devices.
+    """
+
     locale: str
     """
     A BCP-47 formatted locale string with the language the text message will be sent
@@ -62,13 +69,6 @@ class Options(TypedDict, total=False):
 
 
 class Signals(TypedDict, total=False):
-    app_realm: str
-    """The Android SMS Retriever API hash code that identifies your app.
-
-    This allows you to automatically retrieve and fill the OTP code on Android
-    devices.
-    """
-
     app_version: str
     """The version of your application."""
 
@@ -82,7 +82,7 @@ class Signals(TypedDict, total=False):
     device_model: str
     """The model of the user's device."""
 
-    device_type: Literal["IOS", "ANDROID", "WEB"]
+    device_platform: Literal["android", "ios", "web"]
     """The type of the user's device."""
 
     ip: str

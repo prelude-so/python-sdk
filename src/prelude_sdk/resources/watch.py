@@ -58,12 +58,12 @@ class WatchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchFeedBackResponse:
         """
-        Once the user with a trustworthy phone number demonstrates authentic behaviour,
+        Once the user with a trustworthy phone number demonstrates authentic behavior,
         call this endpoint to report their authenticity to our systems.
 
         Args:
           feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behaviour.
+              authentic behavior.
 
           target: The target. Currently this can only be an E.164 formatted phone number.
 
@@ -103,9 +103,9 @@ class WatchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake trafic or trafic involved in
-        fraud and international revenue share fraud (IRSF) patterns. This endpoint must
-        be implemented in conjuction with the `watch/feedback` endpoint.
+        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
+        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
+        must be implemented in conjunction with the `watch/feedback` endpoint.
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
@@ -170,12 +170,12 @@ class AsyncWatchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchFeedBackResponse:
         """
-        Once the user with a trustworthy phone number demonstrates authentic behaviour,
+        Once the user with a trustworthy phone number demonstrates authentic behavior,
         call this endpoint to report their authenticity to our systems.
 
         Args:
           feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behaviour.
+              authentic behavior.
 
           target: The target. Currently this can only be an E.164 formatted phone number.
 
@@ -215,9 +215,9 @@ class AsyncWatchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake trafic or trafic involved in
-        fraud and international revenue share fraud (IRSF) patterns. This endpoint must
-        be implemented in conjuction with the `watch/feedback` endpoint.
+        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
+        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
+        must be implemented in conjunction with the `watch/feedback` endpoint.
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
