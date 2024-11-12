@@ -24,6 +24,6 @@ class WatchPredictResponse(BaseModel):
     """A unique identifier for your prediction request."""
 
     prediction: Optional[Literal["allow", "block"]] = None
-    """A label indicating the trustworthyness of the phone number."""
+    """A label indicating the trustworthiness of the phone number."""
 
     reasoning: Optional[Reasoning] = None

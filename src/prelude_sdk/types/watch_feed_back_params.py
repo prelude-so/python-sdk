@@ -11,7 +11,7 @@ class WatchFeedBackParams(TypedDict, total=False):
     feedback: Required[Feedback]
     """
     You should send a feedback event back to Watch API when your user demonstrates
-    authentic behaviour.
+    authentic behavior.
     """
 
     target: Required[Target]

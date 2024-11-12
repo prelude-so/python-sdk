@@ -39,16 +39,16 @@ class TestVerification:
             },
             metadata={"correlation_id": "correlation_id"},
             options={
+                "app_realm": "app_realm",
                 "locale": "el-GR",
                 "sender_id": "sender_id",
                 "template_id": "template_id",
             },
             signals={
-                "app_realm": "app_realm",
                 "app_version": "app_version",
                 "device_id": "device_id",
                 "device_model": "device_model",
-                "device_type": "IOS",
+                "device_platform": "android",
                 "ip": "ip",
                 "is_trusted_user": "is_trusted_user",
                 "os_version": "os_version",
@@ -89,27 +89,18 @@ class TestVerification:
     @parametrize
     def test_method_check(self, client: Prelude) -> None:
         verification = client.verification.check(
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
-        )
-        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
-
-    @parametrize
-    def test_method_check_with_all_params(self, client: Prelude) -> None:
-        verification = client.verification.check(
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
             code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
         )
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])
 
     @parametrize
     def test_raw_response_check(self, client: Prelude) -> None:
         response = client.verification.with_raw_response.check(
+            code="12345",
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
@@ -124,6 +115,7 @@ class TestVerification:
     @parametrize
     def test_streaming_response_check(self, client: Prelude) -> None:
         with client.verification.with_streaming_response.check(
+            code="12345",
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
@@ -160,16 +152,16 @@ class TestAsyncVerification:
             },
             metadata={"correlation_id": "correlation_id"},
             options={
+                "app_realm": "app_realm",
                 "locale": "el-GR",
                 "sender_id": "sender_id",
                 "template_id": "template_id",
             },
             signals={
-                "app_realm": "app_realm",
                 "app_version": "app_version",
                 "device_id": "device_id",
                 "device_model": "device_model",
-                "device_type": "IOS",
+                "device_platform": "android",
                 "ip": "ip",
                 "is_trusted_user": "is_trusted_user",
                 "os_version": "os_version",
@@ -210,27 +202,18 @@ class TestAsyncVerification:
     @parametrize
     async def test_method_check(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.check(
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
-        )
-        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
-
-    @parametrize
-    async def test_method_check_with_all_params(self, async_client: AsyncPrelude) -> None:
-        verification = await async_client.verification.check(
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
             code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
         )
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])
 
     @parametrize
     async def test_raw_response_check(self, async_client: AsyncPrelude) -> None:
         response = await async_client.verification.with_raw_response.check(
+            code="12345",
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
@@ -245,6 +228,7 @@ class TestAsyncVerification:
     @parametrize
     async def test_streaming_response_check(self, async_client: AsyncPrelude) -> None:
         async with async_client.verification.with_streaming_response.check(
+            code="12345",
             target={
                 "type": "phone_number",
                 "value": "+30123456789",

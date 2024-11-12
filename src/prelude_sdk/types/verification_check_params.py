@@ -8,11 +8,11 @@ __all__ = ["VerificationCheckParams", "Target"]
 
 
 class VerificationCheckParams(TypedDict, total=False):
+    code: Required[str]
+    """The OTP code to validate."""
+
     target: Required[Target]
     """The target. Currently this can only be an E.164 formatted phone number."""
-
-    code: str
-    """The OTP code to validate."""
 
 
 class Target(TypedDict, total=False):
