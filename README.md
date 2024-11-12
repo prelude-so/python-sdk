@@ -31,8 +31,7 @@ import os
 from prelude_sdk import Prelude
 
 client = Prelude(
-    # This is the default and can be omitted
-    api_token=os.environ.get("API_TOKEN"),
+    api_token=os.environ.get("API_TOKEN"),  # This is the default and can be omitted
 )
 
 verification = client.verification.create(
@@ -59,8 +58,7 @@ import asyncio
 from prelude_sdk import AsyncPrelude
 
 client = AsyncPrelude(
-    # This is the default and can be omitted
-    api_token=os.environ.get("API_TOKEN"),
+    api_token=os.environ.get("API_TOKEN"),  # This is the default and can be omitted
 )
 
 
