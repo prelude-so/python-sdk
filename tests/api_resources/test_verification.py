@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from prelude_sdk import Prelude, AsyncPrelude
 from tests.utils import assert_matches_type
-from prelude_sdk.types import (
+from prelude_python_sdk import Prelude, AsyncPrelude
+from prelude_python_sdk.types import (
     VerificationCheckResponse,
     VerificationCreateResponse,
 )

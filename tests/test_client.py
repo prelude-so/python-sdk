@@ -17,12 +17,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from prelude_sdk import Prelude, AsyncPrelude, APIResponseValidationError
-from prelude_sdk._types import Omit
-from prelude_sdk._models import BaseModel, FinalRequestOptions
-from prelude_sdk._constants import RAW_RESPONSE_HEADER
-from prelude_sdk._exceptions import PreludeError, APIStatusError, APITimeoutError, APIResponseValidationError
-from prelude_sdk._base_client import (
+from prelude_python_sdk import Prelude, AsyncPrelude, APIResponseValidationError
+from prelude_python_sdk._types import Omit
+from prelude_python_sdk._models import BaseModel, FinalRequestOptions
+from prelude_python_sdk._constants import RAW_RESPONSE_HEADER
+from prelude_python_sdk._exceptions import PreludeError, APIStatusError, APITimeoutError, APIResponseValidationError
+from prelude_python_sdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -226,10 +226,10 @@ class TestPrelude:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "prelude_sdk/_legacy_response.py",
-                        "prelude_sdk/_response.py",
+                        "prelude_python_sdk/_legacy_response.py",
+                        "prelude_python_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "prelude_sdk/_compat.py",
+                        "prelude_python_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -718,7 +718,7 @@ class TestPrelude:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/verification").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -741,7 +741,7 @@ class TestPrelude:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/verification").mock(return_value=httpx.Response(500))
@@ -765,7 +765,7 @@ class TestPrelude:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -801,7 +801,7 @@ class TestPrelude:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Prelude, failures_before_success: int, respx_mock: MockRouter
@@ -830,7 +830,7 @@ class TestPrelude:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Prelude, failures_before_success: int, respx_mock: MockRouter
@@ -1034,10 +1034,10 @@ class TestAsyncPrelude:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "prelude_sdk/_legacy_response.py",
-                        "prelude_sdk/_response.py",
+                        "prelude_python_sdk/_legacy_response.py",
+                        "prelude_python_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "prelude_sdk/_compat.py",
+                        "prelude_python_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1530,7 +1530,7 @@ class TestAsyncPrelude:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/verification").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1553,7 +1553,7 @@ class TestAsyncPrelude:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/verification").mock(return_value=httpx.Response(500))
@@ -1577,7 +1577,7 @@ class TestAsyncPrelude:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1614,7 +1614,7 @@ class TestAsyncPrelude:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1644,7 +1644,7 @@ class TestAsyncPrelude:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("prelude_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("prelude_python_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
