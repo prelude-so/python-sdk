@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2024-11-14)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Chores
+
+* update SDK settings ([#7](https://github.com/prelude-so/python-sdk/issues/7)) ([ea056d4](https://github.com/prelude-so/python-sdk/commit/ea056d4e561e83d012c758ffcc5b8b60c0be28f5))
+
 ## 0.1.0-alpha.2 (2024-11-14)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
