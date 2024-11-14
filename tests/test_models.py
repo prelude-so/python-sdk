@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from prelude_sdk._utils import PropertyInfo
-from prelude_sdk._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from prelude_sdk._models import BaseModel, construct_type
+from prelude_python_sdk._utils import PropertyInfo
+from prelude_python_sdk._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from prelude_python_sdk._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

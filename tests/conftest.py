@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from prelude_sdk import Prelude, AsyncPrelude
+from prelude_python_sdk import Prelude, AsyncPrelude
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("prelude_sdk").setLevel(logging.DEBUG)
+logging.getLogger("prelude_python_sdk").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests

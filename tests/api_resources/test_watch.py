@@ -7,9 +7,12 @@ from typing import Any, cast
 
 import pytest
 
-from prelude_sdk import Prelude, AsyncPrelude
 from tests.utils import assert_matches_type
-from prelude_sdk.types import WatchPredictResponse, WatchFeedBackResponse
+from prelude_python_sdk import Prelude, AsyncPrelude
+from prelude_python_sdk.types import (
+    WatchPredictResponse,
+    WatchFeedBackResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

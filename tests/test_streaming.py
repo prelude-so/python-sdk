@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from prelude_sdk import Prelude, AsyncPrelude
-from prelude_sdk._streaming import Stream, AsyncStream, ServerSentEvent
+from prelude_python_sdk import Prelude, AsyncPrelude
+from prelude_python_sdk._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio
