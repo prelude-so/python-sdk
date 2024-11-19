@@ -46,6 +46,13 @@ class Options(TypedDict, total=False):
     devices.
     """
 
+    custom_code: str
+    """The custom code to use for OTP verification.
+
+    This feature is only available for compatibility purposes and subject to
+    Prelude’s approval. Contact us to discuss your use case.
+    """
+
     locale: str
     """
     A BCP-47 formatted locale string with the language the text message will be sent
@@ -82,7 +89,7 @@ class Signals(TypedDict, total=False):
     device_model: str
     """The model of the user's device."""
 
-    device_platform: Literal["android", "ios", "web"]
+    device_platform: Literal["android", "ios", "ipados", "tvos", "web"]
     """The type of the user's device."""
 
     ip: str
