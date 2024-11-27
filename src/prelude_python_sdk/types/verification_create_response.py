@@ -13,16 +13,16 @@ class Metadata(BaseModel):
 
 
 class VerificationCreateResponse(BaseModel):
-    id: Optional[str] = None
+    id: str
     """The verification identifier."""
+
+    method: Literal["message"]
+    """The method used for verifying this phone number."""
+
+    status: Literal["success", "retry", "blocked"]
+    """The status of the verification."""
 
     metadata: Optional[Metadata] = None
     """The metadata for this verification."""
 
-    method: Optional[Literal["message"]] = None
-    """The method used for verifying this phone number."""
-
     request_id: Optional[str] = None
-
-    status: Optional[Literal["success", "retry", "blocked"]] = None
-    """The status of the verification."""
