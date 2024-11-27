@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2024-11-27)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** update via SDK Studio ([#12](https://github.com/prelude-so/python-sdk/issues/12)) ([380ea22](https://github.com/prelude-so/python-sdk/commit/380ea22a509deeb05b9b27af7b21aae5a70b4380))
+* **api:** update via SDK Studio ([#16](https://github.com/prelude-so/python-sdk/issues/16)) ([a885d0a](https://github.com/prelude-so/python-sdk/commit/a885d0a4aaa978adf582c8743011765dfc65614f))
+
+
+### Chores
+
+* **internal:** fix compat model_dump method when warnings are passed ([#13](https://github.com/prelude-so/python-sdk/issues/13)) ([7f9b088](https://github.com/prelude-so/python-sdk/commit/7f9b08842698d0eb6911464089583d56db63e0cf))
+* rebuild project due to codegen change ([#10](https://github.com/prelude-so/python-sdk/issues/10)) ([afd8c51](https://github.com/prelude-so/python-sdk/commit/afd8c5127bce604ba78290aaf62659a3c02471a5))
+* remove now unused `cached-property` dep ([#15](https://github.com/prelude-so/python-sdk/issues/15)) ([292303e](https://github.com/prelude-so/python-sdk/commit/292303e362071f1ba1d7ce2e8311653e4c4ec3f6))
+
+
+### Documentation
+
+* add info log level to readme ([#14](https://github.com/prelude-so/python-sdk/issues/14)) ([ee4b1b2](https://github.com/prelude-so/python-sdk/commit/ee4b1b2cbfbec80d0ec43cb8e7c54cd0acaad7b9))
+
 ## 0.1.0-alpha.3 (2024-11-14)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
