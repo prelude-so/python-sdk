@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2024-12-03)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Bug Fixes
+
+* **client:** compat with new httpx 0.28.0 release ([#20](https://github.com/prelude-so/python-sdk/issues/20)) ([2920a25](https://github.com/prelude-so/python-sdk/commit/2920a25772e640ee100d332658b79836ae0e6375))
+
+
+### Chores
+
+* **internal:** bump pyright ([#21](https://github.com/prelude-so/python-sdk/issues/21)) ([3af0b97](https://github.com/prelude-so/python-sdk/commit/3af0b979ddee008fc9dabd2a3d7ce78727df3e03))
+* **internal:** exclude mypy from running on tests ([#18](https://github.com/prelude-so/python-sdk/issues/18)) ([375162d](https://github.com/prelude-so/python-sdk/commit/375162d3e52d77faeaf3970a531a32ef60a50815))
+
 ## 0.1.0-alpha.4 (2024-11-27)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
