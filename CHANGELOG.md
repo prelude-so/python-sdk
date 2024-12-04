@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2024-12-04)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Chores
+
+* make the `Omit` type public ([#23](https://github.com/prelude-so/python-sdk/issues/23)) ([b8aa425](https://github.com/prelude-so/python-sdk/commit/b8aa425a77c73290a46dba106cb7277e67d1bf0f))
+
 ## 0.1.0-alpha.5 (2024-12-03)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
