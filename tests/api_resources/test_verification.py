@@ -51,7 +51,7 @@ class TestVerification:
                 "device_model": "iPhone17,2",
                 "device_platform": "android",
                 "ip": "192.0.2.1",
-                "is_trusted_user": "is_trusted_user",
+                "is_trusted_user": False,
                 "os_version": "18.0.1",
             },
         )
@@ -165,7 +165,7 @@ class TestAsyncVerification:
                 "device_model": "iPhone17,2",
                 "device_platform": "android",
                 "ip": "192.0.2.1",
-                "is_trusted_user": "is_trusted_user",
+                "is_trusted_user": False,
                 "os_version": "18.0.1",
             },
         )
