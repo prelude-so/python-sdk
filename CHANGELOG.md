@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2024-12-11)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** update via SDK Studio ([#27](https://github.com/prelude-so/python-sdk/issues/27)) ([e34eb1c](https://github.com/prelude-so/python-sdk/commit/e34eb1c2f450d5068cce21d414d3a4a04c3b0766))
+
+
+### Chores
+
+* **internal:** bump pydantic dependency ([#25](https://github.com/prelude-so/python-sdk/issues/25)) ([62168ae](https://github.com/prelude-so/python-sdk/commit/62168aeb00400db101ef33e54b8c3d8446bea8f4))
+* make the `Omit` type public ([#23](https://github.com/prelude-so/python-sdk/issues/23)) ([b8aa425](https://github.com/prelude-so/python-sdk/commit/b8aa425a77c73290a46dba106cb7277e67d1bf0f))
+
+
+### Documentation
+
+* **readme:** fix http client proxies example ([#26](https://github.com/prelude-so/python-sdk/issues/26)) ([66ce358](https://github.com/prelude-so/python-sdk/commit/66ce358d153fef76d64827abe99907badb64d220))
+
 ## 0.1.0-alpha.5 (2024-12-03)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
