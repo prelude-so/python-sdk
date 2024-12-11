@@ -95,7 +95,7 @@ class Signals(TypedDict, total=False):
     ip: str
     """The IP address of the user's device."""
 
-    is_trusted_user: str
+    is_trusted_user: bool
     """
     This signal should provide a higher level of trust, indicating that the user is
     genuine. For more details, refer to [Signals](/guides/prevent-fraud#signals).
