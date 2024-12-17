@@ -8,7 +8,7 @@ from typing_extensions import Self, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -24,6 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
+from .resources import watch, verification, transactional
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PreludeError, APIStatusError
 from ._base_client import (
@@ -32,23 +33,13 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "resources",
-    "Prelude",
-    "AsyncPrelude",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Prelude", "AsyncPrelude", "Client", "AsyncClient"]
 
 
 class Prelude(SyncAPIClient):
-    transactional: resources.TransactionalResource
-    verification: resources.VerificationResource
-    watch: resources.WatchResource
+    transactional: transactional.TransactionalResource
+    verification: verification.VerificationResource
+    watch: watch.WatchResource
     with_raw_response: PreludeWithRawResponse
     with_streaming_response: PreludeWithStreamedResponse
 
@@ -106,9 +97,9 @@ class Prelude(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.transactional = resources.TransactionalResource(self)
-        self.verification = resources.VerificationResource(self)
-        self.watch = resources.WatchResource(self)
+        self.transactional = transactional.TransactionalResource(self)
+        self.verification = verification.VerificationResource(self)
+        self.watch = watch.WatchResource(self)
         self.with_raw_response = PreludeWithRawResponse(self)
         self.with_streaming_response = PreludeWithStreamedResponse(self)
 
@@ -218,9 +209,9 @@ class Prelude(SyncAPIClient):
 
 
 class AsyncPrelude(AsyncAPIClient):
-    transactional: resources.AsyncTransactionalResource
-    verification: resources.AsyncVerificationResource
-    watch: resources.AsyncWatchResource
+    transactional: transactional.AsyncTransactionalResource
+    verification: verification.AsyncVerificationResource
+    watch: watch.AsyncWatchResource
     with_raw_response: AsyncPreludeWithRawResponse
     with_streaming_response: AsyncPreludeWithStreamedResponse
 
@@ -278,9 +269,9 @@ class AsyncPrelude(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.transactional = resources.AsyncTransactionalResource(self)
-        self.verification = resources.AsyncVerificationResource(self)
-        self.watch = resources.AsyncWatchResource(self)
+        self.transactional = transactional.AsyncTransactionalResource(self)
+        self.verification = verification.AsyncVerificationResource(self)
+        self.watch = watch.AsyncWatchResource(self)
         self.with_raw_response = AsyncPreludeWithRawResponse(self)
         self.with_streaming_response = AsyncPreludeWithStreamedResponse(self)
 
@@ -391,30 +382,30 @@ class AsyncPrelude(AsyncAPIClient):
 
 class PreludeWithRawResponse:
     def __init__(self, client: Prelude) -> None:
-        self.transactional = resources.TransactionalResourceWithRawResponse(client.transactional)
-        self.verification = resources.VerificationResourceWithRawResponse(client.verification)
-        self.watch = resources.WatchResourceWithRawResponse(client.watch)
+        self.transactional = transactional.TransactionalResourceWithRawResponse(client.transactional)
+        self.verification = verification.VerificationResourceWithRawResponse(client.verification)
+        self.watch = watch.WatchResourceWithRawResponse(client.watch)
 
 
 class AsyncPreludeWithRawResponse:
     def __init__(self, client: AsyncPrelude) -> None:
-        self.transactional = resources.AsyncTransactionalResourceWithRawResponse(client.transactional)
-        self.verification = resources.AsyncVerificationResourceWithRawResponse(client.verification)
-        self.watch = resources.AsyncWatchResourceWithRawResponse(client.watch)
+        self.transactional = transactional.AsyncTransactionalResourceWithRawResponse(client.transactional)
+        self.verification = verification.AsyncVerificationResourceWithRawResponse(client.verification)
+        self.watch = watch.AsyncWatchResourceWithRawResponse(client.watch)
 
 
 class PreludeWithStreamedResponse:
     def __init__(self, client: Prelude) -> None:
-        self.transactional = resources.TransactionalResourceWithStreamingResponse(client.transactional)
-        self.verification = resources.VerificationResourceWithStreamingResponse(client.verification)
-        self.watch = resources.WatchResourceWithStreamingResponse(client.watch)
+        self.transactional = transactional.TransactionalResourceWithStreamingResponse(client.transactional)
+        self.verification = verification.VerificationResourceWithStreamingResponse(client.verification)
+        self.watch = watch.WatchResourceWithStreamingResponse(client.watch)
 
 
 class AsyncPreludeWithStreamedResponse:
     def __init__(self, client: AsyncPrelude) -> None:
-        self.transactional = resources.AsyncTransactionalResourceWithStreamingResponse(client.transactional)
-        self.verification = resources.AsyncVerificationResourceWithStreamingResponse(client.verification)
-        self.watch = resources.AsyncWatchResourceWithStreamingResponse(client.watch)
+        self.transactional = transactional.AsyncTransactionalResourceWithStreamingResponse(client.transactional)
+        self.verification = verification.AsyncVerificationResourceWithStreamingResponse(client.verification)
+        self.watch = watch.AsyncWatchResourceWithStreamingResponse(client.watch)
 
 
 Client = Prelude

@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.prelude.so](https://docs.prelud
 
 ```sh
 # install from PyPI
-pip install --pre prelude-python-sdk
+pip install prelude-python-sdk
 ```
 
 ## Usage
@@ -324,6 +324,16 @@ client.with_options(http_client=DefaultHttpxClient(...))
 ### Managing HTTP resources
 
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
+
+```py
+from prelude_python_sdk import Prelude
+
+with Prelude() as client:
+  # make requests here
+  ...
+
+# HTTP client is now closed
+```
 
 ## Versioning
 
