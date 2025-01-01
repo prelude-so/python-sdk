@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.prelude.so](https://docs.prelud
 
 ```sh
 # install from PyPI
-pip install --pre prelude-python-sdk
+pip install prelude-python-sdk
 ```
 
 ## Usage
