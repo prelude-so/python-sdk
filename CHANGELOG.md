@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0 (2025-01-01)
+
+Full Changelog: [v0.1.0-alpha.6...v1.0.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.6...v1.0.0)
+
+### Chores
+
+* **internal:** add support for TypeAliasType ([#31](https://github.com/prelude-so/python-sdk/issues/31)) ([a734093](https://github.com/prelude-so/python-sdk/commit/a7340937bba33d659b17e001c3dc98d7f4b8d009))
+* **internal:** bump pyright ([#29](https://github.com/prelude-so/python-sdk/issues/29)) ([d10ba94](https://github.com/prelude-so/python-sdk/commit/d10ba94c17a48a69d6de2551f91d417dfd1a14e2))
+* **internal:** codegen related update ([#32](https://github.com/prelude-so/python-sdk/issues/32)) ([f68da06](https://github.com/prelude-so/python-sdk/commit/f68da06af9e1db5524256ee91adeb46746e2d9ce))
+* **internal:** codegen related update ([#34](https://github.com/prelude-so/python-sdk/issues/34)) ([9ac58c5](https://github.com/prelude-so/python-sdk/commit/9ac58c502a1247208c6bc77d482f87b6389dd1a9))
+* **internal:** fix some typos ([#33](https://github.com/prelude-so/python-sdk/issues/33)) ([f720959](https://github.com/prelude-so/python-sdk/commit/f72095954c5f648759c52261916944c4363f2614))
+
 ## 0.1.0-alpha.6 (2024-12-11)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
