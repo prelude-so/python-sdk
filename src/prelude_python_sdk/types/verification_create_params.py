@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "Signals"]
+__all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "OptionsAppRealm", "Signals"]
 
 
 class VerificationCreateParams(TypedDict, total=False):
@@ -38,12 +38,29 @@ class Metadata(TypedDict, total=False):
     """A user-defined identifier to correlate this verification with."""
 
 
-class Options(TypedDict, total=False):
-    app_realm: str
-    """The Android SMS Retriever API hash code that identifies your app.
+class OptionsAppRealm(TypedDict, total=False):
+    platform: Required[Literal["android"]]
+    """The platform the SMS will be sent to.
 
-    This allows you to automatically retrieve and fill the OTP code on Android
-    devices.
+    We are currently only supporting "android".
+    """
+
+    value: Required[str]
+    """The Android SMS Retriever API hash code that identifies your app."""
+
+
+class Options(TypedDict, total=False):
+    app_realm: OptionsAppRealm
+    """This allows you to automatically retrieve and fill the OTP code on mobile apps.
+
+    Currently only Android devices are supported.
+    """
+
+    code_size: int
+    """The size of the code generated.
+
+    It should be between 4 and 8. Defaults to the code size specified from the
+    Dashboard.
     """
 
     custom_code: str
