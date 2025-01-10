@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2025-01-10)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
+
+### Bug Fixes
+
+* correctly handle deserialising `cls` fields ([#42](https://github.com/prelude-so/python-sdk/issues/42)) ([6511235](https://github.com/prelude-so/python-sdk/commit/65112351b9c6767bbd3447b17ebab220bf04e34d))
+
 ## 0.1.0-alpha.7 (2025-01-08)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
