@@ -37,6 +37,7 @@ class TestVerification:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
+            dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
             options={
                 "app_realm": {
@@ -155,6 +156,7 @@ class TestAsyncVerification:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
+            dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
             options={
                 "app_realm": {
