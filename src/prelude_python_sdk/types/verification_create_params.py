@@ -11,6 +11,9 @@ class VerificationCreateParams(TypedDict, total=False):
     target: Required[Target]
     """The target. Currently this can only be an E.164 formatted phone number."""
 
+    dispatch_id: str
+    """The identifier of the dispatch that came from the front-end SDK."""
+
     metadata: Metadata
     """The metadata for this verification.
 
