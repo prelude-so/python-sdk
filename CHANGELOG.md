@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-beta.1 (2025-01-14)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-beta.1](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.7...v0.1.0-beta.1)
+
+### Features
+
+* **api:** update via SDK Studio ([#45](https://github.com/prelude-so/python-sdk/issues/45)) ([214aa99](https://github.com/prelude-so/python-sdk/commit/214aa996f4ffea2c40030b938f205562d608c144))
+
+
+### Bug Fixes
+
+* correctly handle deserialising `cls` fields ([#42](https://github.com/prelude-so/python-sdk/issues/42)) ([6511235](https://github.com/prelude-so/python-sdk/commit/65112351b9c6767bbd3447b17ebab220bf04e34d))
+
+
+### Chores
+
+* **internal:** update deps ([#44](https://github.com/prelude-so/python-sdk/issues/44)) ([3c88900](https://github.com/prelude-so/python-sdk/commit/3c8890016b22448529967e11b9082721f8c5954c))
+
 ## 0.1.0-alpha.7 (2025-01-08)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
