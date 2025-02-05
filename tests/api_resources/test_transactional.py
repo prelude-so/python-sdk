@@ -40,6 +40,7 @@ class TestTransactional:
             correlation_id="correlation_id",
             expires_at="expires_at",
             from_="from",
+            locale="el-GR",
             variables={"foo": "bar"},
         )
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
@@ -103,6 +104,7 @@ class TestAsyncTransactional:
             correlation_id="correlation_id",
             expires_at="expires_at",
             from_="from",
+            locale="el-GR",
             variables={"foo": "bar"},
         )
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])

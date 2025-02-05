@@ -30,7 +30,7 @@ class TransactionalResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> TransactionalResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#accessing-raw-response-data-eg-headers
@@ -55,6 +55,7 @@ class TransactionalResource(SyncAPIResource):
         correlation_id: str | NotGiven = NOT_GIVEN,
         expires_at: str | NotGiven = NOT_GIVEN,
         from_: str | NotGiven = NOT_GIVEN,
+        locale: str | NotGiven = NOT_GIVEN,
         variables: Dict[str, str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,6 +80,11 @@ class TransactionalResource(SyncAPIResource):
 
           from_: The Sender ID.
 
+          locale: A BCP-47 formatted locale string with the language the text message will be sent
+              to. If there's no locale set, the language will be determined by the country
+              code of the phone number. If the language specified doesn't exist, the default
+              set on the template will be used.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -99,6 +105,7 @@ class TransactionalResource(SyncAPIResource):
                     "correlation_id": correlation_id,
                     "expires_at": expires_at,
                     "from_": from_,
+                    "locale": locale,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,
@@ -114,7 +121,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncTransactionalResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/prelude-so/python-sdk#accessing-raw-response-data-eg-headers
@@ -139,6 +146,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         correlation_id: str | NotGiven = NOT_GIVEN,
         expires_at: str | NotGiven = NOT_GIVEN,
         from_: str | NotGiven = NOT_GIVEN,
+        locale: str | NotGiven = NOT_GIVEN,
         variables: Dict[str, str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -163,6 +171,11 @@ class AsyncTransactionalResource(AsyncAPIResource):
 
           from_: The Sender ID.
 
+          locale: A BCP-47 formatted locale string with the language the text message will be sent
+              to. If there's no locale set, the language will be determined by the country
+              code of the phone number. If the language specified doesn't exist, the default
+              set on the template will be used.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -183,6 +196,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
                     "correlation_id": correlation_id,
                     "expires_at": expires_at,
                     "from_": from_,
+                    "locale": locale,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,

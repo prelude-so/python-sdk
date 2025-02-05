@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.1.0 (2025-02-05)
+
+Full Changelog: [v0.1.0-beta.1...v0.1.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0-beta.1...v0.1.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#54](https://github.com/prelude-so/python-sdk/issues/54)) ([882a265](https://github.com/prelude-so/python-sdk/commit/882a265dbfd660fa86be9fceafd3bf095f332a7f))
+
+
+### Bug Fixes
+
+* **tests:** make test_get_platform less flaky ([#50](https://github.com/prelude-so/python-sdk/issues/50)) ([97fe150](https://github.com/prelude-so/python-sdk/commit/97fe150523ae369a3c1729c8a64ddcdbc2660fc6))
+
+
+### Chores
+
+* **internal:** avoid pytest-asyncio deprecation warning ([#51](https://github.com/prelude-so/python-sdk/issues/51)) ([0730cb0](https://github.com/prelude-so/python-sdk/commit/0730cb06e3db10b3a2ab537a23eafbe469e6b316))
+* **internal:** bump pyright dependency ([#47](https://github.com/prelude-so/python-sdk/issues/47)) ([4fade6c](https://github.com/prelude-so/python-sdk/commit/4fade6ce965301b6fd4285c6192ce81b078296d6))
+* **internal:** minor formatting changes ([#53](https://github.com/prelude-so/python-sdk/issues/53)) ([a2296ef](https://github.com/prelude-so/python-sdk/commit/a2296ef6d9581d4557832e42d683ec6a503b9b2e))
+* **internal:** minor style changes ([#52](https://github.com/prelude-so/python-sdk/issues/52)) ([04f378c](https://github.com/prelude-so/python-sdk/commit/04f378c43cdcc795ca4a4967075db0f1480bf358))
+
+
+### Documentation
+
+* **raw responses:** fix duplicate `the` ([#49](https://github.com/prelude-so/python-sdk/issues/49)) ([b76a3a0](https://github.com/prelude-so/python-sdk/commit/b76a3a0e0376777859a1e938015309fc569734b0))
+
 ## 0.1.0-beta.1 (2025-01-14)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-beta.1](https://github.com/prelude-so/python-sdk/compare/v0.1.0-alpha.7...v0.1.0-beta.1)

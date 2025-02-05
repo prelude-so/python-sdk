@@ -70,7 +70,8 @@ class Options(TypedDict, total=False):
     """The custom code to use for OTP verification.
 
     This feature is only available for compatibility purposes and subject to
-    Prelude’s approval. Contact us to discuss your use case.
+    Prelude’s approval. Contact us to discuss your use case. For more details, refer
+    to [Multi Routing](/concepts/multi-routing).
     """
 
     locale: str
