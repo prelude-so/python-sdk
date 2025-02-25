@@ -23,6 +23,7 @@ from pydantic import ValidationError
 
 from prelude_python_sdk import Prelude, AsyncPrelude, APIResponseValidationError
 from prelude_python_sdk._types import Omit
+from prelude_python_sdk._utils import maybe_transform
 from prelude_python_sdk._models import BaseModel, FinalRequestOptions
 from prelude_python_sdk._constants import RAW_RESPONSE_HEADER
 from prelude_python_sdk._exceptions import PreludeError, APIStatusError, APITimeoutError, APIResponseValidationError
@@ -32,6 +33,7 @@ from prelude_python_sdk._base_client import (
     BaseClient,
     make_request_options,
 )
+from prelude_python_sdk.types.verification_create_params import VerificationCreateParams
 
 from .utils import update_env
 
@@ -732,11 +734,14 @@ class TestPrelude:
                 "/v2/verification",
                 body=cast(
                     object,
-                    dict(
-                        target={
-                            "type": "phone_number",
-                            "value": "+30123456789",
-                        }
+                    maybe_transform(
+                        dict(
+                            target={
+                                "type": "phone_number",
+                                "value": "+30123456789",
+                            }
+                        ),
+                        VerificationCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -755,11 +760,14 @@ class TestPrelude:
                 "/v2/verification",
                 body=cast(
                     object,
-                    dict(
-                        target={
-                            "type": "phone_number",
-                            "value": "+30123456789",
-                        }
+                    maybe_transform(
+                        dict(
+                            target={
+                                "type": "phone_number",
+                                "value": "+30123456789",
+                            }
+                        ),
+                        VerificationCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1544,11 +1552,14 @@ class TestAsyncPrelude:
                 "/v2/verification",
                 body=cast(
                     object,
-                    dict(
-                        target={
-                            "type": "phone_number",
-                            "value": "+30123456789",
-                        }
+                    maybe_transform(
+                        dict(
+                            target={
+                                "type": "phone_number",
+                                "value": "+30123456789",
+                            }
+                        ),
+                        VerificationCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1567,11 +1578,14 @@ class TestAsyncPrelude:
                 "/v2/verification",
                 body=cast(
                     object,
-                    dict(
-                        target={
-                            "type": "phone_number",
-                            "value": "+30123456789",
-                        }
+                    maybe_transform(
+                        dict(
+                            target={
+                                "type": "phone_number",
+                                "value": "+30123456789",
+                            }
+                        ),
+                        VerificationCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
