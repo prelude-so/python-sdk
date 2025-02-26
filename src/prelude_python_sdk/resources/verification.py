@@ -49,7 +49,6 @@ class VerificationResource(SyncAPIResource):
         self,
         *,
         target: verification_create_params.Target,
-        dispatch_id: str | NotGiven = NOT_GIVEN,
         metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
         options: verification_create_params.Options | NotGiven = NOT_GIVEN,
         signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
@@ -68,8 +67,6 @@ class VerificationResource(SyncAPIResource):
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
-
-          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
 
           metadata: The metadata for this verification. This object will be returned with every
               response or webhook sent that refers to this verification.
@@ -91,7 +88,6 @@ class VerificationResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "target": target,
-                    "dispatch_id": dispatch_id,
                     "metadata": metadata,
                     "options": options,
                     "signals": signals,
@@ -172,7 +168,6 @@ class AsyncVerificationResource(AsyncAPIResource):
         self,
         *,
         target: verification_create_params.Target,
-        dispatch_id: str | NotGiven = NOT_GIVEN,
         metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
         options: verification_create_params.Options | NotGiven = NOT_GIVEN,
         signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
@@ -191,8 +186,6 @@ class AsyncVerificationResource(AsyncAPIResource):
 
         Args:
           target: The target. Currently this can only be an E.164 formatted phone number.
-
-          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
 
           metadata: The metadata for this verification. This object will be returned with every
               response or webhook sent that refers to this verification.
@@ -214,7 +207,6 @@ class AsyncVerificationResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "target": target,
-                    "dispatch_id": dispatch_id,
                     "metadata": metadata,
                     "options": options,
                     "signals": signals,
