@@ -13,9 +13,6 @@ class Metadata(BaseModel):
 
 
 class VerificationCheckResponse(BaseModel):
-    status: Literal["success", "failure", "expired_or_not_found"]
-    """The status of the check."""
-
     id: Optional[str] = None
     """The verification identifier."""
 
@@ -23,3 +20,6 @@ class VerificationCheckResponse(BaseModel):
     """The metadata for this verification."""
 
     request_id: Optional[str] = None
+
+    status: Optional[Literal["success", "failure", "expired"]] = None
+    """The status of the check."""

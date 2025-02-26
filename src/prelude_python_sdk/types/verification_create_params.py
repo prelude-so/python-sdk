@@ -4,15 +4,12 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "OptionsAppRealm", "Signals"]
+__all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "Signals"]
 
 
 class VerificationCreateParams(TypedDict, total=False):
     target: Required[Target]
     """The target. Currently this can only be an E.164 formatted phone number."""
-
-    dispatch_id: str
-    """The identifier of the dispatch that came from the front-end SDK."""
 
     metadata: Metadata
     """The metadata for this verification.
@@ -41,37 +38,12 @@ class Metadata(TypedDict, total=False):
     """A user-defined identifier to correlate this verification with."""
 
 
-class OptionsAppRealm(TypedDict, total=False):
-    platform: Required[Literal["android"]]
-    """The platform the SMS will be sent to.
-
-    We are currently only supporting "android".
-    """
-
-    value: Required[str]
-    """The Android SMS Retriever API hash code that identifies your app."""
-
-
 class Options(TypedDict, total=False):
-    app_realm: OptionsAppRealm
-    """This allows you to automatically retrieve and fill the OTP code on mobile apps.
+    app_realm: str
+    """The Android SMS Retriever API hash code that identifies your app.
 
-    Currently only Android devices are supported.
-    """
-
-    code_size: int
-    """The size of the code generated.
-
-    It should be between 4 and 8. Defaults to the code size specified from the
-    Dashboard.
-    """
-
-    custom_code: str
-    """The custom code to use for OTP verification.
-
-    This feature is only available for compatibility purposes and subject to
-    Prelude’s approval. Contact us to discuss your use case. For more details, refer
-    to [Multi Routing](/concepts/multi-routing).
+    This allows you to automatically retrieve and fill the OTP code on Android
+    devices.
     """
 
     locale: str
@@ -110,13 +82,13 @@ class Signals(TypedDict, total=False):
     device_model: str
     """The model of the user's device."""
 
-    device_platform: Literal["android", "ios", "ipados", "tvos", "web"]
+    device_platform: Literal["android", "ios", "web"]
     """The type of the user's device."""
 
     ip: str
     """The IP address of the user's device."""
 
-    is_trusted_user: bool
+    is_trusted_user: str
     """
     This signal should provide a higher level of trust, indicating that the user is
     genuine. For more details, refer to [Signals](/guides/prevent-fraud#signals).

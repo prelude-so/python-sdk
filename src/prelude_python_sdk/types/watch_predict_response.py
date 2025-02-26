@@ -20,10 +20,10 @@ class Reasoning(BaseModel):
 
 
 class WatchPredictResponse(BaseModel):
-    id: str
+    id: Optional[str] = None
     """A unique identifier for your prediction request."""
 
-    prediction: Literal["allow", "block"]
+    prediction: Optional[Literal["allow", "block"]] = None
     """A label indicating the trustworthiness of the phone number."""
 
-    reasoning: Reasoning
+    reasoning: Optional[Reasoning] = None
