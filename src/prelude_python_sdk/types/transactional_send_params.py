@@ -29,5 +29,13 @@ class TransactionalSendParams(TypedDict, total=False):
     from_: Annotated[str, PropertyInfo(alias="from")]
     """The Sender ID."""
 
+    locale: str
+    """
+    A BCP-47 formatted locale string with the language the text message will be sent
+    to. If there's no locale set, the language will be determined by the country
+    code of the phone number. If the language specified doesn't exist, the default
+    set on the template will be used.
+    """
+
     variables: Dict[str, str]
     """The variables to be replaced in the template."""
