@@ -241,7 +241,7 @@ class AsyncPrelude(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async Prelude client instance.
+        """Construct a new async AsyncPrelude client instance.
 
         This automatically infers the `api_token` argument from the `API_TOKEN` environment variable if it is not provided.
         """
