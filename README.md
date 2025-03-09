@@ -83,6 +83,24 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from prelude_python_sdk import Prelude
+
+client = Prelude()
+
+verification = client.verification.create(
+    target={
+        "type": "phone_number",
+        "value": "+30123456789",
+    },
+)
+print(verification.target)
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `prelude_python_sdk.APIConnectionError` is raised.
