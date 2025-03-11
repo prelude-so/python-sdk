@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "OptionsAppRealm", "Signals"]
@@ -9,7 +10,11 @@ __all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "Options
 
 class VerificationCreateParams(TypedDict, total=False):
     target: Required[Target]
-    """The target. Currently this can only be an E.164 formatted phone number."""
+    """The verification target.
+
+    Either a phone number or an email address. To use the email verification feature
+    contact us to discuss your use case.
+    """
 
     dispatch_id: str
     """The identifier of the dispatch that came from the front-end SDK."""
@@ -25,15 +30,18 @@ class VerificationCreateParams(TypedDict, total=False):
     """Verification options"""
 
     signals: Signals
-    """The signals used for anti-fraud."""
+    """The signals used for anti-fraud.
+
+    For more details, refer to [Signals](/guides/prevent-fraud#signals).
+    """
 
 
 class Target(TypedDict, total=False):
-    type: Required[Literal["phone_number"]]
-    """The type of the target. Currently this can only be "phone_number"."""
+    type: Required[Literal["phone_number", "email_address"]]
+    """The type of the target. Either "phone_number" or "email_address"."""
 
     value: Required[str]
-    """An E.164 formatted phone number to verify."""
+    """An E.164 formatted phone number or an email address."""
 
 
 class Metadata(TypedDict, total=False):
@@ -57,6 +65,13 @@ class Options(TypedDict, total=False):
     """This allows you to automatically retrieve and fill the OTP code on mobile apps.
 
     Currently only Android devices are supported.
+    """
+
+    callback_url: str
+    """
+    The URL where webhooks will be sent when verification events occur, including
+    verification creation, attempt creation, and delivery status changes. For more
+    details, refer to [Webhook](/api-reference/v2/verify/webhook).
     """
 
     code_size: int
@@ -89,11 +104,14 @@ class Options(TypedDict, total=False):
     """
 
     template_id: str
-    """The identifier of a verification settings template.
+    """The identifier of a verification template.
 
-    It is used to be able to switch behavior for specific use cases. Contact us if
-    you need to use this functionality.
+    It applies use case-specific settings, such as the message content or certain
+    verification parameters.
     """
+
+    variables: Dict[str, str]
+    """The variables to be replaced in the template."""
 
 
 class Signals(TypedDict, total=False):
@@ -124,3 +142,11 @@ class Signals(TypedDict, total=False):
 
     os_version: str
     """The version of the user's device operating system."""
+
+    user_agent: str
+    """The user agent of the user's device.
+
+    If the individual fields (os_version, device_platform, device_model) are
+    provided, we will prioritize those values instead of parsing them from the user
+    agent string.
+    """
