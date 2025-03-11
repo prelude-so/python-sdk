@@ -67,7 +67,8 @@ class VerificationResource(SyncAPIResource):
         this endpoint will perform a retry instead.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           dispatch_id: The identifier of the dispatch that came from the front-end SDK.
 
@@ -76,7 +77,8 @@ class VerificationResource(SyncAPIResource):
 
           options: Verification options
 
-          signals: The signals used for anti-fraud.
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/guides/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -122,7 +124,8 @@ class VerificationResource(SyncAPIResource):
         Args:
           code: The OTP code to validate.
 
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           extra_headers: Send extra headers
 
@@ -190,7 +193,8 @@ class AsyncVerificationResource(AsyncAPIResource):
         this endpoint will perform a retry instead.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           dispatch_id: The identifier of the dispatch that came from the front-end SDK.
 
@@ -199,7 +203,8 @@ class AsyncVerificationResource(AsyncAPIResource):
 
           options: Verification options
 
-          signals: The signals used for anti-fraud.
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/guides/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -245,7 +250,8 @@ class AsyncVerificationResource(AsyncAPIResource):
         Args:
           code: The OTP code to validate.
 
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           extra_headers: Send extra headers
 

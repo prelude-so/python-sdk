@@ -65,7 +65,8 @@ class WatchResource(SyncAPIResource):
           feedback: You should send a feedback event back to Watch API when your user demonstrates
               authentic behavior.
 
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           extra_headers: Send extra headers
 
@@ -108,7 +109,8 @@ class WatchResource(SyncAPIResource):
         must be implemented in conjunction with the `watch/feedback` endpoint.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           signals: It is highly recommended that you provide the signals to increase prediction
               performance.
@@ -177,7 +179,8 @@ class AsyncWatchResource(AsyncAPIResource):
           feedback: You should send a feedback event back to Watch API when your user demonstrates
               authentic behavior.
 
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           extra_headers: Send extra headers
 
@@ -220,7 +223,8 @@ class AsyncWatchResource(AsyncAPIResource):
         must be implemented in conjunction with the `watch/feedback` endpoint.
 
         Args:
-          target: The target. Currently this can only be an E.164 formatted phone number.
+          target: The verification target. Either a phone number or an email address. To use the
+              email verification feature contact us to discuss your use case.
 
           signals: It is highly recommended that you provide the signals to increase prediction
               performance.
