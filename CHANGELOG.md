@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.2.0 (2025-03-11)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#74](https://github.com/prelude-so/python-sdk/issues/74)) ([f9658f1](https://github.com/prelude-so/python-sdk/commit/f9658f1ebacf25f72ae9a8e9076958055c2de570))
+* **client:** allow passing `NotGiven` for body ([#64](https://github.com/prelude-so/python-sdk/issues/64)) ([b32f989](https://github.com/prelude-so/python-sdk/commit/b32f98934973c8c2cfacd3ad9a6c0817405ec3c9))
+* **client:** send `X-Stainless-Read-Timeout` header ([#59](https://github.com/prelude-so/python-sdk/issues/59)) ([6dcc82a](https://github.com/prelude-so/python-sdk/commit/6dcc82a592bdad9316eae8ab7b93095d2176caf3))
+
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([b32f989](https://github.com/prelude-so/python-sdk/commit/b32f98934973c8c2cfacd3ad9a6c0817405ec3c9))
+
+
+### Chores
+
+* **docs:** update client docstring ([#70](https://github.com/prelude-so/python-sdk/issues/70)) ([61cec66](https://github.com/prelude-so/python-sdk/commit/61cec666606b1999db0d6c7bc08e77aa2aed869e))
+* **internal:** bummp ruff dependency ([#58](https://github.com/prelude-so/python-sdk/issues/58)) ([2381d4a](https://github.com/prelude-so/python-sdk/commit/2381d4a22cfd032f97470e0d012b6fc8a133305c))
+* **internal:** change default timeout to an int ([#56](https://github.com/prelude-so/python-sdk/issues/56)) ([160f11e](https://github.com/prelude-so/python-sdk/commit/160f11e767ab3d5f7f1fdd8e423a6277a651fc82))
+* **internal:** codegen related update ([#63](https://github.com/prelude-so/python-sdk/issues/63)) ([0516484](https://github.com/prelude-so/python-sdk/commit/05164849027af87dba0911340086b7904a7171f2))
+* **internal:** codegen related update ([#67](https://github.com/prelude-so/python-sdk/issues/67)) ([32798a9](https://github.com/prelude-so/python-sdk/commit/32798a95e57769f4fc29abac8ba2dcd58d55a6ef))
+* **internal:** codegen related update ([#68](https://github.com/prelude-so/python-sdk/issues/68)) ([f921517](https://github.com/prelude-so/python-sdk/commit/f921517c1c0b0c8197886f6948cecf56a1fdea87))
+* **internal:** codegen related update ([#71](https://github.com/prelude-so/python-sdk/issues/71)) ([ec7fd9f](https://github.com/prelude-so/python-sdk/commit/ec7fd9feb6f45caf98d9667072910b6a0ebfc25d))
+* **internal:** fix devcontainers setup ([#65](https://github.com/prelude-so/python-sdk/issues/65)) ([da3f6c6](https://github.com/prelude-so/python-sdk/commit/da3f6c6f48241dfe0909aabeb3eec2ba83c0e8ef))
+* **internal:** fix type traversing dictionary params ([#60](https://github.com/prelude-so/python-sdk/issues/60)) ([9bf6b95](https://github.com/prelude-so/python-sdk/commit/9bf6b958c8b1ac01d191fb3ffdad7beb9ad0f06a))
+* **internal:** minor type handling changes ([#61](https://github.com/prelude-so/python-sdk/issues/61)) ([0639a28](https://github.com/prelude-so/python-sdk/commit/0639a28c925209b6d2adb2d3022f350044bf5995))
+* **internal:** properly set __pydantic_private__ ([#66](https://github.com/prelude-so/python-sdk/issues/66)) ([affe056](https://github.com/prelude-so/python-sdk/commit/affe056afdc01fc46d7dc23a003b69bb8528c16d))
+* **internal:** update client tests ([#62](https://github.com/prelude-so/python-sdk/issues/62)) ([6096c2a](https://github.com/prelude-so/python-sdk/commit/6096c2aff213dca771b4e8f8675569e1bc1d1edf))
+
+
+### Documentation
+
+* revise readme docs about nested params ([#72](https://github.com/prelude-so/python-sdk/issues/72)) ([bff24a7](https://github.com/prelude-so/python-sdk/commit/bff24a785fbd56e126249cbfbc8f2af5c179b8a6))
+* update URLs from stainlessapi.com to stainless.com ([#69](https://github.com/prelude-so/python-sdk/issues/69)) ([f3c2dc7](https://github.com/prelude-so/python-sdk/commit/f3c2dc7a219c04490aa22cdab677410136dc09d3))
+
 ## 0.1.0 (2025-02-05)
 
 Full Changelog: [v0.1.0-beta.1...v0.1.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0-beta.1...v0.1.0)
