@@ -9,7 +9,11 @@ __all__ = ["WatchPredictParams", "Target", "Signals"]
 
 class WatchPredictParams(TypedDict, total=False):
     target: Required[Target]
-    """The target. Currently this can only be an E.164 formatted phone number."""
+    """The verification target.
+
+    Either a phone number or an email address. To use the email verification feature
+    contact us to discuss your use case.
+    """
 
     signals: Signals
     """
@@ -19,11 +23,11 @@ class WatchPredictParams(TypedDict, total=False):
 
 
 class Target(TypedDict, total=False):
-    type: Required[Literal["phone_number"]]
-    """The type of the target. Currently this can only be "phone_number"."""
+    type: Required[Literal["phone_number", "email_address"]]
+    """The type of the target. Either "phone_number" or "email_address"."""
 
     value: Required[str]
-    """An E.164 formatted phone number to verify."""
+    """An E.164 formatted phone number or an email address."""
 
 
 class Signals(TypedDict, total=False):
