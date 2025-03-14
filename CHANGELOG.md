@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.1 (2025-03-14)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/prelude-so/python-sdk/compare/v0.2.0...v0.2.1)
+
+### Bug Fixes
+
+* **types:** handle more discriminated union shapes ([#80](https://github.com/prelude-so/python-sdk/issues/80)) ([716195b](https://github.com/prelude-so/python-sdk/commit/716195b1874b4ec76cd39465810e3500c756eae8))
+
+
+### Chores
+
+* **internal:** bump rye to 0.44.0 ([#78](https://github.com/prelude-so/python-sdk/issues/78)) ([436ceca](https://github.com/prelude-so/python-sdk/commit/436ceca01c22fd4015010d5bd3852ce319d0ed65))
+* **internal:** codegen related update ([#79](https://github.com/prelude-so/python-sdk/issues/79)) ([e5e9c6d](https://github.com/prelude-so/python-sdk/commit/e5e9c6d643232cad96a285dd7dc662f98684fbdc))
+* **internal:** remove extra empty newlines ([#76](https://github.com/prelude-so/python-sdk/issues/76)) ([3e52319](https://github.com/prelude-so/python-sdk/commit/3e5231901ad7bcc6e06a4c82aeaa619f759434f7))
+
 ## 0.2.0 (2025-03-11)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0...v0.2.0)
