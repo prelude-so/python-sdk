@@ -1703,7 +1703,7 @@ class TestAsyncPrelude:
         import threading
 
         from prelude_python_sdk._utils import asyncify
-        from prelude_python_sdk._base_client import get_platform 
+        from prelude_python_sdk._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
