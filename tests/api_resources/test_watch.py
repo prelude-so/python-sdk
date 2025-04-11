@@ -23,22 +23,30 @@ class TestWatch:
     @parametrize
     def test_method_feed_back(self, client: Prelude) -> None:
         watch = client.watch.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         )
         assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
 
     @parametrize
     def test_raw_response_feed_back(self, client: Prelude) -> None:
         response = client.watch.with_raw_response.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -49,11 +57,15 @@ class TestWatch:
     @parametrize
     def test_streaming_response_feed_back(self, client: Prelude) -> None:
         with client.watch.with_streaming_response.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -80,11 +92,17 @@ class TestWatch:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
+            dispatch_id="dispatch_id",
+            metadata={"correlation_id": "correlation_id"},
             signals={
-                "device_id": "device_id",
-                "device_model": "device_model",
-                "device_type": "device_type",
-                "ip": "ip",
+                "app_version": "1.2.34",
+                "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
+                "device_model": "iPhone17,2",
+                "device_platform": "ios",
+                "ip": "192.0.2.1",
+                "is_trusted_user": False,
+                "os_version": "18.0.1",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
             },
         )
         assert_matches_type(WatchPredictResponse, watch, path=["response"])
@@ -126,22 +144,30 @@ class TestAsyncWatch:
     @parametrize
     async def test_method_feed_back(self, async_client: AsyncPrelude) -> None:
         watch = await async_client.watch.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         )
         assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
 
     @parametrize
     async def test_raw_response_feed_back(self, async_client: AsyncPrelude) -> None:
         response = await async_client.watch.with_raw_response.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -152,11 +178,15 @@ class TestAsyncWatch:
     @parametrize
     async def test_streaming_response_feed_back(self, async_client: AsyncPrelude) -> None:
         async with async_client.watch.with_streaming_response.feed_back(
-            feedback={"type": "CONFIRM_TARGET"},
-            target={
-                "type": "phone_number",
-                "value": "+30123456789",
-            },
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -183,11 +213,17 @@ class TestAsyncWatch:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
+            dispatch_id="dispatch_id",
+            metadata={"correlation_id": "correlation_id"},
             signals={
-                "device_id": "device_id",
-                "device_model": "device_model",
-                "device_type": "device_type",
-                "ip": "ip",
+                "app_version": "1.2.34",
+                "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
+                "device_model": "iPhone17,2",
+                "device_platform": "ios",
+                "ip": "192.0.2.1",
+                "is_trusted_user": False,
+                "os_version": "18.0.1",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
             },
         )
         assert_matches_type(WatchPredictResponse, watch, path=["response"])

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
 from ..types import watch_predict_params, watch_feed_back_params
@@ -48,8 +50,7 @@ class WatchResource(SyncAPIResource):
     def feed_back(
         self,
         *,
-        feedback: watch_feed_back_params.Feedback,
-        target: watch_feed_back_params.Target,
+        feedbacks: Iterable[watch_feed_back_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -57,16 +58,13 @@ class WatchResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchFeedBackResponse:
-        """
-        Once the user with a trustworthy phone number demonstrates authentic behavior,
-        call this endpoint to report their authenticity to our systems.
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behavior.
-
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          feedbacks: A list of feedbacks to send.
 
           extra_headers: Send extra headers
 
@@ -78,13 +76,7 @@ class WatchResource(SyncAPIResource):
         """
         return self._post(
             "/v2/watch/feedback",
-            body=maybe_transform(
-                {
-                    "feedback": feedback,
-                    "target": target,
-                },
-                watch_feed_back_params.WatchFeedBackParams,
-            ),
+            body=maybe_transform({"feedbacks": feedbacks}, watch_feed_back_params.WatchFeedBackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -95,6 +87,8 @@ class WatchResource(SyncAPIResource):
         self,
         *,
         target: watch_predict_params.Target,
+        dispatch_id: str | NotGiven = NOT_GIVEN,
+        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
         signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -104,16 +98,17 @@ class WatchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
-        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
-        must be implemented in conjunction with the `watch/feedback` endpoint.
+        Predict the outcome of a verification based on Prelude’s anti-fraud system.
 
         Args:
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          target: The prediction target. Only supports phone numbers for now.
 
-          signals: It is highly recommended that you provide the signals to increase prediction
-              performance.
+          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
+
+          metadata: The metadata for this prediction.
+
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -128,6 +123,8 @@ class WatchResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "target": target,
+                    "dispatch_id": dispatch_id,
+                    "metadata": metadata,
                     "signals": signals,
                 },
                 watch_predict_params.WatchPredictParams,
@@ -162,8 +159,7 @@ class AsyncWatchResource(AsyncAPIResource):
     async def feed_back(
         self,
         *,
-        feedback: watch_feed_back_params.Feedback,
-        target: watch_feed_back_params.Target,
+        feedbacks: Iterable[watch_feed_back_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,16 +167,13 @@ class AsyncWatchResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchFeedBackResponse:
-        """
-        Once the user with a trustworthy phone number demonstrates authentic behavior,
-        call this endpoint to report their authenticity to our systems.
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behavior.
-
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          feedbacks: A list of feedbacks to send.
 
           extra_headers: Send extra headers
 
@@ -192,13 +185,7 @@ class AsyncWatchResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/watch/feedback",
-            body=await async_maybe_transform(
-                {
-                    "feedback": feedback,
-                    "target": target,
-                },
-                watch_feed_back_params.WatchFeedBackParams,
-            ),
+            body=await async_maybe_transform({"feedbacks": feedbacks}, watch_feed_back_params.WatchFeedBackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -209,6 +196,8 @@ class AsyncWatchResource(AsyncAPIResource):
         self,
         *,
         target: watch_predict_params.Target,
+        dispatch_id: str | NotGiven = NOT_GIVEN,
+        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
         signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -218,16 +207,17 @@ class AsyncWatchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
-        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
-        must be implemented in conjunction with the `watch/feedback` endpoint.
+        Predict the outcome of a verification based on Prelude’s anti-fraud system.
 
         Args:
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          target: The prediction target. Only supports phone numbers for now.
 
-          signals: It is highly recommended that you provide the signals to increase prediction
-              performance.
+          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
+
+          metadata: The metadata for this prediction.
+
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -242,6 +232,8 @@ class AsyncWatchResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "target": target,
+                    "dispatch_id": dispatch_id,
+                    "metadata": metadata,
                     "signals": signals,
                 },
                 watch_predict_params.WatchPredictParams,

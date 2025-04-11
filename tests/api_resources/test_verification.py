@@ -39,6 +39,7 @@ class TestVerification:
             },
             dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
+            method="auto",
             options={
                 "app_realm": {
                     "platform": "android",
@@ -161,6 +162,7 @@ class TestAsyncVerification:
             },
             dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
+            method="auto",
             options={
                 "app_realm": {
                     "platform": "android",
