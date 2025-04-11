@@ -1,3 +1,15 @@
+# Lookup
+
+Types:
+
+```python
+from prelude_python_sdk.types import LookupLookupResponse
+```
+
+Methods:
+
+- <code title="get /v2/lookup/{phone_number}">client.lookup.<a href="./src/prelude_python_sdk/resources/lookup.py">lookup</a>(phone_number, \*\*<a href="src/prelude_python_sdk/types/lookup_lookup_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/lookup_lookup_response.py">LookupLookupResponse</a></code>
+
 # Transactional
 
 Types:
@@ -28,10 +40,15 @@ Methods:
 Types:
 
 ```python
-from prelude_python_sdk.types import WatchFeedBackResponse, WatchPredictResponse
+from prelude_python_sdk.types import (
+    WatchPredictResponse,
+    WatchSendEventsResponse,
+    WatchSendFeedbacksResponse,
+)
 ```
 
 Methods:
 
-- <code title="post /v2/watch/feedback">client.watch.<a href="./src/prelude_python_sdk/resources/watch.py">feed_back</a>(\*\*<a href="src/prelude_python_sdk/types/watch_feed_back_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/watch_feed_back_response.py">WatchFeedBackResponse</a></code>
 - <code title="post /v2/watch/predict">client.watch.<a href="./src/prelude_python_sdk/resources/watch.py">predict</a>(\*\*<a href="src/prelude_python_sdk/types/watch_predict_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/watch_predict_response.py">WatchPredictResponse</a></code>
+- <code title="post /v2/watch/event">client.watch.<a href="./src/prelude_python_sdk/resources/watch.py">send_events</a>(\*\*<a href="src/prelude_python_sdk/types/watch_send_events_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/watch_send_events_response.py">WatchSendEventsResponse</a></code>
+- <code title="post /v2/watch/feedback">client.watch.<a href="./src/prelude_python_sdk/resources/watch.py">send_feedbacks</a>(\*\*<a href="src/prelude_python_sdk/types/watch_send_feedbacks_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/watch_send_feedbacks_response.py">WatchSendFeedbacksResponse</a></code>

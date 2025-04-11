@@ -4,10 +4,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["WatchFeedBackResponse"]
+__all__ = ["WatchSendFeedbacksResponse"]
 
 
-class WatchFeedBackResponse(BaseModel):
+class WatchSendFeedbacksResponse(BaseModel):
     request_id: str
     """A string that identifies this specific request.
 
