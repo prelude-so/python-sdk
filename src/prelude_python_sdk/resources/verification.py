@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import verification_check_params, verification_create_params
@@ -51,6 +53,7 @@ class VerificationResource(SyncAPIResource):
         target: verification_create_params.Target,
         dispatch_id: str | NotGiven = NOT_GIVEN,
         metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
+        method: Literal["auto", "voice"] | NotGiven = NOT_GIVEN,
         options: verification_create_params.Options | NotGiven = NOT_GIVEN,
         signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -75,10 +78,16 @@ class VerificationResource(SyncAPIResource):
           metadata: The metadata for this verification. This object will be returned with every
               response or webhook sent that refers to this verification.
 
+          method: The method used for verifying this phone number. The 'voice' option provides an
+              accessible alternative for visually impaired users by delivering the
+              verification code through a phone call rather than a text message. It also
+              allows verification of landline numbers that cannot receive SMS messages.
+              **Coming soon.**
+
           options: Verification options
 
           signals: The signals used for anti-fraud. For more details, refer to
-              [Signals](/guides/prevent-fraud#signals).
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -95,6 +104,7 @@ class VerificationResource(SyncAPIResource):
                     "target": target,
                     "dispatch_id": dispatch_id,
                     "metadata": metadata,
+                    "method": method,
                     "options": options,
                     "signals": signals,
                 },
@@ -177,6 +187,7 @@ class AsyncVerificationResource(AsyncAPIResource):
         target: verification_create_params.Target,
         dispatch_id: str | NotGiven = NOT_GIVEN,
         metadata: verification_create_params.Metadata | NotGiven = NOT_GIVEN,
+        method: Literal["auto", "voice"] | NotGiven = NOT_GIVEN,
         options: verification_create_params.Options | NotGiven = NOT_GIVEN,
         signals: verification_create_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -201,10 +212,16 @@ class AsyncVerificationResource(AsyncAPIResource):
           metadata: The metadata for this verification. This object will be returned with every
               response or webhook sent that refers to this verification.
 
+          method: The method used for verifying this phone number. The 'voice' option provides an
+              accessible alternative for visually impaired users by delivering the
+              verification code through a phone call rather than a text message. It also
+              allows verification of landline numbers that cannot receive SMS messages.
+              **Coming soon.**
+
           options: Verification options
 
           signals: The signals used for anti-fraud. For more details, refer to
-              [Signals](/guides/prevent-fraud#signals).
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -221,6 +238,7 @@ class AsyncVerificationResource(AsyncAPIResource):
                     "target": target,
                     "dispatch_id": dispatch_id,
                     "metadata": metadata,
+                    "method": method,
                     "options": options,
                     "signals": signals,
                 },

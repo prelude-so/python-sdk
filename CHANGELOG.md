@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.0 (2025-04-11)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/prelude-so/python-sdk/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** update via SDK Studio ([e8db40d](https://github.com/prelude-so/python-sdk/commit/e8db40d0c6bb7ed120d01c7a5133e84611fa2dc5))
+* **api:** update via SDK Studio ([2738f74](https://github.com/prelude-so/python-sdk/commit/2738f749089da145689c78aabdedf810d3329826))
+
+
+### Bug Fixes
+
+* **ci:** ensure pip is always available ([#81](https://github.com/prelude-so/python-sdk/issues/81)) ([3496a08](https://github.com/prelude-so/python-sdk/commit/3496a088c4a51ff9755df7d5537031d2b66224b8))
+* **ci:** remove publishing patch ([#82](https://github.com/prelude-so/python-sdk/issues/82)) ([00fa879](https://github.com/prelude-so/python-sdk/commit/00fa8799dc14bc3d2dae941485f2e3a24bfb2bf3))
+* **perf:** optimize some hot paths ([6203988](https://github.com/prelude-so/python-sdk/commit/6203988ff6273cfe5135ec7d427c620a1094f6a1))
+* **perf:** skip traversing types for NotGiven values ([e5a8fd5](https://github.com/prelude-so/python-sdk/commit/e5a8fd59dd7168e68ff026e9d11d796e3d002241))
+* **types:** handle more discriminated union shapes ([#80](https://github.com/prelude-so/python-sdk/issues/80)) ([716195b](https://github.com/prelude-so/python-sdk/commit/716195b1874b4ec76cd39465810e3500c756eae8))
+
+
+### Chores
+
+* fix typos ([#83](https://github.com/prelude-so/python-sdk/issues/83)) ([ab98ad3](https://github.com/prelude-so/python-sdk/commit/ab98ad32961298cf1a2f47e6b3cc66a9f69cddbc))
+* **internal:** bump rye to 0.44.0 ([#78](https://github.com/prelude-so/python-sdk/issues/78)) ([436ceca](https://github.com/prelude-so/python-sdk/commit/436ceca01c22fd4015010d5bd3852ce319d0ed65))
+* **internal:** codegen related update ([#79](https://github.com/prelude-so/python-sdk/issues/79)) ([e5e9c6d](https://github.com/prelude-so/python-sdk/commit/e5e9c6d643232cad96a285dd7dc662f98684fbdc))
+* **internal:** expand CI branch coverage ([#87](https://github.com/prelude-so/python-sdk/issues/87)) ([3edb1aa](https://github.com/prelude-so/python-sdk/commit/3edb1aab16d2b38705d64969e9ac70fe00951ee6))
+* **internal:** reduce CI branch coverage ([70118ea](https://github.com/prelude-so/python-sdk/commit/70118ea5611c2f4337b21ac7da52a740bc52d7ff))
+* **internal:** remove extra empty newlines ([#76](https://github.com/prelude-so/python-sdk/issues/76)) ([3e52319](https://github.com/prelude-so/python-sdk/commit/3e5231901ad7bcc6e06a4c82aeaa619f759434f7))
+* **internal:** remove trailing character ([#84](https://github.com/prelude-so/python-sdk/issues/84)) ([526b990](https://github.com/prelude-so/python-sdk/commit/526b990f47cf42a44064d85ed2d8f9acbe35a609))
+* **internal:** slight transform perf improvement ([#85](https://github.com/prelude-so/python-sdk/issues/85)) ([b77e93b](https://github.com/prelude-so/python-sdk/commit/b77e93ba797273dd8a145183d9b9c712659163cd))
+* **tests:** improve enum examples ([#86](https://github.com/prelude-so/python-sdk/issues/86)) ([140d696](https://github.com/prelude-so/python-sdk/commit/140d6966a00666b4ade42fef7de7ec701cf697d3))
+
 ## 0.2.0 (2025-03-11)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/prelude-so/python-sdk/compare/v0.1.0...v0.2.0)

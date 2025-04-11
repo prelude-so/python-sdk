@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
-from ..types import watch_predict_params, watch_feed_back_params
+from ..types import watch_predict_params, watch_send_events_params, watch_send_feedbacks_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -20,7 +22,8 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.watch_predict_response import WatchPredictResponse
-from ..types.watch_feed_back_response import WatchFeedBackResponse
+from ..types.watch_send_events_response import WatchSendEventsResponse
+from ..types.watch_send_feedbacks_response import WatchSendFeedbacksResponse
 
 __all__ = ["WatchResource", "AsyncWatchResource"]
 
@@ -45,56 +48,12 @@ class WatchResource(SyncAPIResource):
         """
         return WatchResourceWithStreamingResponse(self)
 
-    def feed_back(
-        self,
-        *,
-        feedback: watch_feed_back_params.Feedback,
-        target: watch_feed_back_params.Target,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedBackResponse:
-        """
-        Once the user with a trustworthy phone number demonstrates authentic behavior,
-        call this endpoint to report their authenticity to our systems.
-
-        Args:
-          feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behavior.
-
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v2/watch/feedback",
-            body=maybe_transform(
-                {
-                    "feedback": feedback,
-                    "target": target,
-                },
-                watch_feed_back_params.WatchFeedBackParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WatchFeedBackResponse,
-        )
-
     def predict(
         self,
         *,
         target: watch_predict_params.Target,
+        dispatch_id: str | NotGiven = NOT_GIVEN,
+        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
         signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -104,16 +63,17 @@ class WatchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
-        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
-        must be implemented in conjunction with the `watch/feedback` endpoint.
+        Predict the outcome of a verification based on Prelude’s anti-fraud system.
 
         Args:
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          target: The prediction target. Only supports phone numbers for now.
 
-          signals: It is highly recommended that you provide the signals to increase prediction
-              performance.
+          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
+
+          metadata: The metadata for this prediction.
+
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -128,6 +88,8 @@ class WatchResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "target": target,
+                    "dispatch_id": dispatch_id,
+                    "metadata": metadata,
                     "signals": signals,
                 },
                 watch_predict_params.WatchPredictParams,
@@ -136,6 +98,77 @@ class WatchResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=WatchPredictResponse,
+        )
+
+    def send_events(
+        self,
+        *,
+        events: Iterable[watch_send_events_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendEventsResponse:
+        """
+        Send real-time event data from end-user interactions within your application.
+        Events will be analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          events: A list of events to dispatch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v2/watch/event",
+            body=maybe_transform({"events": events}, watch_send_events_params.WatchSendEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendEventsResponse,
+        )
+
+    def send_feedbacks(
+        self,
+        *,
+        feedbacks: Iterable[watch_send_feedbacks_params.Feedback],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendFeedbacksResponse:
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          feedbacks: A list of feedbacks to send.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v2/watch/feedback",
+            body=maybe_transform({"feedbacks": feedbacks}, watch_send_feedbacks_params.WatchSendFeedbacksParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendFeedbacksResponse,
         )
 
 
@@ -159,56 +192,12 @@ class AsyncWatchResource(AsyncAPIResource):
         """
         return AsyncWatchResourceWithStreamingResponse(self)
 
-    async def feed_back(
-        self,
-        *,
-        feedback: watch_feed_back_params.Feedback,
-        target: watch_feed_back_params.Target,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedBackResponse:
-        """
-        Once the user with a trustworthy phone number demonstrates authentic behavior,
-        call this endpoint to report their authenticity to our systems.
-
-        Args:
-          feedback: You should send a feedback event back to Watch API when your user demonstrates
-              authentic behavior.
-
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v2/watch/feedback",
-            body=await async_maybe_transform(
-                {
-                    "feedback": feedback,
-                    "target": target,
-                },
-                watch_feed_back_params.WatchFeedBackParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WatchFeedBackResponse,
-        )
-
     async def predict(
         self,
         *,
         target: watch_predict_params.Target,
+        dispatch_id: str | NotGiven = NOT_GIVEN,
+        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
         signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -218,16 +207,17 @@ class AsyncWatchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> WatchPredictResponse:
         """
-        Identify trustworthy phone numbers to mitigate fake traffic or traffic involved
-        in fraud and international revenue share fraud (IRSF) patterns. This endpoint
-        must be implemented in conjunction with the `watch/feedback` endpoint.
+        Predict the outcome of a verification based on Prelude’s anti-fraud system.
 
         Args:
-          target: The verification target. Either a phone number or an email address. To use the
-              email verification feature contact us to discuss your use case.
+          target: The prediction target. Only supports phone numbers for now.
 
-          signals: It is highly recommended that you provide the signals to increase prediction
-              performance.
+          dispatch_id: The identifier of the dispatch that came from the front-end SDK.
+
+          metadata: The metadata for this prediction.
+
+          signals: The signals used for anti-fraud. For more details, refer to
+              [Signals](/verify/v2/documentation/prevent-fraud#signals).
 
           extra_headers: Send extra headers
 
@@ -242,6 +232,8 @@ class AsyncWatchResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "target": target,
+                    "dispatch_id": dispatch_id,
+                    "metadata": metadata,
                     "signals": signals,
                 },
                 watch_predict_params.WatchPredictParams,
@@ -252,16 +244,92 @@ class AsyncWatchResource(AsyncAPIResource):
             cast_to=WatchPredictResponse,
         )
 
+    async def send_events(
+        self,
+        *,
+        events: Iterable[watch_send_events_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendEventsResponse:
+        """
+        Send real-time event data from end-user interactions within your application.
+        Events will be analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          events: A list of events to dispatch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v2/watch/event",
+            body=await async_maybe_transform({"events": events}, watch_send_events_params.WatchSendEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendEventsResponse,
+        )
+
+    async def send_feedbacks(
+        self,
+        *,
+        feedbacks: Iterable[watch_send_feedbacks_params.Feedback],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendFeedbacksResponse:
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          feedbacks: A list of feedbacks to send.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v2/watch/feedback",
+            body=await async_maybe_transform(
+                {"feedbacks": feedbacks}, watch_send_feedbacks_params.WatchSendFeedbacksParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendFeedbacksResponse,
+        )
+
 
 class WatchResourceWithRawResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = to_raw_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = to_raw_response_wrapper(
             watch.predict,
+        )
+        self.send_events = to_raw_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = to_raw_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -269,11 +337,14 @@ class AsyncWatchResourceWithRawResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = async_to_raw_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = async_to_raw_response_wrapper(
             watch.predict,
+        )
+        self.send_events = async_to_raw_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = async_to_raw_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -281,11 +352,14 @@ class WatchResourceWithStreamingResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = to_streamed_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = to_streamed_response_wrapper(
             watch.predict,
+        )
+        self.send_events = to_streamed_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = to_streamed_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -293,9 +367,12 @@ class AsyncWatchResourceWithStreamingResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = async_to_streamed_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = async_to_streamed_response_wrapper(
             watch.predict,
+        )
+        self.send_events = async_to_streamed_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = async_to_streamed_response_wrapper(
+            watch.send_feedbacks,
         )

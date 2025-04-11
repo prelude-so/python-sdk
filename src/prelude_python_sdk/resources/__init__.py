@@ -8,6 +8,14 @@ from .watch import (
     WatchResourceWithStreamingResponse,
     AsyncWatchResourceWithStreamingResponse,
 )
+from .lookup import (
+    LookupResource,
+    AsyncLookupResource,
+    LookupResourceWithRawResponse,
+    AsyncLookupResourceWithRawResponse,
+    LookupResourceWithStreamingResponse,
+    AsyncLookupResourceWithStreamingResponse,
+)
 from .verification import (
     VerificationResource,
     AsyncVerificationResource,
@@ -26,6 +34,12 @@ from .transactional import (
 )
 
 __all__ = [
+    "LookupResource",
+    "AsyncLookupResource",
+    "LookupResourceWithRawResponse",
+    "AsyncLookupResourceWithRawResponse",
+    "LookupResourceWithStreamingResponse",
+    "AsyncLookupResourceWithStreamingResponse",
     "TransactionalResource",
     "AsyncTransactionalResource",
     "TransactionalResourceWithRawResponse",

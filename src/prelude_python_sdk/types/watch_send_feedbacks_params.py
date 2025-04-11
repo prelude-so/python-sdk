@@ -2,30 +2,18 @@
 
 from __future__ import annotations
 
+from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["WatchPredictParams", "Target", "Metadata", "Signals"]
+__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMetadata", "FeedbackSignals"]
 
 
-class WatchPredictParams(TypedDict, total=False):
-    target: Required[Target]
-    """The prediction target. Only supports phone numbers for now."""
-
-    dispatch_id: str
-    """The identifier of the dispatch that came from the front-end SDK."""
-
-    metadata: Metadata
-    """The metadata for this prediction."""
-
-    signals: Signals
-    """The signals used for anti-fraud.
-
-    For more details, refer to
-    [Signals](/verify/v2/documentation/prevent-fraud#signals).
-    """
+class WatchSendFeedbacksParams(TypedDict, total=False):
+    feedbacks: Required[Iterable[Feedback]]
+    """A list of feedbacks to send."""
 
 
-class Target(TypedDict, total=False):
+class FeedbackTarget(TypedDict, total=False):
     type: Required[Literal["phone_number", "email_address"]]
     """The type of the target. Either "phone_number" or "email_address"."""
 
@@ -33,12 +21,12 @@ class Target(TypedDict, total=False):
     """An E.164 formatted phone number or an email address."""
 
 
-class Metadata(TypedDict, total=False):
+class FeedbackMetadata(TypedDict, total=False):
     correlation_id: str
-    """A user-defined identifier to correlate this prediction with."""
+    """A user-defined identifier to correlate this feedback with."""
 
 
-class Signals(TypedDict, total=False):
+class FeedbackSignals(TypedDict, total=False):
     app_version: str
     """The version of your application."""
 
@@ -74,4 +62,25 @@ class Signals(TypedDict, total=False):
     If the individual fields (os_version, device_platform, device_model) are
     provided, we will prioritize those values instead of parsing them from the user
     agent string.
+    """
+
+
+class Feedback(TypedDict, total=False):
+    target: Required[FeedbackTarget]
+    """The feedback target. Only supports phone numbers for now."""
+
+    type: Required[Literal["verification.started", "verification.completed"]]
+    """The type of feedback."""
+
+    dispatch_id: str
+    """The identifier of the dispatch that came from the front-end SDK."""
+
+    metadata: FeedbackMetadata
+    """The metadata for this feedback."""
+
+    signals: FeedbackSignals
+    """The signals used for anti-fraud.
+
+    For more details, refer to
+    [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
