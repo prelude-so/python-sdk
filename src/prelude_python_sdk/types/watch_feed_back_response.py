@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -7,5 +8,11 @@ __all__ = ["WatchFeedBackResponse"]
 
 
 class WatchFeedBackResponse(BaseModel):
-    id: str
-    """A unique identifier for your feedback request."""
+    request_id: str
+    """A string that identifies this specific request.
+
+    Report it back to us to help us diagnose your issues.
+    """
+
+    status: Literal["success"]
+    """The status of the feedbacks sending."""

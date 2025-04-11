@@ -1,29 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["WatchPredictResponse", "Reasoning"]
-
-
-class Reasoning(BaseModel):
-    cause: Optional[Literal["none", "smart_antifraud", "repeat_number", "invalid_line"]] = None
-    """A label explaining why the phone number was classified as not trustworthy"""
-
-    score: Optional[float] = None
-    """
-    Indicates the risk of the phone number being genuine or involved in fraudulent
-    patterns. The higher the riskier.
-    """
+__all__ = ["WatchPredictResponse"]
 
 
 class WatchPredictResponse(BaseModel):
     id: str
-    """A unique identifier for your prediction request."""
+    """The prediction identifier."""
 
-    prediction: Literal["allow", "block"]
-    """A label indicating the trustworthiness of the phone number."""
+    prediction: Literal["legitimate", "suspicious"]
+    """The prediction outcome."""
 
-    reasoning: Reasoning
+    request_id: str
+    """A string that identifies this specific request.
+
+    Report it back to us to help us diagnose your issues.
+    """

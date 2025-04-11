@@ -26,13 +26,23 @@ class VerificationCreateParams(TypedDict, total=False):
     this verification.
     """
 
+    method: Literal["auto", "voice"]
+    """The method used for verifying this phone number.
+
+    The 'voice' option provides an accessible alternative for visually impaired
+    users by delivering the verification code through a phone call rather than a
+    text message. It also allows verification of landline numbers that cannot
+    receive SMS messages. **Coming soon.**
+    """
+
     options: Options
     """Verification options"""
 
     signals: Signals
     """The signals used for anti-fraud.
 
-    For more details, refer to [Signals](/guides/prevent-fraud#signals).
+    For more details, refer to
+    [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
 
@@ -71,7 +81,7 @@ class Options(TypedDict, total=False):
     """
     The URL where webhooks will be sent when verification events occur, including
     verification creation, attempt creation, and delivery status changes. For more
-    details, refer to [Webhook](/api-reference/v2/verify/webhook).
+    details, refer to [Webhook](/verify/v2/documentation/webhook).
     """
 
     code_size: int
@@ -86,7 +96,7 @@ class Options(TypedDict, total=False):
 
     This feature is only available for compatibility purposes and subject to
     Prelude’s approval. Contact us to discuss your use case. For more details, refer
-    to [Multi Routing](/concepts/multi-routing).
+    to [Multi Routing](/introduction/concepts/multi-routing).
     """
 
     locale: str
@@ -137,7 +147,8 @@ class Signals(TypedDict, total=False):
     is_trusted_user: bool
     """
     This signal should provide a higher level of trust, indicating that the user is
-    genuine. For more details, refer to [Signals](/guides/prevent-fraud#signals).
+    genuine. For more details, refer to
+    [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
     os_version: str
