@@ -6,7 +6,7 @@ from typing import Iterable
 
 import httpx
 
-from ..types import watch_predict_params, watch_feed_back_params
+from ..types import watch_predict_params, watch_send_events_params, watch_send_feedbacks_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -22,7 +22,8 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.watch_predict_response import WatchPredictResponse
-from ..types.watch_feed_back_response import WatchFeedBackResponse
+from ..types.watch_send_events_response import WatchSendEventsResponse
+from ..types.watch_send_feedbacks_response import WatchSendFeedbacksResponse
 
 __all__ = ["WatchResource", "AsyncWatchResource"]
 
@@ -46,42 +47,6 @@ class WatchResource(SyncAPIResource):
         For more information, see https://www.github.com/prelude-so/python-sdk#with_streaming_response
         """
         return WatchResourceWithStreamingResponse(self)
-
-    def feed_back(
-        self,
-        *,
-        feedbacks: Iterable[watch_feed_back_params.Feedback],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedBackResponse:
-        """Send feedback regarding your end-users verification funnel.
-
-        Events will be
-        analyzed for proactive fraud prevention and risk scoring.
-
-        Args:
-          feedbacks: A list of feedbacks to send.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v2/watch/feedback",
-            body=maybe_transform({"feedbacks": feedbacks}, watch_feed_back_params.WatchFeedBackParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WatchFeedBackResponse,
-        )
 
     def predict(
         self,
@@ -135,6 +100,77 @@ class WatchResource(SyncAPIResource):
             cast_to=WatchPredictResponse,
         )
 
+    def send_events(
+        self,
+        *,
+        events: Iterable[watch_send_events_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendEventsResponse:
+        """
+        Send real-time event data from end-user interactions within your application.
+        Events will be analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          events: A list of events to dispatch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v2/watch/event",
+            body=maybe_transform({"events": events}, watch_send_events_params.WatchSendEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendEventsResponse,
+        )
+
+    def send_feedbacks(
+        self,
+        *,
+        feedbacks: Iterable[watch_send_feedbacks_params.Feedback],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendFeedbacksResponse:
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          feedbacks: A list of feedbacks to send.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v2/watch/feedback",
+            body=maybe_transform({"feedbacks": feedbacks}, watch_send_feedbacks_params.WatchSendFeedbacksParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendFeedbacksResponse,
+        )
+
 
 class AsyncWatchResource(AsyncAPIResource):
     @cached_property
@@ -155,42 +191,6 @@ class AsyncWatchResource(AsyncAPIResource):
         For more information, see https://www.github.com/prelude-so/python-sdk#with_streaming_response
         """
         return AsyncWatchResourceWithStreamingResponse(self)
-
-    async def feed_back(
-        self,
-        *,
-        feedbacks: Iterable[watch_feed_back_params.Feedback],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> WatchFeedBackResponse:
-        """Send feedback regarding your end-users verification funnel.
-
-        Events will be
-        analyzed for proactive fraud prevention and risk scoring.
-
-        Args:
-          feedbacks: A list of feedbacks to send.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v2/watch/feedback",
-            body=await async_maybe_transform({"feedbacks": feedbacks}, watch_feed_back_params.WatchFeedBackParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=WatchFeedBackResponse,
-        )
 
     async def predict(
         self,
@@ -244,16 +244,92 @@ class AsyncWatchResource(AsyncAPIResource):
             cast_to=WatchPredictResponse,
         )
 
+    async def send_events(
+        self,
+        *,
+        events: Iterable[watch_send_events_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendEventsResponse:
+        """
+        Send real-time event data from end-user interactions within your application.
+        Events will be analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          events: A list of events to dispatch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v2/watch/event",
+            body=await async_maybe_transform({"events": events}, watch_send_events_params.WatchSendEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendEventsResponse,
+        )
+
+    async def send_feedbacks(
+        self,
+        *,
+        feedbacks: Iterable[watch_send_feedbacks_params.Feedback],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WatchSendFeedbacksResponse:
+        """Send feedback regarding your end-users verification funnel.
+
+        Events will be
+        analyzed for proactive fraud prevention and risk scoring.
+
+        Args:
+          feedbacks: A list of feedbacks to send.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v2/watch/feedback",
+            body=await async_maybe_transform(
+                {"feedbacks": feedbacks}, watch_send_feedbacks_params.WatchSendFeedbacksParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WatchSendFeedbacksResponse,
+        )
+
 
 class WatchResourceWithRawResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = to_raw_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = to_raw_response_wrapper(
             watch.predict,
+        )
+        self.send_events = to_raw_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = to_raw_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -261,11 +337,14 @@ class AsyncWatchResourceWithRawResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = async_to_raw_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = async_to_raw_response_wrapper(
             watch.predict,
+        )
+        self.send_events = async_to_raw_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = async_to_raw_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -273,11 +352,14 @@ class WatchResourceWithStreamingResponse:
     def __init__(self, watch: WatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = to_streamed_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = to_streamed_response_wrapper(
             watch.predict,
+        )
+        self.send_events = to_streamed_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = to_streamed_response_wrapper(
+            watch.send_feedbacks,
         )
 
 
@@ -285,9 +367,12 @@ class AsyncWatchResourceWithStreamingResponse:
     def __init__(self, watch: AsyncWatchResource) -> None:
         self._watch = watch
 
-        self.feed_back = async_to_streamed_response_wrapper(
-            watch.feed_back,
-        )
         self.predict = async_to_streamed_response_wrapper(
             watch.predict,
+        )
+        self.send_events = async_to_streamed_response_wrapper(
+            watch.send_events,
+        )
+        self.send_feedbacks = async_to_streamed_response_wrapper(
+            watch.send_feedbacks,
         )

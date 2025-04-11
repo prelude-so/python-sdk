@@ -11,7 +11,8 @@ from tests.utils import assert_matches_type
 from prelude_python_sdk import Prelude, AsyncPrelude
 from prelude_python_sdk.types import (
     WatchPredictResponse,
-    WatchFeedBackResponse,
+    WatchSendEventsResponse,
+    WatchSendFeedbacksResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -19,61 +20,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestWatch:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    def test_method_feed_back(self, client: Prelude) -> None:
-        watch = client.watch.feed_back(
-            feedbacks=[
-                {
-                    "target": {
-                        "type": "phone_number",
-                        "value": "+30123456789",
-                    },
-                    "type": "verification.started",
-                }
-            ],
-        )
-        assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
-
-    @parametrize
-    def test_raw_response_feed_back(self, client: Prelude) -> None:
-        response = client.watch.with_raw_response.feed_back(
-            feedbacks=[
-                {
-                    "target": {
-                        "type": "phone_number",
-                        "value": "+30123456789",
-                    },
-                    "type": "verification.started",
-                }
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        watch = response.parse()
-        assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
-
-    @parametrize
-    def test_streaming_response_feed_back(self, client: Prelude) -> None:
-        with client.watch.with_streaming_response.feed_back(
-            feedbacks=[
-                {
-                    "target": {
-                        "type": "phone_number",
-                        "value": "+30123456789",
-                    },
-                    "type": "verification.started",
-                }
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            watch = response.parse()
-            assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_predict(self, client: Prelude) -> None:
@@ -137,13 +83,67 @@ class TestWatch:
 
         assert cast(Any, response.is_closed) is True
 
-
-class TestAsyncWatch:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    @parametrize
+    def test_method_send_events(self, client: Prelude) -> None:
+        watch = client.watch.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        )
+        assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
 
     @parametrize
-    async def test_method_feed_back(self, async_client: AsyncPrelude) -> None:
-        watch = await async_client.watch.feed_back(
+    def test_raw_response_send_events(self, client: Prelude) -> None:
+        response = client.watch.with_raw_response.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        watch = response.parse()
+        assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
+
+    @parametrize
+    def test_streaming_response_send_events(self, client: Prelude) -> None:
+        with client.watch.with_streaming_response.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            watch = response.parse()
+            assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_send_feedbacks(self, client: Prelude) -> None:
+        watch = client.watch.send_feedbacks(
             feedbacks=[
                 {
                     "target": {
@@ -154,11 +154,11 @@ class TestAsyncWatch:
                 }
             ],
         )
-        assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
+        assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
 
     @parametrize
-    async def test_raw_response_feed_back(self, async_client: AsyncPrelude) -> None:
-        response = await async_client.watch.with_raw_response.feed_back(
+    def test_raw_response_send_feedbacks(self, client: Prelude) -> None:
+        response = client.watch.with_raw_response.send_feedbacks(
             feedbacks=[
                 {
                     "target": {
@@ -172,12 +172,12 @@ class TestAsyncWatch:
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        watch = await response.parse()
-        assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
+        watch = response.parse()
+        assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
 
     @parametrize
-    async def test_streaming_response_feed_back(self, async_client: AsyncPrelude) -> None:
-        async with async_client.watch.with_streaming_response.feed_back(
+    def test_streaming_response_send_feedbacks(self, client: Prelude) -> None:
+        with client.watch.with_streaming_response.send_feedbacks(
             feedbacks=[
                 {
                     "target": {
@@ -191,10 +191,14 @@ class TestAsyncWatch:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            watch = await response.parse()
-            assert_matches_type(WatchFeedBackResponse, watch, path=["response"])
+            watch = response.parse()
+            assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+
+class TestAsyncWatch:
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_predict(self, async_client: AsyncPrelude) -> None:
@@ -255,5 +259,118 @@ class TestAsyncWatch:
 
             watch = await response.parse()
             assert_matches_type(WatchPredictResponse, watch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_send_events(self, async_client: AsyncPrelude) -> None:
+        watch = await async_client.watch.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        )
+        assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_raw_response_send_events(self, async_client: AsyncPrelude) -> None:
+        response = await async_client.watch.with_raw_response.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        watch = await response.parse()
+        assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_send_events(self, async_client: AsyncPrelude) -> None:
+        async with async_client.watch.with_streaming_response.send_events(
+            events=[
+                {
+                    "confidence": "maximum",
+                    "label": "onboarding.start",
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            watch = await response.parse()
+            assert_matches_type(WatchSendEventsResponse, watch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_send_feedbacks(self, async_client: AsyncPrelude) -> None:
+        watch = await async_client.watch.send_feedbacks(
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
+        )
+        assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_raw_response_send_feedbacks(self, async_client: AsyncPrelude) -> None:
+        response = await async_client.watch.with_raw_response.send_feedbacks(
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        watch = await response.parse()
+        assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_send_feedbacks(self, async_client: AsyncPrelude) -> None:
+        async with async_client.watch.with_streaming_response.send_feedbacks(
+            feedbacks=[
+                {
+                    "target": {
+                        "type": "phone_number",
+                        "value": "+30123456789",
+                    },
+                    "type": "verification.started",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            watch = await response.parse()
+            assert_matches_type(WatchSendFeedbacksResponse, watch, path=["response"])
 
         assert cast(Any, response.is_closed) is True

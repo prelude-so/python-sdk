@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["WatchFeedBackParams", "Feedback", "FeedbackTarget", "FeedbackMetadata", "FeedbackSignals"]
+__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMetadata", "FeedbackSignals"]
 
 
-class WatchFeedBackParams(TypedDict, total=False):
+class WatchSendFeedbacksParams(TypedDict, total=False):
     feedbacks: Required[Iterable[Feedback]]
     """A list of feedbacks to send."""
 
