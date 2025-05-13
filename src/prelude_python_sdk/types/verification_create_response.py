@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -21,6 +21,9 @@ class VerificationCreateResponse(BaseModel):
 
     status: Literal["success", "retry", "blocked"]
     """The status of the verification."""
+
+    channels: Optional[List[str]] = None
+    """The ordered sequence of channels to be used for verification"""
 
     metadata: Optional[Metadata] = None
     """The metadata for this verification."""

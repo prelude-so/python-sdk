@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.4.0 (2025-05-13)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/prelude-so/python-sdk/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** update via SDK Studio ([f5acdc5](https://github.com/prelude-so/python-sdk/commit/f5acdc5257392c967647a7c90fd98d6744cf646d))
+
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([d4aff2a](https://github.com/prelude-so/python-sdk/commit/d4aff2a21b2da1884f80a919de0d106b6864d4e7))
+* **pydantic v1:** more robust ModelField.annotation check ([adc627b](https://github.com/prelude-so/python-sdk/commit/adc627b38a17ba32d1aa9beff2a55b20aee00588))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([f47f2a8](https://github.com/prelude-so/python-sdk/commit/f47f2a8bc4c86f1607c4da6286648f8f68309746))
+* **ci:** add timeout thresholds for CI jobs ([86a95ec](https://github.com/prelude-so/python-sdk/commit/86a95ec72dee0ad1c2daef78f6abe57e37ba172b))
+* **ci:** only use depot for staging repos ([a93504a](https://github.com/prelude-so/python-sdk/commit/a93504a8378b223e8dc1bd2aee69861faf6d6aa4))
+* **ci:** run on more branches and use depot runners ([8e40b2f](https://github.com/prelude-so/python-sdk/commit/8e40b2f2078cea5af1c74748abf0445e877d08a0))
+* **client:** minor internal fixes ([191826b](https://github.com/prelude-so/python-sdk/commit/191826b8f197fc684013eccb67785692964dc4a2))
+* **internal:** avoid errors for isinstance checks on proxies ([ef6a146](https://github.com/prelude-so/python-sdk/commit/ef6a146fb76282a8dad0d1a7aac45092c9fdc034))
+* **internal:** base client updates ([658c667](https://github.com/prelude-so/python-sdk/commit/658c6672d8cef3a53b0fb15de1f34f12de554e09))
+* **internal:** bump pyright version ([30e6817](https://github.com/prelude-so/python-sdk/commit/30e6817c4d2bbf13e3e8832e626b827d60e221b9))
+* **internal:** fix list file params ([82ee669](https://github.com/prelude-so/python-sdk/commit/82ee669ad5fca2d5f6e2a3a35f05642ba763a488))
+* **internal:** import reformatting ([5ef2486](https://github.com/prelude-so/python-sdk/commit/5ef24860752772fec8898d25cb2772ed9131209a))
+* **internal:** refactor retries to not use recursion ([200a5da](https://github.com/prelude-so/python-sdk/commit/200a5da2c4b3f5ad06fdf94ecd9ee86c77f4965a))
+* **internal:** update models test ([f77a730](https://github.com/prelude-so/python-sdk/commit/f77a7309750298a75f77c60cb672630ba9085f69))
+* **internal:** update pyright settings ([4393e83](https://github.com/prelude-so/python-sdk/commit/4393e83b8c2a5e6bc63235ecb0551adb9504c9ca))
+
 ## 0.3.0 (2025-04-11)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/prelude-so/python-sdk/compare/v0.2.0...v0.3.0)

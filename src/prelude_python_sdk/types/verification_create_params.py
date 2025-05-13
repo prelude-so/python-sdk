@@ -26,15 +26,6 @@ class VerificationCreateParams(TypedDict, total=False):
     this verification.
     """
 
-    method: Literal["auto", "voice"]
-    """The method used for verifying this phone number.
-
-    The 'voice' option provides an accessible alternative for visually impaired
-    users by delivering the verification code through a phone call rather than a
-    text message. It also allows verification of landline numbers that cannot
-    receive SMS messages. **Coming soon.**
-    """
-
     options: Options
     """Verification options"""
 
@@ -94,9 +85,8 @@ class Options(TypedDict, total=False):
     custom_code: str
     """The custom code to use for OTP verification.
 
-    This feature is only available for compatibility purposes and subject to
-    Prelude’s approval. Contact us to discuss your use case. For more details, refer
-    to [Multi Routing](/introduction/concepts/multi-routing).
+    To use the custom code feature, contact us to enable it for your account. For
+    more details, refer to [Custom Code](/verify/v2/documentation/custom-code).
     """
 
     locale: str
@@ -106,6 +96,18 @@ class Options(TypedDict, total=False):
     code of the phone number. If the language specified doesn't exist, it defaults
     to US English.
     """
+
+    method: Literal["auto", "voice"]
+    """The method used for verifying this phone number.
+
+    The 'voice' option provides an accessible alternative for visually impaired
+    users by delivering the verification code through a phone call rather than a
+    text message. It also allows verification of landline numbers that cannot
+    receive SMS messages.
+    """
+
+    preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo"]
+    """The preferred channel to be used in priority for verification."""
 
     sender_id: str
     """The Sender ID to use for this message.
@@ -147,7 +149,7 @@ class Signals(TypedDict, total=False):
     is_trusted_user: bool
     """
     This signal should provide a higher level of trust, indicating that the user is
-    genuine. For more details, refer to
+    genuine. Contact us to discuss your use case. For more details, refer to
     [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
