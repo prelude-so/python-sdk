@@ -20,6 +20,9 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestVerification:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     def test_method_create(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -30,6 +33,9 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     def test_method_create_with_all_params(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -39,7 +45,6 @@ class TestVerification:
             },
             dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
-            method="auto",
             options={
                 "app_realm": {
                     "platform": "android",
@@ -47,8 +52,10 @@ class TestVerification:
                 },
                 "callback_url": "callback_url",
                 "code_size": 5,
-                "custom_code": "custom_code",
+                "custom_code": "123456",
                 "locale": "el-GR",
+                "method": "auto",
+                "preferred_channel": "sms",
                 "sender_id": "sender_id",
                 "template_id": "prelude:psd2",
                 "variables": {"foo": "bar"},
@@ -66,6 +73,9 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     def test_raw_response_create(self, client: Prelude) -> None:
         response = client.verification.with_raw_response.create(
@@ -80,6 +90,9 @@ class TestVerification:
         verification = response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     def test_streaming_response_create(self, client: Prelude) -> None:
         with client.verification.with_streaming_response.create(
@@ -143,6 +156,9 @@ class TestVerification:
 class TestAsyncVerification:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     async def test_method_create(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -153,6 +169,9 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -162,7 +181,6 @@ class TestAsyncVerification:
             },
             dispatch_id="dispatch_id",
             metadata={"correlation_id": "correlation_id"},
-            method="auto",
             options={
                 "app_realm": {
                     "platform": "android",
@@ -170,8 +188,10 @@ class TestAsyncVerification:
                 },
                 "callback_url": "callback_url",
                 "code_size": 5,
-                "custom_code": "custom_code",
+                "custom_code": "123456",
                 "locale": "el-GR",
+                "method": "auto",
+                "preferred_channel": "sms",
                 "sender_id": "sender_id",
                 "template_id": "prelude:psd2",
                 "variables": {"foo": "bar"},
@@ -189,6 +209,9 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncPrelude) -> None:
         response = await async_client.verification.with_raw_response.create(
@@ -203,6 +226,9 @@ class TestAsyncVerification:
         verification = await response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url"
+    )
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncPrelude) -> None:
         async with async_client.verification.with_streaming_response.create(
