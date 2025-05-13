@@ -49,7 +49,7 @@ class FeedbackSignals(TypedDict, total=False):
     is_trusted_user: bool
     """
     This signal should provide a higher level of trust, indicating that the user is
-    genuine. For more details, refer to
+    genuine. Contact us to discuss your use case. For more details, refer to
     [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
