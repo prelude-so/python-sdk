@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.1 (2025-05-15)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/prelude-so/python-sdk/compare/v0.4.0...v0.4.1)
+
+### Chores
+
+* **ci:** fix installation instructions ([afe0c52](https://github.com/prelude-so/python-sdk/commit/afe0c524b286def7133c08b84e4f0679bd045b49))
+* **ci:** upload sdks to package manager ([5f4eaa3](https://github.com/prelude-so/python-sdk/commit/5f4eaa3b2581ea51ff992504996d141759496b96))
+
 ## 0.4.0 (2025-05-13)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/prelude-so/python-sdk/compare/v0.3.0...v0.4.0)
