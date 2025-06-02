@@ -86,7 +86,7 @@ class Options(TypedDict, total=False):
     """The custom code to use for OTP verification.
 
     To use the custom code feature, contact us to enable it for your account. For
-    more details, refer to [Custom Code](/verify/v2/documentation/custom-code).
+    more details, refer to [Custom Code](/verify/v2/documentation/custom-codes).
     """
 
     locale: str
@@ -106,7 +106,7 @@ class Options(TypedDict, total=False):
     receive SMS messages.
     """
 
-    preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo"]
+    preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram", "silent", "voice"]
     """The preferred channel to be used in priority for verification."""
 
     sender_id: str
