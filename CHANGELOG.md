@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.0 (2025-06-02)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/prelude-so/python-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **client:** add follow_redirects request option ([da19e96](https://github.com/prelude-so/python-sdk/commit/da19e966164aceec4e1a1b0d48411972dd16ac57))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([17caed7](https://github.com/prelude-so/python-sdk/commit/17caed7d4f227f504f924cb7117923153dbe0c57))
+
 ## 0.5.0 (2025-06-02)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/prelude-so/python-sdk/compare/v0.4.0...v0.5.0)
