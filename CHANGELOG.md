@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.6.0 (2025-06-12)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/prelude-so/python-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **client:** add follow_redirects request option ([da19e96](https://github.com/prelude-so/python-sdk/commit/da19e966164aceec4e1a1b0d48411972dd16ac57))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([e3dfded](https://github.com/prelude-so/python-sdk/commit/e3dfded9ae983f50630cab36befb34dd6306eb1f))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([17caed7](https://github.com/prelude-so/python-sdk/commit/17caed7d4f227f504f924cb7117923153dbe0c57))
+* **tests:** run tests in parallel ([646764a](https://github.com/prelude-so/python-sdk/commit/646764ac379ac82faf861bd1bf00ce593cbf13e9))
+
 ## 0.5.0 (2025-06-02)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/prelude-so/python-sdk/compare/v0.4.0...v0.5.0)
