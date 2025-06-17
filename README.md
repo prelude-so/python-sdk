@@ -1,6 +1,6 @@
 # Prelude Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/prelude-python-sdk.svg)](https://pypi.org/project/prelude-python-sdk/)
+[![PyPI version](<https://img.shields.io/pypi/v/prelude-python-sdk.svg?label=pypi%20(stable)>)](https://pypi.org/project/prelude-python-sdk/)
 
 The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
