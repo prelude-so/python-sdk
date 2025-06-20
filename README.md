@@ -74,6 +74,43 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install prelude-python-sdk[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from prelude_python_sdk import DefaultAioHttpClient
+from prelude_python_sdk import AsyncPrelude
+
+
+async def main() -> None:
+    async with AsyncPrelude(
+        api_token=os.environ.get("API_TOKEN"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        verification = await client.verification.create(
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        )
+        print(verification.id)
+
+
+asyncio.run(main())
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
