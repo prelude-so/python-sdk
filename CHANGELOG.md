@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.6.0 (2025-06-23)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/prelude-so/python-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **client:** add follow_redirects request option ([da19e96](https://github.com/prelude-so/python-sdk/commit/da19e966164aceec4e1a1b0d48411972dd16ac57))
+* **client:** add support for aiohttp ([fe01e14](https://github.com/prelude-so/python-sdk/commit/fe01e142af02731f76b0c6d4199a9384f1e9707e))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([e3dfded](https://github.com/prelude-so/python-sdk/commit/e3dfded9ae983f50630cab36befb34dd6306eb1f))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([77eef78](https://github.com/prelude-so/python-sdk/commit/77eef78d5df7e67d148a0e52a914b5b91a69b804))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([da78c21](https://github.com/prelude-so/python-sdk/commit/da78c212562c4561494ea3c648aa21289e2e15dc))
+* **docs:** remove reference to rye shell ([17caed7](https://github.com/prelude-so/python-sdk/commit/17caed7d4f227f504f924cb7117923153dbe0c57))
+* **internal:** update conftest.py ([4d73eac](https://github.com/prelude-so/python-sdk/commit/4d73eace815b6ac0422b55f1d52837fd7b515b46))
+* **readme:** update badges ([a5f1b45](https://github.com/prelude-so/python-sdk/commit/a5f1b45fb802eea987c0dcadb5f464fe9071cf44))
+* **tests:** add tests for httpx client instantiation & proxies ([c0a7434](https://github.com/prelude-so/python-sdk/commit/c0a743495858c5082d1a1634855e72efacaaaa22))
+* **tests:** run tests in parallel ([646764a](https://github.com/prelude-so/python-sdk/commit/646764ac379ac82faf861bd1bf00ce593cbf13e9))
+* **tests:** skip some failing tests on the latest python versions ([734cb0d](https://github.com/prelude-so/python-sdk/commit/734cb0dc7855541bc3379bd87c89a41a49f618c7))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([041dd82](https://github.com/prelude-so/python-sdk/commit/041dd82ad1711670db7e1fbd4ee11fd1eae0ea99))
+
 ## 0.5.0 (2025-06-02)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/prelude-so/python-sdk/compare/v0.4.0...v0.5.0)
