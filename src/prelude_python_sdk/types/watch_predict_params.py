@@ -35,7 +35,11 @@ class Target(TypedDict, total=False):
 
 class Metadata(TypedDict, total=False):
     correlation_id: str
-    """A user-defined identifier to correlate this prediction with."""
+    """A user-defined identifier to correlate this prediction with.
+
+    It is returned in the response and any webhook events that refer to this
+    prediction.
+    """
 
 
 class Signals(TypedDict, total=False):

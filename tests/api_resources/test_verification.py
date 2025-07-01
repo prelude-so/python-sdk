@@ -43,7 +43,7 @@ class TestVerification:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
-            dispatch_id="dispatch_id",
+            dispatch_id="123e4567-e89b-12d3-a456-426614174000",
             metadata={"correlation_id": "correlation_id"},
             options={
                 "app_realm": {
@@ -181,7 +181,7 @@ class TestAsyncVerification:
                 "type": "phone_number",
                 "value": "+30123456789",
             },
-            dispatch_id="dispatch_id",
+            dispatch_id="123e4567-e89b-12d3-a456-426614174000",
             metadata={"correlation_id": "correlation_id"},
             options={
                 "app_realm": {

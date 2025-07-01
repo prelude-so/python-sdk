@@ -23,7 +23,11 @@ class FeedbackTarget(TypedDict, total=False):
 
 class FeedbackMetadata(TypedDict, total=False):
     correlation_id: str
-    """A user-defined identifier to correlate this feedback with."""
+    """A user-defined identifier to correlate this feedback with.
+
+    It is returned in the response and any webhook events that refer to this
+    feedback.
+    """
 
 
 class FeedbackSignals(TypedDict, total=False):

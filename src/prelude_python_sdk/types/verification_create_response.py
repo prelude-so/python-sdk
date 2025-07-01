@@ -10,6 +10,11 @@ __all__ = ["VerificationCreateResponse", "Metadata", "Silent"]
 
 class Metadata(BaseModel):
     correlation_id: Optional[str] = None
+    """A user-defined identifier to correlate this verification with.
+
+    It is returned in the response and any webhook events that refer to this
+    verification.
+    """
 
 
 class Silent(BaseModel):
@@ -27,14 +32,22 @@ class VerificationCreateResponse(BaseModel):
     status: Literal["success", "retry", "blocked"]
     """The status of the verification."""
 
-    channels: Optional[List[str]] = None
+    channels: Optional[List[Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram", "silent", "voice"]]] = None
     """The ordered sequence of channels to be used for verification"""
 
     metadata: Optional[Metadata] = None
     """The metadata for this verification."""
 
     reason: Optional[
-        Literal["suspicious", "repeated_attempts", "invalid_phone_line", "invalid_phone_number", "in_block_list"]
+        Literal[
+            "expired_signature",
+            "in_block_list",
+            "invalid_phone_line",
+            "invalid_phone_number",
+            "invalid_signature",
+            "repeated_attempts",
+            "suspicious",
+        ]
     ] = None
     """The reason why the verification was blocked.
 
