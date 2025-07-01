@@ -33,7 +33,11 @@ class TransactionalSendResponse(BaseModel):
     """The callback URL."""
 
     correlation_id: Optional[str] = None
-    """A unique, user-defined identifier that will be included in webhook events."""
+    """A user-defined identifier to correlate this transactional message with.
+
+    It is returned in the response and any webhook events that refer to this
+    transactional message.
+    """
 
     from_: Optional[str] = FieldInfo(alias="from", default=None)
     """The Sender ID."""
