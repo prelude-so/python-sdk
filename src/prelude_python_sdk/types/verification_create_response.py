@@ -26,13 +26,13 @@ class VerificationCreateResponse(BaseModel):
     id: str
     """The verification identifier."""
 
-    method: Literal["message", "silent", "voice"]
+    method: Literal["email", "message", "silent", "voice"]
     """The method used for verifying this phone number."""
 
     status: Literal["success", "retry", "blocked"]
     """The status of the verification."""
 
-    channels: Optional[List[Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram", "silent", "voice"]]] = None
+    channels: Optional[List[Literal["rcs", "silent", "sms", "telegram", "viber", "voice", "whatsapp", "zalo"]]] = None
     """The ordered sequence of channels to be used for verification"""
 
     metadata: Optional[Metadata] = None
