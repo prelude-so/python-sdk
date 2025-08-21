@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.7.0 (2025-08-21)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/prelude-so/python-sdk/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** api update ([cebd59c](https://github.com/prelude-so/python-sdk/commit/cebd59c1f67146b7e840bbccc6b4a2d17916bdca))
+* **api:** update via SDK Studio ([609835d](https://github.com/prelude-so/python-sdk/commit/609835dc935b7c22bd0bfec3216278ede1771bed))
+* clean up environment call outs ([ff48f3e](https://github.com/prelude-so/python-sdk/commit/ff48f3e5cb1fb68096e0f4957905ee48856d1df7))
+* **client:** support file upload requests ([ac0a4c1](https://github.com/prelude-so/python-sdk/commit/ac0a4c1701251a38422125a077ae7add7416c1a5))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([b7261ff](https://github.com/prelude-so/python-sdk/commit/b7261ff9886067756fb25e32b6909b15790377dc))
+* **ci:** release-doctor — report correct token name ([77a8e56](https://github.com/prelude-so/python-sdk/commit/77a8e5698965234e6619e1050e703af72b57e48e))
+* **client:** don't send Content-Type header on GET requests ([c613df9](https://github.com/prelude-so/python-sdk/commit/c613df92d49194b1a1f89e2a9e0f6ab0fac8d472))
+* **parsing:** correctly handle nested discriminated unions ([3436bf4](https://github.com/prelude-so/python-sdk/commit/3436bf4532297cd94a44e997474ac0398483dd0c))
+* **parsing:** ignore empty metadata ([c23e14b](https://github.com/prelude-so/python-sdk/commit/c23e14b9ec01412e132ee9d03ae4bbaff74f33ac))
+* **parsing:** parse extra field types ([bf9be03](https://github.com/prelude-so/python-sdk/commit/bf9be03f3613d2babb797dd5f74da85c09c3c897))
+
+
+### Chores
+
+* **ci:** change upload type ([7c6c5df](https://github.com/prelude-so/python-sdk/commit/7c6c5df63e1959589d2675e0ebf7137d4670e12f))
+* **ci:** only run for pushes and fork pull requests ([b32650a](https://github.com/prelude-so/python-sdk/commit/b32650a2b717410e7e41e4a99e3fe65fc8a855f5))
+* **internal:** bump pinned h11 dep ([0402574](https://github.com/prelude-so/python-sdk/commit/040257411723704ee4f230aeeb4afc23835903bf))
+* **internal:** codegen related update ([b5e89fd](https://github.com/prelude-so/python-sdk/commit/b5e89fdf678bd950a842af41215cffdd15e8ed78))
+* **internal:** fix ruff target version ([88b0123](https://github.com/prelude-so/python-sdk/commit/88b012325f232611a76989c3af466e499994ce97))
+* **internal:** update comment in script ([786148a](https://github.com/prelude-so/python-sdk/commit/786148a170efc4290dbd513bc52036a9b129d179))
+* **internal:** update test skipping reason ([80f788b](https://github.com/prelude-so/python-sdk/commit/80f788b5680588ef9970c40a7f8c26926acf2a3d))
+* **package:** mark python 3.13 as supported ([17711c4](https://github.com/prelude-so/python-sdk/commit/17711c472c274e2b8bf5e094f392d12411c36fc1))
+* **project:** add settings file for vscode ([7f5049f](https://github.com/prelude-so/python-sdk/commit/7f5049f0f71e4b0288d4102ffa67ebf60a1bd500))
+* **readme:** fix version rendering on pypi ([fb60330](https://github.com/prelude-so/python-sdk/commit/fb60330a88cd4371ebee780ffbf5295953d8c43d))
+* update @stainless-api/prism-cli to v5.15.0 ([16ee61e](https://github.com/prelude-so/python-sdk/commit/16ee61e3b8dd042fe52dd6b75b5216f8a0c314d4))
+* update github action ([0541486](https://github.com/prelude-so/python-sdk/commit/054148684c50734248c3a12a78a59686bff5925f))
+
 ## 0.6.0 (2025-06-23)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/prelude-so/python-sdk/compare/v0.5.0...v0.6.0)
