@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.0 (2025-09-04)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/prelude-so/python-sdk/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **api:** api update ([12c444b](https://github.com/prelude-so/python-sdk/commit/12c444b9c84ea3d966165e02a8dd5b32546ec8b8))
+
+
+### Chores
+
+* **internal:** move mypy configurations to `pyproject.toml` file ([e98bb28](https://github.com/prelude-so/python-sdk/commit/e98bb284102313e7ba8fc8d77e8f96ee0b765390))
+
 ## 0.7.0 (2025-09-03)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/prelude-so/python-sdk/compare/v0.6.0...v0.7.0)
