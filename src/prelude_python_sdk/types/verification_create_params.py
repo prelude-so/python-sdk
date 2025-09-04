@@ -47,7 +47,11 @@ class Target(TypedDict, total=False):
 
 class Metadata(TypedDict, total=False):
     correlation_id: str
-    """A user-defined identifier to correlate this verification with."""
+    """A user-defined identifier to correlate this verification with.
+
+    It is returned in the response and any webhook events that refer to this
+    verification.
+    """
 
 
 class OptionsAppRealm(TypedDict, total=False):
@@ -106,7 +110,7 @@ class Options(TypedDict, total=False):
     receive SMS messages.
     """
 
-    preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram", "silent", "voice"]
+    preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram"]
     """The preferred channel to be used in priority for verification."""
 
     sender_id: str

@@ -1,6 +1,7 @@
 # Prelude Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/prelude-python-sdk.svg?label=pypi%20(stable)>)](https://pypi.org/project/prelude-python-sdk/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/prelude-python-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/prelude-python-sdk/)
 
 The Prelude Python library provides convenient access to the Prelude REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -88,7 +89,6 @@ pip install prelude-python-sdk[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from prelude_python_sdk import DefaultAioHttpClient
 from prelude_python_sdk import AsyncPrelude
@@ -96,7 +96,7 @@ from prelude_python_sdk import AsyncPrelude
 
 async def main() -> None:
     async with AsyncPrelude(
-        api_token=os.environ.get("API_TOKEN"),  # This is the default and can be omitted
+        api_token="My API Token",
         http_client=DefaultAioHttpClient(),
     ) as client:
         verification = await client.verification.create(

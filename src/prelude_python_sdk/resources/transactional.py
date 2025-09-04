@@ -71,7 +71,9 @@ class TransactionalResource(SyncAPIResource):
 
           callback_url: The callback URL.
 
-          correlation_id: A unique, user-defined identifier that will be included in webhook events.
+          correlation_id: A user-defined identifier to correlate this transactional message with. It is
+              returned in the response and any webhook events that refer to this
+              transactionalmessage.
 
           expires_at: The message expiration date.
 
@@ -162,7 +164,9 @@ class AsyncTransactionalResource(AsyncAPIResource):
 
           callback_url: The callback URL.
 
-          correlation_id: A unique, user-defined identifier that will be included in webhook events.
+          correlation_id: A user-defined identifier to correlate this transactional message with. It is
+              returned in the response and any webhook events that refer to this
+              transactionalmessage.
 
           expires_at: The message expiration date.
 

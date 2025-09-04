@@ -59,7 +59,7 @@ from ._types import (
     ModelBuilderProtocol,
 )
 from ._utils import is_dict, is_list, asyncify, is_given, lru_cache, is_mapping
-from ._compat import PYDANTIC_V2, model_copy, model_dump
+from ._compat import PYDANTIC_V1, model_copy, model_dump
 from ._models import GenericModel, FinalRequestOptions, validate_type, construct_type
 from ._response import (
     APIResponse,
@@ -232,7 +232,7 @@ class BaseSyncPage(BasePage[_T], Generic[_T]):
         model: Type[_T],
         options: FinalRequestOptions,
     ) -> None:
-        if PYDANTIC_V2 and getattr(self, "__pydantic_private__", None) is None:
+        if (not PYDANTIC_V1) and getattr(self, "__pydantic_private__", None) is None:
             self.__pydantic_private__ = {}
 
         self._model = model
@@ -320,7 +320,7 @@ class BaseAsyncPage(BasePage[_T], Generic[_T]):
         client: AsyncAPIClient,
         options: FinalRequestOptions,
     ) -> None:
-        if PYDANTIC_V2 and getattr(self, "__pydantic_private__", None) is None:
+        if (not PYDANTIC_V1) and getattr(self, "__pydantic_private__", None) is None:
             self.__pydantic_private__ = {}
 
         self._model = model
@@ -529,6 +529,18 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             # work around https://github.com/encode/httpx/discussions/2880
             kwargs["extensions"] = {"sni_hostname": prepared_url.host.replace("_", "-")}
 
+        is_body_allowed = options.method.lower() != "get"
+
+        if is_body_allowed:
+            if isinstance(json_data, bytes):
+                kwargs["content"] = json_data
+            else:
+                kwargs["json"] = json_data if is_given(json_data) else None
+            kwargs["files"] = files
+        else:
+            headers.pop("Content-Type", None)
+            kwargs.pop("data", None)
+
         # TODO: report this error to httpx
         return self._client.build_request(  # pyright: ignore[reportUnknownMemberType]
             headers=headers,
@@ -540,8 +552,6 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             # so that passing a `TypedDict` doesn't cause an error.
             # https://github.com/microsoft/pyright/issues/3526#event-6715453066
             params=self.qs.stringify(cast(Mapping[str, Any], params)) if params else None,
-            json=json_data if is_given(json_data) else None,
-            files=files,
             **kwargs,
         )
 

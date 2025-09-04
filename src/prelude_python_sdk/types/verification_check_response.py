@@ -10,6 +10,11 @@ __all__ = ["VerificationCheckResponse", "Metadata"]
 
 class Metadata(BaseModel):
     correlation_id: Optional[str] = None
+    """A user-defined identifier to correlate this verification with.
+
+    It is returned in the response and any webhook events that refer to this
+    verification.
+    """
 
 
 class VerificationCheckResponse(BaseModel):

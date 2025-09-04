@@ -21,7 +21,11 @@ class TransactionalSendParams(TypedDict, total=False):
     """The callback URL."""
 
     correlation_id: str
-    """A unique, user-defined identifier that will be included in webhook events."""
+    """A user-defined identifier to correlate this transactional message with.
+
+    It is returned in the response and any webhook events that refer to this
+    transactionalmessage.
+    """
 
     expires_at: str
     """The message expiration date."""
