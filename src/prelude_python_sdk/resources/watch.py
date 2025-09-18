@@ -7,7 +7,7 @@ from typing import Iterable
 import httpx
 
 from ..types import watch_predict_params, watch_send_events_params, watch_send_feedbacks_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,15 +49,15 @@ class WatchResource(SyncAPIResource):
         self,
         *,
         target: watch_predict_params.Target,
-        dispatch_id: str | NotGiven = NOT_GIVEN,
-        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
-        signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
+        dispatch_id: str | Omit = omit,
+        metadata: watch_predict_params.Metadata | Omit = omit,
+        signals: watch_predict_params.Signals | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchPredictResponse:
         """
         Predict the outcome of a verification based on Prelude’s anti-fraud system.
@@ -106,7 +106,7 @@ class WatchResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchSendEventsResponse:
         """
         Send real-time event data from end-user interactions within your application.
@@ -141,7 +141,7 @@ class WatchResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchSendFeedbacksResponse:
         """Send feedback regarding your end-users verification funnel.
 
@@ -193,15 +193,15 @@ class AsyncWatchResource(AsyncAPIResource):
         self,
         *,
         target: watch_predict_params.Target,
-        dispatch_id: str | NotGiven = NOT_GIVEN,
-        metadata: watch_predict_params.Metadata | NotGiven = NOT_GIVEN,
-        signals: watch_predict_params.Signals | NotGiven = NOT_GIVEN,
+        dispatch_id: str | Omit = omit,
+        metadata: watch_predict_params.Metadata | Omit = omit,
+        signals: watch_predict_params.Signals | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchPredictResponse:
         """
         Predict the outcome of a verification based on Prelude’s anti-fraud system.
@@ -250,7 +250,7 @@ class AsyncWatchResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchSendEventsResponse:
         """
         Send real-time event data from end-user interactions within your application.
@@ -285,7 +285,7 @@ class AsyncWatchResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WatchSendFeedbacksResponse:
         """Send feedback regarding your end-users verification funnel.
 
