@@ -93,6 +93,9 @@ class Options(TypedDict, total=False):
     more details, refer to [Custom Code](/verify/v2/documentation/custom-codes).
     """
 
+    integration: Literal["auth0", "supabase"]
+    """The integration that triggered the verification."""
+
     locale: str
     """
     A BCP-47 formatted locale string with the language the text message will be sent
