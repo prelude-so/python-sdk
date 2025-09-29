@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.8.0 (2025-09-25)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/prelude-so/python-sdk/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **api:** api update ([d15396a](https://github.com/prelude-so/python-sdk/commit/d15396ab89d6b5f2ba1e391533176af5f430df5e))
+* **api:** api update ([958f6a2](https://github.com/prelude-so/python-sdk/commit/958f6a2b37361d1aa9aa42b5cec478d27b770043))
+* **api:** api update ([12c444b](https://github.com/prelude-so/python-sdk/commit/12c444b9c84ea3d966165e02a8dd5b32546ec8b8))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([27bcc8b](https://github.com/prelude-so/python-sdk/commit/27bcc8bd0694be22f8e9d853eea633d9a190bf90))
+* **internal:** move mypy configurations to `pyproject.toml` file ([e98bb28](https://github.com/prelude-so/python-sdk/commit/e98bb284102313e7ba8fc8d77e8f96ee0b765390))
+* **internal:** update pydantic dependency ([2b62add](https://github.com/prelude-so/python-sdk/commit/2b62addec147c8e992871040dbc8915bb744d249))
+* **tests:** simplify `get_platform` test ([dd357e6](https://github.com/prelude-so/python-sdk/commit/dd357e65a25ea31de82ef31d1a3e75f9b8d52d08))
+* **types:** change optional parameter type from NotGiven to Omit ([f47f0e1](https://github.com/prelude-so/python-sdk/commit/f47f0e1bdcd0f421589068cc721e86d17f67fbcd))
+
 ## 0.7.0 (2025-09-03)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/prelude-so/python-sdk/compare/v0.6.0...v0.7.0)

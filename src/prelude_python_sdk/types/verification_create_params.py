@@ -93,6 +93,9 @@ class Options(TypedDict, total=False):
     more details, refer to [Custom Code](/verify/v2/documentation/custom-codes).
     """
 
+    integration: Literal["auth0", "supabase"]
+    """The integration that triggered the verification."""
+
     locale: str
     """
     A BCP-47 formatted locale string with the language the text message will be sent
@@ -155,6 +158,14 @@ class Signals(TypedDict, total=False):
     This signal should provide a higher level of trust, indicating that the user is
     genuine. Contact us to discuss your use case. For more details, refer to
     [Signals](/verify/v2/documentation/prevent-fraud#signals).
+    """
+
+    ja4_fingerprint: str
+    """The JA4 fingerprint observed for the connection.
+
+    Prelude will infer it automatically when requests go through our client SDK
+    (which uses Prelude's edge), but you can also provide it explicitly if you
+    terminate TLS yourself.
     """
 
     os_version: str

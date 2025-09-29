@@ -69,6 +69,14 @@ class Signals(TypedDict, total=False):
     [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
+    ja4_fingerprint: str
+    """The JA4 fingerprint observed for the connection.
+
+    Prelude will infer it automatically when requests go through our client SDK
+    (which uses Prelude's edge), but you can also provide it explicitly if you
+    terminate TLS yourself.
+    """
+
     os_version: str
     """The version of the user's device operating system."""
 
