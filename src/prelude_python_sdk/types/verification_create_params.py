@@ -62,7 +62,11 @@ class OptionsAppRealm(TypedDict, total=False):
     """
 
     value: Required[str]
-    """The Android SMS Retriever API hash code that identifies your app."""
+    """
+    The Android SMS Retriever API hash code that identifies your app. For more
+    information, see
+    [Google documentation](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string).
+    """
 
 
 class Options(TypedDict, total=False):
