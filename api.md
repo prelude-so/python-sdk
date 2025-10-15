@@ -35,6 +35,22 @@ Methods:
 - <code title="post /v2/verification">client.verification.<a href="./src/prelude_python_sdk/resources/verification.py">create</a>(\*\*<a href="src/prelude_python_sdk/types/verification_create_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_create_response.py">VerificationCreateResponse</a></code>
 - <code title="post /v2/verification/check">client.verification.<a href="./src/prelude_python_sdk/resources/verification.py">check</a>(\*\*<a href="src/prelude_python_sdk/types/verification_check_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_check_response.py">VerificationCheckResponse</a></code>
 
+# VerificationManagement
+
+Types:
+
+```python
+from prelude_python_sdk.types import (
+    VerificationManagementListSenderIDsResponse,
+    VerificationManagementSubmitSenderIDResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v2/verification/management/sender-id">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">list_sender_ids</a>() -> <a href="./src/prelude_python_sdk/types/verification_management_list_sender_ids_response.py">VerificationManagementListSenderIDsResponse</a></code>
+- <code title="post /v2/verification/management/sender-id">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">submit_sender_id</a>(\*\*<a href="src/prelude_python_sdk/types/verification_management_submit_sender_id_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_management_submit_sender_id_response.py">VerificationManagementSubmitSenderIDResponse</a></code>
+
 # Watch
 
 Types:

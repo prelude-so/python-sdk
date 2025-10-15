@@ -16,3 +16,12 @@ from .verification_check_response import VerificationCheckResponse as Verificati
 from .watch_send_feedbacks_params import WatchSendFeedbacksParams as WatchSendFeedbacksParams
 from .verification_create_response import VerificationCreateResponse as VerificationCreateResponse
 from .watch_send_feedbacks_response import WatchSendFeedbacksResponse as WatchSendFeedbacksResponse
+from .verification_management_submit_sender_id_params import (
+    VerificationManagementSubmitSenderIDParams as VerificationManagementSubmitSenderIDParams,
+)
+from .verification_management_list_sender_ids_response import (
+    VerificationManagementListSenderIDsResponse as VerificationManagementListSenderIDsResponse,
+)
+from .verification_management_submit_sender_id_response import (
+    VerificationManagementSubmitSenderIDResponse as VerificationManagementSubmitSenderIDResponse,
+)
