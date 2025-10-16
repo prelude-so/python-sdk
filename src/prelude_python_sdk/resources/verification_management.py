@@ -77,7 +77,7 @@ class VerificationManagementResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationManagementSubmitSenderIDResponse:
         """
-        This endpoint allows you to add a new sender ID for verification purposes.
+        This endpoint allows you to submit a new sender ID for verification purposes.
 
         In order to get access to this endpoint, contact our support team.
 
@@ -160,7 +160,7 @@ class AsyncVerificationManagementResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationManagementSubmitSenderIDResponse:
         """
-        This endpoint allows you to add a new sender ID for verification purposes.
+        This endpoint allows you to submit a new sender ID for verification purposes.
 
         In order to get access to this endpoint, contact our support team.
 
