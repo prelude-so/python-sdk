@@ -37,6 +37,7 @@ class TestTransactional:
             expires_at="expires_at",
             from_="from",
             locale="el-GR",
+            preferred_channel="whatsapp",
             variables={"foo": "bar"},
         )
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
@@ -95,6 +96,7 @@ class TestAsyncTransactional:
             expires_at="expires_at",
             from_="from",
             locale="el-GR",
+            preferred_channel="whatsapp",
             variables={"foo": "bar"},
         )
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])

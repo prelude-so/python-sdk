@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
+from typing_extensions import Literal
 
 import httpx
 
@@ -53,6 +54,7 @@ class TransactionalResource(SyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -84,6 +86,16 @@ class TransactionalResource(SyncAPIResource):
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
 
+          preferred_channel: The preferred delivery channel for the message. When specified, the system will
+              prioritize sending via the requested channel if the template is configured for
+              it.
+
+              If not specified and the template is configured for WhatsApp, the message will
+              be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
+              is unavailable.
+
+              Supported channels: `sms`, `whatsapp`.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -105,6 +117,7 @@ class TransactionalResource(SyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "preferred_channel": preferred_channel,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,
@@ -146,6 +159,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -177,6 +191,16 @@ class AsyncTransactionalResource(AsyncAPIResource):
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
 
+          preferred_channel: The preferred delivery channel for the message. When specified, the system will
+              prioritize sending via the requested channel if the template is configured for
+              it.
+
+              If not specified and the template is configured for WhatsApp, the message will
+              be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
+              is unavailable.
+
+              Supported channels: `sms`, `whatsapp`.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -198,6 +222,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "preferred_channel": preferred_channel,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,
