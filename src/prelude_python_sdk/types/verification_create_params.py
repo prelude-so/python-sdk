@@ -108,13 +108,15 @@ class Options(TypedDict, total=False):
     to US English.
     """
 
-    method: Literal["auto", "voice"]
+    method: Literal["auto", "voice", "message"]
     """The method used for verifying this phone number.
 
     The 'voice' option provides an accessible alternative for visually impaired
     users by delivering the verification code through a phone call rather than a
     text message. It also allows verification of landline numbers that cannot
-    receive SMS messages.
+    receive SMS messages. The 'message' option explicitly requests message delivery
+    (SMS, WhatsApp ...) and skips silent verification, useful for scenarios
+    requiring direct user interaction.
     """
 
     preferred_channel: Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram"]
