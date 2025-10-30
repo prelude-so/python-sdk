@@ -54,7 +54,7 @@ class TransactionalResource(SyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -94,7 +94,7 @@ class TransactionalResource(SyncAPIResource):
               be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
               is unavailable.
 
-              Supported channels: `sms`, `whatsapp`.
+              Supported channels: `sms`, `rcs`, `whatsapp`.
 
           variables: The variables to be replaced in the template.
 
@@ -159,7 +159,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -199,7 +199,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
               be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
               is unavailable.
 
-              Supported channels: `sms`, `whatsapp`.
+              Supported channels: `sms`, `rcs`, `whatsapp`.
 
           variables: The variables to be replaced in the template.
 
