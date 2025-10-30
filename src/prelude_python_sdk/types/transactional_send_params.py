@@ -41,7 +41,7 @@ class TransactionalSendParams(TypedDict, total=False):
     set on the template will be used.
     """
 
-    preferred_channel: Literal["sms", "whatsapp"]
+    preferred_channel: Literal["sms", "rcs", "whatsapp"]
     """The preferred delivery channel for the message.
 
     When specified, the system will prioritize sending via the requested channel if
@@ -51,7 +51,7 @@ class TransactionalSendParams(TypedDict, total=False):
     be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
     is unavailable.
 
-    Supported channels: `sms`, `whatsapp`.
+    Supported channels: `sms`, `rcs`, `whatsapp`.
     """
 
     variables: Dict[str, str]
