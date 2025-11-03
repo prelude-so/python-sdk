@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict
 from typing_extensions import Literal
 
@@ -44,6 +45,7 @@ class TransactionalResource(SyncAPIResource):
         """
         return TransactionalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def send(
         self,
         *,
@@ -63,8 +65,10 @@ class TransactionalResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionalSendResponse:
-        """
-        Send a transactional message to your user.
+        """Legacy route maintained for backward compatibility.
+
+        Migrate to `/v2/notify`
+        instead.
 
         Args:
           template_id: The template identifier.
@@ -149,6 +153,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         """
         return AsyncTransactionalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def send(
         self,
         *,
@@ -168,8 +173,10 @@ class AsyncTransactionalResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionalSendResponse:
-        """
-        Send a transactional message to your user.
+        """Legacy route maintained for backward compatibility.
+
+        Migrate to `/v2/notify`
+        instead.
 
         Args:
           template_id: The template identifier.
@@ -238,8 +245,10 @@ class TransactionalResourceWithRawResponse:
     def __init__(self, transactional: TransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = to_raw_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -247,8 +256,10 @@ class AsyncTransactionalResourceWithRawResponse:
     def __init__(self, transactional: AsyncTransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = async_to_raw_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -256,8 +267,10 @@ class TransactionalResourceWithStreamingResponse:
     def __init__(self, transactional: TransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = to_streamed_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -265,6 +278,8 @@ class AsyncTransactionalResourceWithStreamingResponse:
     def __init__(self, transactional: AsyncTransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = async_to_streamed_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
