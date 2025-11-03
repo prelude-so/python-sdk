@@ -41,14 +41,20 @@ Types:
 
 ```python
 from prelude_python_sdk.types import (
+    VerificationManagementDeletePhoneNumberResponse,
+    VerificationManagementListPhoneNumbersResponse,
     VerificationManagementListSenderIDsResponse,
+    VerificationManagementSetPhoneNumberResponse,
     VerificationManagementSubmitSenderIDResponse,
 )
 ```
 
 Methods:
 
+- <code title="delete /v2/verification/management/phone-numbers/{action}">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">delete_phone_number</a>(action, \*\*<a href="src/prelude_python_sdk/types/verification_management_delete_phone_number_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_management_delete_phone_number_response.py">VerificationManagementDeletePhoneNumberResponse</a></code>
+- <code title="get /v2/verification/management/phone-numbers/{action}">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">list_phone_numbers</a>(action) -> <a href="./src/prelude_python_sdk/types/verification_management_list_phone_numbers_response.py">VerificationManagementListPhoneNumbersResponse</a></code>
 - <code title="get /v2/verification/management/sender-id">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">list_sender_ids</a>() -> <a href="./src/prelude_python_sdk/types/verification_management_list_sender_ids_response.py">VerificationManagementListSenderIDsResponse</a></code>
+- <code title="post /v2/verification/management/phone-numbers/{action}">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">set_phone_number</a>(action, \*\*<a href="src/prelude_python_sdk/types/verification_management_set_phone_number_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_management_set_phone_number_response.py">VerificationManagementSetPhoneNumberResponse</a></code>
 - <code title="post /v2/verification/management/sender-id">client.verification_management.<a href="./src/prelude_python_sdk/resources/verification_management.py">submit_sender_id</a>(\*\*<a href="src/prelude_python_sdk/types/verification_management_submit_sender_id_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/verification_management_submit_sender_id_response.py">VerificationManagementSubmitSenderIDResponse</a></code>
 
 # Watch
