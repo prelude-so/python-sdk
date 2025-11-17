@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.9.0 (2025-11-17)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/prelude-so/python-sdk/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** api update ([3414954](https://github.com/prelude-so/python-sdk/commit/34149545030f8a0219599164bab754301c21285e))
+* **api:** api update ([f289389](https://github.com/prelude-so/python-sdk/commit/f2893896abbacda022acaea5dbac3fc14ee638d3))
+* **api:** api update ([fcdc79a](https://github.com/prelude-so/python-sdk/commit/fcdc79ad8d26841bf8b9dcd0e4a716505bd1c7cd))
+* **api:** api update ([9e82750](https://github.com/prelude-so/python-sdk/commit/9e82750ffb0e301d23b4c8cc20c28a84c56cfa3d))
+* **api:** api update ([940dceb](https://github.com/prelude-so/python-sdk/commit/940dceb4f55eccf2162fa151a5012f27e11c8485))
+* **api:** api update ([0e92885](https://github.com/prelude-so/python-sdk/commit/0e928852bb97c2e977d94412941c8686b5a72669))
+* **api:** expose phone numbers management methods ([3c57a24](https://github.com/prelude-so/python-sdk/commit/3c57a2433505592c885a96e9e73bc9ae2183dcf2))
+* **api:** expose verification management methods ([59e97e4](https://github.com/prelude-so/python-sdk/commit/59e97e4b132c88b2eb8f5e47244770031af22140))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([360d52e](https://github.com/prelude-so/python-sdk/commit/360d52eaeb107732ea05ea4518ef67705ecf104f))
+* compat with Python 3.14 ([a40568f](https://github.com/prelude-so/python-sdk/commit/a40568f91c470c7d1897f620f56000878badf233))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([3474a0e](https://github.com/prelude-so/python-sdk/commit/3474a0e1503c2cd5be8b901bb8ef1bcc95946291))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([cf5a356](https://github.com/prelude-so/python-sdk/commit/cf5a356cb8edec1d9cd65a8f1d5af9a365292aef))
+* **internal/tests:** avoid race condition with implicit client cleanup ([d7f113f](https://github.com/prelude-so/python-sdk/commit/d7f113ffb3a50b17fc0a6372fea9cfc2902b6abe))
+* **internal:** detect missing future annotations with ruff ([33710d4](https://github.com/prelude-so/python-sdk/commit/33710d44b323f16c98c3745830c7f50db2954b7d))
+* **internal:** grammar fix (it's -&gt; its) ([a31bbfc](https://github.com/prelude-so/python-sdk/commit/a31bbfcb46c5dd2ced3232747c7178605a3c1aec))
+* **package:** drop Python 3.8 support ([7e22988](https://github.com/prelude-so/python-sdk/commit/7e229880df05461baa7f49a55eded4aae9559a2a))
+
 ## 0.8.0 (2025-09-25)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/prelude-so/python-sdk/compare/v0.7.0...v0.8.0)
