@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import watch, lookup, verification, transactional
+from .resources import watch, lookup, verification, transactional, verification_management
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PreludeError, APIStatusError
 from ._base_client import (
@@ -37,6 +37,7 @@ class Prelude(SyncAPIClient):
     lookup: lookup.LookupResource
     transactional: transactional.TransactionalResource
     verification: verification.VerificationResource
+    verification_management: verification_management.VerificationManagementResource
     watch: watch.WatchResource
     with_raw_response: PreludeWithRawResponse
     with_streaming_response: PreludeWithStreamedResponse
@@ -98,6 +99,7 @@ class Prelude(SyncAPIClient):
         self.lookup = lookup.LookupResource(self)
         self.transactional = transactional.TransactionalResource(self)
         self.verification = verification.VerificationResource(self)
+        self.verification_management = verification_management.VerificationManagementResource(self)
         self.watch = watch.WatchResource(self)
         self.with_raw_response = PreludeWithRawResponse(self)
         self.with_streaming_response = PreludeWithStreamedResponse(self)
@@ -211,6 +213,7 @@ class AsyncPrelude(AsyncAPIClient):
     lookup: lookup.AsyncLookupResource
     transactional: transactional.AsyncTransactionalResource
     verification: verification.AsyncVerificationResource
+    verification_management: verification_management.AsyncVerificationManagementResource
     watch: watch.AsyncWatchResource
     with_raw_response: AsyncPreludeWithRawResponse
     with_streaming_response: AsyncPreludeWithStreamedResponse
@@ -272,6 +275,7 @@ class AsyncPrelude(AsyncAPIClient):
         self.lookup = lookup.AsyncLookupResource(self)
         self.transactional = transactional.AsyncTransactionalResource(self)
         self.verification = verification.AsyncVerificationResource(self)
+        self.verification_management = verification_management.AsyncVerificationManagementResource(self)
         self.watch = watch.AsyncWatchResource(self)
         self.with_raw_response = AsyncPreludeWithRawResponse(self)
         self.with_streaming_response = AsyncPreludeWithStreamedResponse(self)
@@ -386,6 +390,9 @@ class PreludeWithRawResponse:
         self.lookup = lookup.LookupResourceWithRawResponse(client.lookup)
         self.transactional = transactional.TransactionalResourceWithRawResponse(client.transactional)
         self.verification = verification.VerificationResourceWithRawResponse(client.verification)
+        self.verification_management = verification_management.VerificationManagementResourceWithRawResponse(
+            client.verification_management
+        )
         self.watch = watch.WatchResourceWithRawResponse(client.watch)
 
 
@@ -394,6 +401,9 @@ class AsyncPreludeWithRawResponse:
         self.lookup = lookup.AsyncLookupResourceWithRawResponse(client.lookup)
         self.transactional = transactional.AsyncTransactionalResourceWithRawResponse(client.transactional)
         self.verification = verification.AsyncVerificationResourceWithRawResponse(client.verification)
+        self.verification_management = verification_management.AsyncVerificationManagementResourceWithRawResponse(
+            client.verification_management
+        )
         self.watch = watch.AsyncWatchResourceWithRawResponse(client.watch)
 
 
@@ -402,6 +412,9 @@ class PreludeWithStreamedResponse:
         self.lookup = lookup.LookupResourceWithStreamingResponse(client.lookup)
         self.transactional = transactional.TransactionalResourceWithStreamingResponse(client.transactional)
         self.verification = verification.VerificationResourceWithStreamingResponse(client.verification)
+        self.verification_management = verification_management.VerificationManagementResourceWithStreamingResponse(
+            client.verification_management
+        )
         self.watch = watch.WatchResourceWithStreamingResponse(client.watch)
 
 
@@ -410,6 +423,9 @@ class AsyncPreludeWithStreamedResponse:
         self.lookup = lookup.AsyncLookupResourceWithStreamingResponse(client.lookup)
         self.transactional = transactional.AsyncTransactionalResourceWithStreamingResponse(client.transactional)
         self.verification = verification.AsyncVerificationResourceWithStreamingResponse(client.verification)
+        self.verification_management = verification_management.AsyncVerificationManagementResourceWithStreamingResponse(
+            client.verification_management
+        )
         self.watch = watch.AsyncWatchResourceWithStreamingResponse(client.watch)
 
 

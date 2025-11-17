@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict
+from typing_extensions import Literal
 
 import httpx
 
@@ -43,6 +45,7 @@ class TransactionalResource(SyncAPIResource):
         """
         return TransactionalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def send(
         self,
         *,
@@ -53,6 +56,7 @@ class TransactionalResource(SyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -61,8 +65,10 @@ class TransactionalResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionalSendResponse:
-        """
-        Send a transactional message to your user.
+        """Legacy route maintained for backward compatibility.
+
+        Migrate to `/v2/notify`
+        instead.
 
         Args:
           template_id: The template identifier.
@@ -83,6 +89,16 @@ class TransactionalResource(SyncAPIResource):
               to. If there's no locale set, the language will be determined by the country
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
+
+          preferred_channel: The preferred delivery channel for the message. When specified, the system will
+              prioritize sending via the requested channel if the template is configured for
+              it.
+
+              If not specified and the template is configured for WhatsApp, the message will
+              be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
+              is unavailable.
+
+              Supported channels: `sms`, `rcs`, `whatsapp`.
 
           variables: The variables to be replaced in the template.
 
@@ -105,6 +121,7 @@ class TransactionalResource(SyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "preferred_channel": preferred_channel,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,
@@ -136,6 +153,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         """
         return AsyncTransactionalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def send(
         self,
         *,
@@ -146,6 +164,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -154,8 +173,10 @@ class AsyncTransactionalResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionalSendResponse:
-        """
-        Send a transactional message to your user.
+        """Legacy route maintained for backward compatibility.
+
+        Migrate to `/v2/notify`
+        instead.
 
         Args:
           template_id: The template identifier.
@@ -176,6 +197,16 @@ class AsyncTransactionalResource(AsyncAPIResource):
               to. If there's no locale set, the language will be determined by the country
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
+
+          preferred_channel: The preferred delivery channel for the message. When specified, the system will
+              prioritize sending via the requested channel if the template is configured for
+              it.
+
+              If not specified and the template is configured for WhatsApp, the message will
+              be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
+              is unavailable.
+
+              Supported channels: `sms`, `rcs`, `whatsapp`.
 
           variables: The variables to be replaced in the template.
 
@@ -198,6 +229,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "preferred_channel": preferred_channel,
                     "variables": variables,
                 },
                 transactional_send_params.TransactionalSendParams,
@@ -213,8 +245,10 @@ class TransactionalResourceWithRawResponse:
     def __init__(self, transactional: TransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = to_raw_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -222,8 +256,10 @@ class AsyncTransactionalResourceWithRawResponse:
     def __init__(self, transactional: AsyncTransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = async_to_raw_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -231,8 +267,10 @@ class TransactionalResourceWithStreamingResponse:
     def __init__(self, transactional: TransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = to_streamed_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -240,6 +278,8 @@ class AsyncTransactionalResourceWithStreamingResponse:
     def __init__(self, transactional: AsyncTransactionalResource) -> None:
         self._transactional = transactional
 
-        self.send = async_to_streamed_response_wrapper(
-            transactional.send,
+        self.send = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                transactional.send,  # pyright: ignore[reportDeprecated],
+            )
         )

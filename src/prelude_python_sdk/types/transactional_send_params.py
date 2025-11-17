@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -39,6 +39,19 @@ class TransactionalSendParams(TypedDict, total=False):
     to. If there's no locale set, the language will be determined by the country
     code of the phone number. If the language specified doesn't exist, the default
     set on the template will be used.
+    """
+
+    preferred_channel: Literal["sms", "rcs", "whatsapp"]
+    """The preferred delivery channel for the message.
+
+    When specified, the system will prioritize sending via the requested channel if
+    the template is configured for it.
+
+    If not specified and the template is configured for WhatsApp, the message will
+    be sent via WhatsApp first, with automatic fallback to SMS if WhatsApp delivery
+    is unavailable.
+
+    Supported channels: `sms`, `rcs`, `whatsapp`.
     """
 
     variables: Dict[str, str]

@@ -32,6 +32,14 @@ from .transactional import (
     TransactionalResourceWithStreamingResponse,
     AsyncTransactionalResourceWithStreamingResponse,
 )
+from .verification_management import (
+    VerificationManagementResource,
+    AsyncVerificationManagementResource,
+    VerificationManagementResourceWithRawResponse,
+    AsyncVerificationManagementResourceWithRawResponse,
+    VerificationManagementResourceWithStreamingResponse,
+    AsyncVerificationManagementResourceWithStreamingResponse,
+)
 
 __all__ = [
     "LookupResource",
@@ -52,6 +60,12 @@ __all__ = [
     "AsyncVerificationResourceWithRawResponse",
     "VerificationResourceWithStreamingResponse",
     "AsyncVerificationResourceWithStreamingResponse",
+    "VerificationManagementResource",
+    "AsyncVerificationManagementResource",
+    "VerificationManagementResourceWithRawResponse",
+    "AsyncVerificationManagementResourceWithRawResponse",
+    "VerificationManagementResourceWithStreamingResponse",
+    "AsyncVerificationManagementResourceWithStreamingResponse",
     "WatchResource",
     "AsyncWatchResource",
     "WatchResourceWithRawResponse",
