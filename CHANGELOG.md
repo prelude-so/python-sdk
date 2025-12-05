@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.10.0 (2025-12-05)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/prelude-so/python-sdk/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** add Notify API methods ([c7a7b20](https://github.com/prelude-so/python-sdk/commit/c7a7b20977b74d76362e4aad805be06b7618f652))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([b16816e](https://github.com/prelude-so/python-sdk/commit/b16816e137cdbe2814625782094d929f0c98705c))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([e2e5272](https://github.com/prelude-so/python-sdk/commit/e2e5272322db24cc9faa0b7176cefcc81e3daf48))
+* **docs:** use environment variables for authentication in code snippets ([1d08cda](https://github.com/prelude-so/python-sdk/commit/1d08cda0dfca3a9e0adb3f548f6a4275bfc44efa))
+* **internal:** codegen related update ([469e780](https://github.com/prelude-so/python-sdk/commit/469e7805bc68624a0768e1403c1fc637b256a698))
+* update lockfile ([2ff2aee](https://github.com/prelude-so/python-sdk/commit/2ff2aee46c7b89093cdcd43dd293e9dc6f101ada))
+
 ## 0.9.0 (2025-11-17)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/prelude-so/python-sdk/compare/v0.8.0...v0.9.0)
