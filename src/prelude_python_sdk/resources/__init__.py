@@ -16,6 +16,14 @@ from .lookup import (
     LookupResourceWithStreamingResponse,
     AsyncLookupResourceWithStreamingResponse,
 )
+from .notify import (
+    NotifyResource,
+    AsyncNotifyResource,
+    NotifyResourceWithRawResponse,
+    AsyncNotifyResourceWithRawResponse,
+    NotifyResourceWithStreamingResponse,
+    AsyncNotifyResourceWithStreamingResponse,
+)
 from .verification import (
     VerificationResource,
     AsyncVerificationResource,
@@ -48,6 +56,12 @@ __all__ = [
     "AsyncLookupResourceWithRawResponse",
     "LookupResourceWithStreamingResponse",
     "AsyncLookupResourceWithStreamingResponse",
+    "NotifyResource",
+    "AsyncNotifyResource",
+    "NotifyResourceWithRawResponse",
+    "AsyncNotifyResourceWithRawResponse",
+    "NotifyResourceWithStreamingResponse",
+    "AsyncNotifyResourceWithStreamingResponse",
     "TransactionalResource",
     "AsyncTransactionalResource",
     "TransactionalResourceWithRawResponse",

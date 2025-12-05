@@ -10,6 +10,32 @@ Methods:
 
 - <code title="get /v2/lookup/{phone_number}">client.lookup.<a href="./src/prelude_python_sdk/resources/lookup.py">lookup</a>(phone_number, \*\*<a href="src/prelude_python_sdk/types/lookup_lookup_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/lookup_lookup_response.py">LookupLookupResponse</a></code>
 
+# Notify
+
+Types:
+
+```python
+from prelude_python_sdk.types import (
+    NotifyGetSubscriptionConfigResponse,
+    NotifyGetSubscriptionPhoneNumberResponse,
+    NotifyListSubscriptionConfigsResponse,
+    NotifyListSubscriptionPhoneNumberEventsResponse,
+    NotifyListSubscriptionPhoneNumbersResponse,
+    NotifySendResponse,
+    NotifySendBatchResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v2/notify/management/subscriptions/{config_id}">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">get_subscription_config</a>(config_id) -> <a href="./src/prelude_python_sdk/types/notify_get_subscription_config_response.py">NotifyGetSubscriptionConfigResponse</a></code>
+- <code title="get /v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">get_subscription_phone_number</a>(phone_number, \*, config_id) -> <a href="./src/prelude_python_sdk/types/notify_get_subscription_phone_number_response.py">NotifyGetSubscriptionPhoneNumberResponse</a></code>
+- <code title="get /v2/notify/management/subscriptions">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">list_subscription_configs</a>(\*\*<a href="src/prelude_python_sdk/types/notify_list_subscription_configs_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/notify_list_subscription_configs_response.py">NotifyListSubscriptionConfigsResponse</a></code>
+- <code title="get /v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">list_subscription_phone_number_events</a>(phone_number, \*, config_id, \*\*<a href="src/prelude_python_sdk/types/notify_list_subscription_phone_number_events_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/notify_list_subscription_phone_number_events_response.py">NotifyListSubscriptionPhoneNumberEventsResponse</a></code>
+- <code title="get /v2/notify/management/subscriptions/{config_id}/phone_numbers">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">list_subscription_phone_numbers</a>(config_id, \*\*<a href="src/prelude_python_sdk/types/notify_list_subscription_phone_numbers_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/notify_list_subscription_phone_numbers_response.py">NotifyListSubscriptionPhoneNumbersResponse</a></code>
+- <code title="post /v2/notify">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">send</a>(\*\*<a href="src/prelude_python_sdk/types/notify_send_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/notify_send_response.py">NotifySendResponse</a></code>
+- <code title="post /v2/notify/batch">client.notify.<a href="./src/prelude_python_sdk/resources/notify.py">send_batch</a>(\*\*<a href="src/prelude_python_sdk/types/notify_send_batch_params.py">params</a>) -> <a href="./src/prelude_python_sdk/types/notify_send_batch_response.py">NotifySendBatchResponse</a></code>
+
 # Transactional
 
 Types:
