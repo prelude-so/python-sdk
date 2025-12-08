@@ -22,4 +22,6 @@ class SenderID(BaseModel):
 
 
 class VerificationManagementListSenderIDsResponse(BaseModel):
+    """A list of Sender ID."""
+
     sender_ids: Optional[List[SenderID]] = None

@@ -11,6 +11,8 @@ __all__ = ["NotifySendBatchResponse", "Result", "ResultError", "ResultMessage"]
 
 
 class ResultError(BaseModel):
+    """Present only if success is false."""
+
     code: Optional[str] = None
     """The error code."""
 
@@ -19,6 +21,8 @@ class ResultError(BaseModel):
 
 
 class ResultMessage(BaseModel):
+    """Present only if success is true."""
+
     id: Optional[str] = None
     """The message identifier."""
 
