@@ -14,6 +14,8 @@ class WatchSendFeedbacksParams(TypedDict, total=False):
 
 
 class FeedbackTarget(TypedDict, total=False):
+    """The feedback target. Only supports phone numbers for now."""
+
     type: Required[Literal["phone_number", "email_address"]]
     """The type of the target. Either "phone_number" or "email_address"."""
 
@@ -22,6 +24,8 @@ class FeedbackTarget(TypedDict, total=False):
 
 
 class FeedbackMetadata(TypedDict, total=False):
+    """The metadata for this feedback."""
+
     correlation_id: str
     """A user-defined identifier to correlate this feedback with.
 
@@ -31,6 +35,11 @@ class FeedbackMetadata(TypedDict, total=False):
 
 
 class FeedbackSignals(TypedDict, total=False):
+    """The signals used for anti-fraud.
+
+    For more details, refer to [Signals](/verify/v2/documentation/prevent-fraud#signals).
+    """
+
     app_version: str
     """The version of your application."""
 

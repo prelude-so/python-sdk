@@ -9,6 +9,8 @@ __all__ = ["LookupLookupResponse", "NetworkInfo", "OriginalNetworkInfo"]
 
 
 class NetworkInfo(BaseModel):
+    """The current carrier information."""
+
     carrier_name: Optional[str] = None
     """The name of the carrier."""
 
@@ -20,6 +22,8 @@ class NetworkInfo(BaseModel):
 
 
 class OriginalNetworkInfo(BaseModel):
+    """The original carrier information."""
+
     carrier_name: Optional[str] = None
     """The name of the original carrier."""
 

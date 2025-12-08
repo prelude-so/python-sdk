@@ -9,6 +9,8 @@ __all__ = ["VerificationCreateResponse", "Metadata", "Silent"]
 
 
 class Metadata(BaseModel):
+    """The metadata for this verification."""
+
     correlation_id: Optional[str] = None
     """A user-defined identifier to correlate this verification with.
 
@@ -18,6 +20,8 @@ class Metadata(BaseModel):
 
 
 class Silent(BaseModel):
+    """The silent verification specific properties."""
+
     request_url: str
     """The URL to start the silent verification towards."""
 

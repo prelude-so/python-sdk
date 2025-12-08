@@ -9,6 +9,8 @@ __all__ = ["VerificationCheckResponse", "Metadata"]
 
 
 class Metadata(BaseModel):
+    """The metadata for this verification."""
+
     correlation_id: Optional[str] = None
     """A user-defined identifier to correlate this verification with.
 
