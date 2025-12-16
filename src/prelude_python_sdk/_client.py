@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import watch, lookup, notify, verification, transactional, verification_management
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import PreludeError, APIStatusError
 from ._base_client import (
@@ -30,19 +30,19 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import watch, lookup, notify, verification, transactional, verification_management
+    from .resources.watch import WatchResource, AsyncWatchResource
+    from .resources.lookup import LookupResource, AsyncLookupResource
+    from .resources.notify import NotifyResource, AsyncNotifyResource
+    from .resources.verification import VerificationResource, AsyncVerificationResource
+    from .resources.transactional import TransactionalResource, AsyncTransactionalResource
+    from .resources.verification_management import VerificationManagementResource, AsyncVerificationManagementResource
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Prelude", "AsyncPrelude", "Client", "AsyncClient"]
 
 
 class Prelude(SyncAPIClient):
-    lookup: lookup.LookupResource
-    notify: notify.NotifyResource
-    transactional: transactional.TransactionalResource
-    verification: verification.VerificationResource
-    verification_management: verification_management.VerificationManagementResource
-    watch: watch.WatchResource
-    with_raw_response: PreludeWithRawResponse
-    with_streaming_response: PreludeWithStreamedResponse
-
     # client options
     api_token: str
 
@@ -97,14 +97,49 @@ class Prelude(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.lookup = lookup.LookupResource(self)
-        self.notify = notify.NotifyResource(self)
-        self.transactional = transactional.TransactionalResource(self)
-        self.verification = verification.VerificationResource(self)
-        self.verification_management = verification_management.VerificationManagementResource(self)
-        self.watch = watch.WatchResource(self)
-        self.with_raw_response = PreludeWithRawResponse(self)
-        self.with_streaming_response = PreludeWithStreamedResponse(self)
+    @cached_property
+    def lookup(self) -> LookupResource:
+        from .resources.lookup import LookupResource
+
+        return LookupResource(self)
+
+    @cached_property
+    def notify(self) -> NotifyResource:
+        from .resources.notify import NotifyResource
+
+        return NotifyResource(self)
+
+    @cached_property
+    def transactional(self) -> TransactionalResource:
+        from .resources.transactional import TransactionalResource
+
+        return TransactionalResource(self)
+
+    @cached_property
+    def verification(self) -> VerificationResource:
+        from .resources.verification import VerificationResource
+
+        return VerificationResource(self)
+
+    @cached_property
+    def verification_management(self) -> VerificationManagementResource:
+        from .resources.verification_management import VerificationManagementResource
+
+        return VerificationManagementResource(self)
+
+    @cached_property
+    def watch(self) -> WatchResource:
+        from .resources.watch import WatchResource
+
+        return WatchResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> PreludeWithRawResponse:
+        return PreludeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> PreludeWithStreamedResponse:
+        return PreludeWithStreamedResponse(self)
 
     @property
     @override
@@ -212,15 +247,6 @@ class Prelude(SyncAPIClient):
 
 
 class AsyncPrelude(AsyncAPIClient):
-    lookup: lookup.AsyncLookupResource
-    notify: notify.AsyncNotifyResource
-    transactional: transactional.AsyncTransactionalResource
-    verification: verification.AsyncVerificationResource
-    verification_management: verification_management.AsyncVerificationManagementResource
-    watch: watch.AsyncWatchResource
-    with_raw_response: AsyncPreludeWithRawResponse
-    with_streaming_response: AsyncPreludeWithStreamedResponse
-
     # client options
     api_token: str
 
@@ -275,14 +301,49 @@ class AsyncPrelude(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.lookup = lookup.AsyncLookupResource(self)
-        self.notify = notify.AsyncNotifyResource(self)
-        self.transactional = transactional.AsyncTransactionalResource(self)
-        self.verification = verification.AsyncVerificationResource(self)
-        self.verification_management = verification_management.AsyncVerificationManagementResource(self)
-        self.watch = watch.AsyncWatchResource(self)
-        self.with_raw_response = AsyncPreludeWithRawResponse(self)
-        self.with_streaming_response = AsyncPreludeWithStreamedResponse(self)
+    @cached_property
+    def lookup(self) -> AsyncLookupResource:
+        from .resources.lookup import AsyncLookupResource
+
+        return AsyncLookupResource(self)
+
+    @cached_property
+    def notify(self) -> AsyncNotifyResource:
+        from .resources.notify import AsyncNotifyResource
+
+        return AsyncNotifyResource(self)
+
+    @cached_property
+    def transactional(self) -> AsyncTransactionalResource:
+        from .resources.transactional import AsyncTransactionalResource
+
+        return AsyncTransactionalResource(self)
+
+    @cached_property
+    def verification(self) -> AsyncVerificationResource:
+        from .resources.verification import AsyncVerificationResource
+
+        return AsyncVerificationResource(self)
+
+    @cached_property
+    def verification_management(self) -> AsyncVerificationManagementResource:
+        from .resources.verification_management import AsyncVerificationManagementResource
+
+        return AsyncVerificationManagementResource(self)
+
+    @cached_property
+    def watch(self) -> AsyncWatchResource:
+        from .resources.watch import AsyncWatchResource
+
+        return AsyncWatchResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncPreludeWithRawResponse:
+        return AsyncPreludeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncPreludeWithStreamedResponse:
+        return AsyncPreludeWithStreamedResponse(self)
 
     @property
     @override
@@ -390,51 +451,177 @@ class AsyncPrelude(AsyncAPIClient):
 
 
 class PreludeWithRawResponse:
+    _client: Prelude
+
     def __init__(self, client: Prelude) -> None:
-        self.lookup = lookup.LookupResourceWithRawResponse(client.lookup)
-        self.notify = notify.NotifyResourceWithRawResponse(client.notify)
-        self.transactional = transactional.TransactionalResourceWithRawResponse(client.transactional)
-        self.verification = verification.VerificationResourceWithRawResponse(client.verification)
-        self.verification_management = verification_management.VerificationManagementResourceWithRawResponse(
-            client.verification_management
-        )
-        self.watch = watch.WatchResourceWithRawResponse(client.watch)
+        self._client = client
+
+    @cached_property
+    def lookup(self) -> lookup.LookupResourceWithRawResponse:
+        from .resources.lookup import LookupResourceWithRawResponse
+
+        return LookupResourceWithRawResponse(self._client.lookup)
+
+    @cached_property
+    def notify(self) -> notify.NotifyResourceWithRawResponse:
+        from .resources.notify import NotifyResourceWithRawResponse
+
+        return NotifyResourceWithRawResponse(self._client.notify)
+
+    @cached_property
+    def transactional(self) -> transactional.TransactionalResourceWithRawResponse:
+        from .resources.transactional import TransactionalResourceWithRawResponse
+
+        return TransactionalResourceWithRawResponse(self._client.transactional)
+
+    @cached_property
+    def verification(self) -> verification.VerificationResourceWithRawResponse:
+        from .resources.verification import VerificationResourceWithRawResponse
+
+        return VerificationResourceWithRawResponse(self._client.verification)
+
+    @cached_property
+    def verification_management(self) -> verification_management.VerificationManagementResourceWithRawResponse:
+        from .resources.verification_management import VerificationManagementResourceWithRawResponse
+
+        return VerificationManagementResourceWithRawResponse(self._client.verification_management)
+
+    @cached_property
+    def watch(self) -> watch.WatchResourceWithRawResponse:
+        from .resources.watch import WatchResourceWithRawResponse
+
+        return WatchResourceWithRawResponse(self._client.watch)
 
 
 class AsyncPreludeWithRawResponse:
+    _client: AsyncPrelude
+
     def __init__(self, client: AsyncPrelude) -> None:
-        self.lookup = lookup.AsyncLookupResourceWithRawResponse(client.lookup)
-        self.notify = notify.AsyncNotifyResourceWithRawResponse(client.notify)
-        self.transactional = transactional.AsyncTransactionalResourceWithRawResponse(client.transactional)
-        self.verification = verification.AsyncVerificationResourceWithRawResponse(client.verification)
-        self.verification_management = verification_management.AsyncVerificationManagementResourceWithRawResponse(
-            client.verification_management
-        )
-        self.watch = watch.AsyncWatchResourceWithRawResponse(client.watch)
+        self._client = client
+
+    @cached_property
+    def lookup(self) -> lookup.AsyncLookupResourceWithRawResponse:
+        from .resources.lookup import AsyncLookupResourceWithRawResponse
+
+        return AsyncLookupResourceWithRawResponse(self._client.lookup)
+
+    @cached_property
+    def notify(self) -> notify.AsyncNotifyResourceWithRawResponse:
+        from .resources.notify import AsyncNotifyResourceWithRawResponse
+
+        return AsyncNotifyResourceWithRawResponse(self._client.notify)
+
+    @cached_property
+    def transactional(self) -> transactional.AsyncTransactionalResourceWithRawResponse:
+        from .resources.transactional import AsyncTransactionalResourceWithRawResponse
+
+        return AsyncTransactionalResourceWithRawResponse(self._client.transactional)
+
+    @cached_property
+    def verification(self) -> verification.AsyncVerificationResourceWithRawResponse:
+        from .resources.verification import AsyncVerificationResourceWithRawResponse
+
+        return AsyncVerificationResourceWithRawResponse(self._client.verification)
+
+    @cached_property
+    def verification_management(self) -> verification_management.AsyncVerificationManagementResourceWithRawResponse:
+        from .resources.verification_management import AsyncVerificationManagementResourceWithRawResponse
+
+        return AsyncVerificationManagementResourceWithRawResponse(self._client.verification_management)
+
+    @cached_property
+    def watch(self) -> watch.AsyncWatchResourceWithRawResponse:
+        from .resources.watch import AsyncWatchResourceWithRawResponse
+
+        return AsyncWatchResourceWithRawResponse(self._client.watch)
 
 
 class PreludeWithStreamedResponse:
+    _client: Prelude
+
     def __init__(self, client: Prelude) -> None:
-        self.lookup = lookup.LookupResourceWithStreamingResponse(client.lookup)
-        self.notify = notify.NotifyResourceWithStreamingResponse(client.notify)
-        self.transactional = transactional.TransactionalResourceWithStreamingResponse(client.transactional)
-        self.verification = verification.VerificationResourceWithStreamingResponse(client.verification)
-        self.verification_management = verification_management.VerificationManagementResourceWithStreamingResponse(
-            client.verification_management
-        )
-        self.watch = watch.WatchResourceWithStreamingResponse(client.watch)
+        self._client = client
+
+    @cached_property
+    def lookup(self) -> lookup.LookupResourceWithStreamingResponse:
+        from .resources.lookup import LookupResourceWithStreamingResponse
+
+        return LookupResourceWithStreamingResponse(self._client.lookup)
+
+    @cached_property
+    def notify(self) -> notify.NotifyResourceWithStreamingResponse:
+        from .resources.notify import NotifyResourceWithStreamingResponse
+
+        return NotifyResourceWithStreamingResponse(self._client.notify)
+
+    @cached_property
+    def transactional(self) -> transactional.TransactionalResourceWithStreamingResponse:
+        from .resources.transactional import TransactionalResourceWithStreamingResponse
+
+        return TransactionalResourceWithStreamingResponse(self._client.transactional)
+
+    @cached_property
+    def verification(self) -> verification.VerificationResourceWithStreamingResponse:
+        from .resources.verification import VerificationResourceWithStreamingResponse
+
+        return VerificationResourceWithStreamingResponse(self._client.verification)
+
+    @cached_property
+    def verification_management(self) -> verification_management.VerificationManagementResourceWithStreamingResponse:
+        from .resources.verification_management import VerificationManagementResourceWithStreamingResponse
+
+        return VerificationManagementResourceWithStreamingResponse(self._client.verification_management)
+
+    @cached_property
+    def watch(self) -> watch.WatchResourceWithStreamingResponse:
+        from .resources.watch import WatchResourceWithStreamingResponse
+
+        return WatchResourceWithStreamingResponse(self._client.watch)
 
 
 class AsyncPreludeWithStreamedResponse:
+    _client: AsyncPrelude
+
     def __init__(self, client: AsyncPrelude) -> None:
-        self.lookup = lookup.AsyncLookupResourceWithStreamingResponse(client.lookup)
-        self.notify = notify.AsyncNotifyResourceWithStreamingResponse(client.notify)
-        self.transactional = transactional.AsyncTransactionalResourceWithStreamingResponse(client.transactional)
-        self.verification = verification.AsyncVerificationResourceWithStreamingResponse(client.verification)
-        self.verification_management = verification_management.AsyncVerificationManagementResourceWithStreamingResponse(
-            client.verification_management
-        )
-        self.watch = watch.AsyncWatchResourceWithStreamingResponse(client.watch)
+        self._client = client
+
+    @cached_property
+    def lookup(self) -> lookup.AsyncLookupResourceWithStreamingResponse:
+        from .resources.lookup import AsyncLookupResourceWithStreamingResponse
+
+        return AsyncLookupResourceWithStreamingResponse(self._client.lookup)
+
+    @cached_property
+    def notify(self) -> notify.AsyncNotifyResourceWithStreamingResponse:
+        from .resources.notify import AsyncNotifyResourceWithStreamingResponse
+
+        return AsyncNotifyResourceWithStreamingResponse(self._client.notify)
+
+    @cached_property
+    def transactional(self) -> transactional.AsyncTransactionalResourceWithStreamingResponse:
+        from .resources.transactional import AsyncTransactionalResourceWithStreamingResponse
+
+        return AsyncTransactionalResourceWithStreamingResponse(self._client.transactional)
+
+    @cached_property
+    def verification(self) -> verification.AsyncVerificationResourceWithStreamingResponse:
+        from .resources.verification import AsyncVerificationResourceWithStreamingResponse
+
+        return AsyncVerificationResourceWithStreamingResponse(self._client.verification)
+
+    @cached_property
+    def verification_management(
+        self,
+    ) -> verification_management.AsyncVerificationManagementResourceWithStreamingResponse:
+        from .resources.verification_management import AsyncVerificationManagementResourceWithStreamingResponse
+
+        return AsyncVerificationManagementResourceWithStreamingResponse(self._client.verification_management)
+
+    @cached_property
+    def watch(self) -> watch.AsyncWatchResourceWithStreamingResponse:
+        from .resources.watch import AsyncWatchResourceWithStreamingResponse
+
+        return AsyncWatchResourceWithStreamingResponse(self._client.watch)
 
 
 Client = Prelude
