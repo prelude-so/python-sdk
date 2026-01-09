@@ -65,22 +65,24 @@ class Metadata(TypedDict, total=False):
 
 
 class OptionsAppRealm(TypedDict, total=False):
-    """This allows you to automatically retrieve and fill the OTP code on mobile apps.
+    """This allows automatic OTP retrieval on mobile apps and web browsers.
 
-    Currently only Android devices are supported.
+    Supported platforms are Android (SMS Retriever API) and Web (WebOTP API).
     """
 
-    platform: Required[Literal["android"]]
-    """The platform the SMS will be sent to.
+    platform: Required[Literal["android", "web"]]
+    """The platform for automatic OTP retrieval.
 
-    We are currently only supporting "android".
+    Use "android" for the SMS Retriever API or "web" for the WebOTP API.
     """
 
     value: Required[str]
-    """
-    The Android SMS Retriever API hash code that identifies your app. For more
-    information, see
-    [Google documentation](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string).
+    """The value depends on the platform:
+
+    - For Android: The SMS Retriever API hash code (11 characters). See
+      [Google documentation](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string).
+    - For Web: The origin domain (e.g., "example.com" or "www.example.com"). See
+      [WebOTP API documentation](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API).
     """
 
 
@@ -88,9 +90,9 @@ class Options(TypedDict, total=False):
     """Verification options"""
 
     app_realm: OptionsAppRealm
-    """This allows you to automatically retrieve and fill the OTP code on mobile apps.
+    """This allows automatic OTP retrieval on mobile apps and web browsers.
 
-    Currently only Android devices are supported.
+    Supported platforms are Android (SMS Retriever API) and Web (WebOTP API).
     """
 
     callback_url: str
