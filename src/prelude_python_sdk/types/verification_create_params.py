@@ -168,9 +168,10 @@ class Signals(TypedDict, total=False):
     """The version of your application."""
 
     device_id: str
-    """The unique identifier for the user's device.
+    """A unique ID for the user's device.
 
-    For Android, this corresponds to the `ANDROID_ID` and for iOS, this corresponds
+    You should ensure that each user device has a unique `device_id` value. Ideally,
+    for Android, this corresponds to the `ANDROID_ID` and for iOS, this corresponds
     to the `identifierForVendor`.
     """
 
@@ -181,21 +182,26 @@ class Signals(TypedDict, total=False):
     """The type of the user's device."""
 
     ip: str
-    """The IP address of the user's device."""
+    """The public IP v4 or v6 address of the end-user's device.
+
+    You should collect this from your backend. If your backend is behind a proxy,
+    use the `X-Forwarded-For`, `Forwarded`, `True-Client-IP`, `CF-Connecting-IP` or
+    an equivalent header to get the actual public IP of the end-user's device.
+    """
 
     is_trusted_user: bool
     """
-    This signal should provide a higher level of trust, indicating that the user is
-    genuine. Contact us to discuss your use case. For more details, refer to
+    This signal should indicate a higher level of trust, explicitly stating that the
+    user is genuine. Contact us to discuss your use case. For more details, refer to
     [Signals](/verify/v2/documentation/prevent-fraud#signals).
     """
 
     ja4_fingerprint: str
-    """The JA4 fingerprint observed for the connection.
+    """The JA4 fingerprint observed for the end-user's connection.
 
-    Prelude will infer it automatically when requests go through our client SDK
-    (which uses Prelude's edge), but you can also provide it explicitly if you
-    terminate TLS yourself.
+    Prelude will infer it automatically when you use our Frontend SDKs (which use
+    Prelude's edge network), but you can also forward the value if you terminate TLS
+    yourself.
     """
 
     os_version: str
