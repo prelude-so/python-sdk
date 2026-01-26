@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -31,6 +32,21 @@ class ResultMessage(BaseModel):
 
     created_at: Optional[datetime] = None
     """The message creation date in RFC3339 format."""
+
+    encoding: Optional[Literal["GSM-7", "UCS-2"]] = None
+    """The SMS encoding type based on message content.
+
+    GSM-7 supports standard characters (up to 160 chars per segment), while UCS-2
+    supports Unicode including emoji (up to 70 chars per segment). Only present for
+    SMS messages.
+    """
+
+    estimated_segment_count: Optional[int] = None
+    """The estimated number of SMS segments for this message.
+
+    This value is not contractual; the actual segment count will be determined after
+    the SMS is sent by the provider. Only present for SMS messages.
+    """
 
     expires_at: Optional[datetime] = None
     """The message expiration date in RFC3339 format."""
