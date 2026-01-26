@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -34,6 +35,21 @@ class NotifySendResponse(BaseModel):
 
     correlation_id: Optional[str] = None
     """A user-defined identifier to correlate this message with your internal systems."""
+
+    encoding: Optional[Literal["GSM-7", "UCS-2"]] = None
+    """The SMS encoding type based on message content.
+
+    GSM-7 supports standard characters (up to 160 chars per segment), while UCS-2
+    supports Unicode including emoji (up to 70 chars per segment). Only present for
+    SMS messages.
+    """
+
+    estimated_segment_count: Optional[int] = None
+    """The estimated number of SMS segments for this message.
+
+    This value is not contractual; the actual segment count will be determined after
+    the SMS is sent by the provider. Only present for SMS messages.
+    """
 
     from_: Optional[str] = FieldInfo(alias="from", default=None)
     """The Sender ID used for this message."""
