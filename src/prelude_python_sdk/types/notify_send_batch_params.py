@@ -9,7 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
-__all__ = ["NotifySendBatchParams"]
+__all__ = ["NotifySendBatchParams", "Document"]
 
 
 class NotifySendBatchParams(TypedDict, total=False):
@@ -24,6 +24,12 @@ class NotifySendBatchParams(TypedDict, total=False):
 
     correlation_id: str
     """A user-defined identifier to correlate this request with your internal systems."""
+
+    document: Document
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
+    """
 
     expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """The message expiration date in RFC3339 format.
@@ -48,3 +54,16 @@ class NotifySendBatchParams(TypedDict, total=False):
 
     variables: Dict[str, str]
     """The variables to be replaced in the template."""
+
+
+class Document(TypedDict, total=False):
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
+    """
+
+    filename: Required[str]
+    """The filename to display for the document."""
+
+    url: Required[str]
+    """The URL of the document to attach. Must be a valid HTTP or HTTPS URL."""
