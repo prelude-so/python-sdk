@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["NotifySendParams"]
+__all__ = ["NotifySendParams", "Document"]
 
 
 class NotifySendParams(TypedDict, total=False):
@@ -26,6 +26,12 @@ class NotifySendParams(TypedDict, total=False):
 
     It is returned in the response and any webhook events that refer to this
     message.
+    """
+
+    document: Document
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
     """
 
     expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
@@ -61,3 +67,16 @@ class NotifySendParams(TypedDict, total=False):
 
     variables: Dict[str, str]
     """The variables to be replaced in the template."""
+
+
+class Document(TypedDict, total=False):
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
+    """
+
+    filename: Required[str]
+    """The filename to display for the document."""
+
+    url: Required[str]
+    """The URL of the document to attach. Must be a valid HTTP or HTTPS URL."""

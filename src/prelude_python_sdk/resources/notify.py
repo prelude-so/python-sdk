@@ -297,6 +297,7 @@ class NotifyResource(SyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -324,6 +325,9 @@ class NotifyResource(SyncAPIResource):
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
               message.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -360,6 +364,7 @@ class NotifyResource(SyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -382,6 +387,7 @@ class NotifyResource(SyncAPIResource):
         to: SequenceNotStr[str],
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_batch_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -406,6 +412,9 @@ class NotifyResource(SyncAPIResource):
           callback_url: The URL where webhooks will be sent for delivery events.
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.
@@ -437,6 +446,7 @@ class NotifyResource(SyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -711,6 +721,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -738,6 +749,9 @@ class AsyncNotifyResource(AsyncAPIResource):
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
               message.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -774,6 +788,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -796,6 +811,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         to: SequenceNotStr[str],
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_batch_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -820,6 +836,9 @@ class AsyncNotifyResource(AsyncAPIResource):
           callback_url: The URL where webhooks will be sent for delivery events.
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.
@@ -851,6 +870,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
