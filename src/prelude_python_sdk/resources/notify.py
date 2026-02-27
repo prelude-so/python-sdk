@@ -40,6 +40,8 @@ __all__ = ["NotifyResource", "AsyncNotifyResource"]
 
 
 class NotifyResource(SyncAPIResource):
+    """Send transactional and marketing messages with compliance enforcement."""
+
     @cached_property
     def with_raw_response(self) -> NotifyResourceWithRawResponse:
         """
@@ -464,6 +466,8 @@ class NotifyResource(SyncAPIResource):
 
 
 class AsyncNotifyResource(AsyncAPIResource):
+    """Send transactional and marketing messages with compliance enforcement."""
+
     @cached_property
     def with_raw_response(self) -> AsyncNotifyResourceWithRawResponse:
         """

@@ -26,6 +26,8 @@ __all__ = ["TransactionalResource", "AsyncTransactionalResource"]
 
 
 class TransactionalResource(SyncAPIResource):
+    """Send transactional messages (deprecated - use Notify API instead)."""
+
     @cached_property
     def with_raw_response(self) -> TransactionalResourceWithRawResponse:
         """
@@ -139,6 +141,8 @@ class TransactionalResource(SyncAPIResource):
 
 
 class AsyncTransactionalResource(AsyncAPIResource):
+    """Send transactional messages (deprecated - use Notify API instead)."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTransactionalResourceWithRawResponse:
         """
