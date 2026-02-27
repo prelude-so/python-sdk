@@ -25,6 +25,10 @@ __all__ = ["LookupResource", "AsyncLookupResource"]
 
 
 class LookupResource(SyncAPIResource):
+    """
+    Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+    """
+
     @cached_property
     def with_raw_response(self) -> LookupResourceWithRawResponse:
         """
@@ -93,6 +97,10 @@ class LookupResource(SyncAPIResource):
 
 
 class AsyncLookupResource(AsyncAPIResource):
+    """
+    Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncLookupResourceWithRawResponse:
         """

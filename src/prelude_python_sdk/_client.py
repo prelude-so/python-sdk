@@ -99,36 +99,44 @@ class Prelude(SyncAPIClient):
 
     @cached_property
     def lookup(self) -> LookupResource:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import LookupResource
 
         return LookupResource(self)
 
     @cached_property
     def notify(self) -> NotifyResource:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import NotifyResource
 
         return NotifyResource(self)
 
     @cached_property
     def transactional(self) -> TransactionalResource:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import TransactionalResource
 
         return TransactionalResource(self)
 
     @cached_property
     def verification(self) -> VerificationResource:
+        """Verify phone numbers."""
         from .resources.verification import VerificationResource
 
         return VerificationResource(self)
 
     @cached_property
     def verification_management(self) -> VerificationManagementResource:
+        """Verify phone numbers."""
         from .resources.verification_management import VerificationManagementResource
 
         return VerificationManagementResource(self)
 
     @cached_property
     def watch(self) -> WatchResource:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import WatchResource
 
         return WatchResource(self)
@@ -303,36 +311,44 @@ class AsyncPrelude(AsyncAPIClient):
 
     @cached_property
     def lookup(self) -> AsyncLookupResource:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import AsyncLookupResource
 
         return AsyncLookupResource(self)
 
     @cached_property
     def notify(self) -> AsyncNotifyResource:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import AsyncNotifyResource
 
         return AsyncNotifyResource(self)
 
     @cached_property
     def transactional(self) -> AsyncTransactionalResource:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import AsyncTransactionalResource
 
         return AsyncTransactionalResource(self)
 
     @cached_property
     def verification(self) -> AsyncVerificationResource:
+        """Verify phone numbers."""
         from .resources.verification import AsyncVerificationResource
 
         return AsyncVerificationResource(self)
 
     @cached_property
     def verification_management(self) -> AsyncVerificationManagementResource:
+        """Verify phone numbers."""
         from .resources.verification_management import AsyncVerificationManagementResource
 
         return AsyncVerificationManagementResource(self)
 
     @cached_property
     def watch(self) -> AsyncWatchResource:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import AsyncWatchResource
 
         return AsyncWatchResource(self)
@@ -458,36 +474,44 @@ class PreludeWithRawResponse:
 
     @cached_property
     def lookup(self) -> lookup.LookupResourceWithRawResponse:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import LookupResourceWithRawResponse
 
         return LookupResourceWithRawResponse(self._client.lookup)
 
     @cached_property
     def notify(self) -> notify.NotifyResourceWithRawResponse:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import NotifyResourceWithRawResponse
 
         return NotifyResourceWithRawResponse(self._client.notify)
 
     @cached_property
     def transactional(self) -> transactional.TransactionalResourceWithRawResponse:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import TransactionalResourceWithRawResponse
 
         return TransactionalResourceWithRawResponse(self._client.transactional)
 
     @cached_property
     def verification(self) -> verification.VerificationResourceWithRawResponse:
+        """Verify phone numbers."""
         from .resources.verification import VerificationResourceWithRawResponse
 
         return VerificationResourceWithRawResponse(self._client.verification)
 
     @cached_property
     def verification_management(self) -> verification_management.VerificationManagementResourceWithRawResponse:
+        """Verify phone numbers."""
         from .resources.verification_management import VerificationManagementResourceWithRawResponse
 
         return VerificationManagementResourceWithRawResponse(self._client.verification_management)
 
     @cached_property
     def watch(self) -> watch.WatchResourceWithRawResponse:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import WatchResourceWithRawResponse
 
         return WatchResourceWithRawResponse(self._client.watch)
@@ -501,36 +525,44 @@ class AsyncPreludeWithRawResponse:
 
     @cached_property
     def lookup(self) -> lookup.AsyncLookupResourceWithRawResponse:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import AsyncLookupResourceWithRawResponse
 
         return AsyncLookupResourceWithRawResponse(self._client.lookup)
 
     @cached_property
     def notify(self) -> notify.AsyncNotifyResourceWithRawResponse:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import AsyncNotifyResourceWithRawResponse
 
         return AsyncNotifyResourceWithRawResponse(self._client.notify)
 
     @cached_property
     def transactional(self) -> transactional.AsyncTransactionalResourceWithRawResponse:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import AsyncTransactionalResourceWithRawResponse
 
         return AsyncTransactionalResourceWithRawResponse(self._client.transactional)
 
     @cached_property
     def verification(self) -> verification.AsyncVerificationResourceWithRawResponse:
+        """Verify phone numbers."""
         from .resources.verification import AsyncVerificationResourceWithRawResponse
 
         return AsyncVerificationResourceWithRawResponse(self._client.verification)
 
     @cached_property
     def verification_management(self) -> verification_management.AsyncVerificationManagementResourceWithRawResponse:
+        """Verify phone numbers."""
         from .resources.verification_management import AsyncVerificationManagementResourceWithRawResponse
 
         return AsyncVerificationManagementResourceWithRawResponse(self._client.verification_management)
 
     @cached_property
     def watch(self) -> watch.AsyncWatchResourceWithRawResponse:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import AsyncWatchResourceWithRawResponse
 
         return AsyncWatchResourceWithRawResponse(self._client.watch)
@@ -544,36 +576,44 @@ class PreludeWithStreamedResponse:
 
     @cached_property
     def lookup(self) -> lookup.LookupResourceWithStreamingResponse:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import LookupResourceWithStreamingResponse
 
         return LookupResourceWithStreamingResponse(self._client.lookup)
 
     @cached_property
     def notify(self) -> notify.NotifyResourceWithStreamingResponse:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import NotifyResourceWithStreamingResponse
 
         return NotifyResourceWithStreamingResponse(self._client.notify)
 
     @cached_property
     def transactional(self) -> transactional.TransactionalResourceWithStreamingResponse:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import TransactionalResourceWithStreamingResponse
 
         return TransactionalResourceWithStreamingResponse(self._client.transactional)
 
     @cached_property
     def verification(self) -> verification.VerificationResourceWithStreamingResponse:
+        """Verify phone numbers."""
         from .resources.verification import VerificationResourceWithStreamingResponse
 
         return VerificationResourceWithStreamingResponse(self._client.verification)
 
     @cached_property
     def verification_management(self) -> verification_management.VerificationManagementResourceWithStreamingResponse:
+        """Verify phone numbers."""
         from .resources.verification_management import VerificationManagementResourceWithStreamingResponse
 
         return VerificationManagementResourceWithStreamingResponse(self._client.verification_management)
 
     @cached_property
     def watch(self) -> watch.WatchResourceWithStreamingResponse:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import WatchResourceWithStreamingResponse
 
         return WatchResourceWithStreamingResponse(self._client.watch)
@@ -587,24 +627,30 @@ class AsyncPreludeWithStreamedResponse:
 
     @cached_property
     def lookup(self) -> lookup.AsyncLookupResourceWithStreamingResponse:
+        """
+        Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+        """
         from .resources.lookup import AsyncLookupResourceWithStreamingResponse
 
         return AsyncLookupResourceWithStreamingResponse(self._client.lookup)
 
     @cached_property
     def notify(self) -> notify.AsyncNotifyResourceWithStreamingResponse:
+        """Send transactional and marketing messages with compliance enforcement."""
         from .resources.notify import AsyncNotifyResourceWithStreamingResponse
 
         return AsyncNotifyResourceWithStreamingResponse(self._client.notify)
 
     @cached_property
     def transactional(self) -> transactional.AsyncTransactionalResourceWithStreamingResponse:
+        """Send transactional messages (deprecated - use Notify API instead)."""
         from .resources.transactional import AsyncTransactionalResourceWithStreamingResponse
 
         return AsyncTransactionalResourceWithStreamingResponse(self._client.transactional)
 
     @cached_property
     def verification(self) -> verification.AsyncVerificationResourceWithStreamingResponse:
+        """Verify phone numbers."""
         from .resources.verification import AsyncVerificationResourceWithStreamingResponse
 
         return AsyncVerificationResourceWithStreamingResponse(self._client.verification)
@@ -613,12 +659,14 @@ class AsyncPreludeWithStreamedResponse:
     def verification_management(
         self,
     ) -> verification_management.AsyncVerificationManagementResourceWithStreamingResponse:
+        """Verify phone numbers."""
         from .resources.verification_management import AsyncVerificationManagementResourceWithStreamingResponse
 
         return AsyncVerificationManagementResourceWithStreamingResponse(self._client.verification_management)
 
     @cached_property
     def watch(self) -> watch.AsyncWatchResourceWithStreamingResponse:
+        """Evaluate email addresses and phone numbers for trustworthiness."""
         from .resources.watch import AsyncWatchResourceWithStreamingResponse
 
         return AsyncWatchResourceWithStreamingResponse(self._client.watch)

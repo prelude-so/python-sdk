@@ -26,6 +26,8 @@ __all__ = ["WatchResource", "AsyncWatchResource"]
 
 
 class WatchResource(SyncAPIResource):
+    """Evaluate email addresses and phone numbers for trustworthiness."""
+
     @cached_property
     def with_raw_response(self) -> WatchResourceWithRawResponse:
         """
@@ -170,6 +172,8 @@ class WatchResource(SyncAPIResource):
 
 
 class AsyncWatchResource(AsyncAPIResource):
+    """Evaluate email addresses and phone numbers for trustworthiness."""
+
     @cached_property
     def with_raw_response(self) -> AsyncWatchResourceWithRawResponse:
         """

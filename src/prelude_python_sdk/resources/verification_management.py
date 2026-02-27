@@ -32,6 +32,8 @@ __all__ = ["VerificationManagementResource", "AsyncVerificationManagementResourc
 
 
 class VerificationManagementResource(SyncAPIResource):
+    """Verify phone numbers."""
+
     @cached_property
     def with_raw_response(self) -> VerificationManagementResourceWithRawResponse:
         """
@@ -242,6 +244,8 @@ class VerificationManagementResource(SyncAPIResource):
 
 
 class AsyncVerificationManagementResource(AsyncAPIResource):
+    """Verify phone numbers."""
+
     @cached_property
     def with_raw_response(self) -> AsyncVerificationManagementResourceWithRawResponse:
         """
