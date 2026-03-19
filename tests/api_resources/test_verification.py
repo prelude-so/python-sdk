@@ -20,7 +20,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestVerification:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_method_create(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -31,7 +30,6 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_method_create_with_all_params(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -70,7 +68,6 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_raw_response_create(self, client: Prelude) -> None:
         response = client.verification.with_raw_response.create(
@@ -85,7 +82,6 @@ class TestVerification:
         verification = response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_streaming_response_create(self, client: Prelude) -> None:
         with client.verification.with_streaming_response.create(
@@ -151,7 +147,6 @@ class TestAsyncVerification:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_method_create(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -162,7 +157,6 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -201,7 +195,6 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncPrelude) -> None:
         response = await async_client.verification.with_raw_response.create(
@@ -216,7 +209,6 @@ class TestAsyncVerification:
         verification = await response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncPrelude) -> None:
         async with async_client.verification.with_streaming_response.create(
