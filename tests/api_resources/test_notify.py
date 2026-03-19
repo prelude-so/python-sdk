@@ -251,7 +251,6 @@ class TestNotify:
                 config_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_method_send(self, client: Prelude) -> None:
         notify = client.notify.send(
@@ -260,7 +259,6 @@ class TestNotify:
         )
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_method_send_with_all_params(self, client: Prelude) -> None:
         notify = client.notify.send(
@@ -284,7 +282,6 @@ class TestNotify:
         )
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_raw_response_send(self, client: Prelude) -> None:
         response = client.notify.with_raw_response.send(
@@ -297,7 +294,6 @@ class TestNotify:
         notify = response.parse()
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     def test_streaming_response_send(self, client: Prelude) -> None:
         with client.notify.with_streaming_response.send(
@@ -602,7 +598,6 @@ class TestAsyncNotify:
                 config_id="",
             )
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_method_send(self, async_client: AsyncPrelude) -> None:
         notify = await async_client.notify.send(
@@ -611,7 +606,6 @@ class TestAsyncNotify:
         )
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_method_send_with_all_params(self, async_client: AsyncPrelude) -> None:
         notify = await async_client.notify.send(
@@ -635,7 +629,6 @@ class TestAsyncNotify:
         )
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_raw_response_send(self, async_client: AsyncPrelude) -> None:
         response = await async_client.notify.with_raw_response.send(
@@ -648,7 +641,6 @@ class TestAsyncNotify:
         notify = await response.parse()
         assert_matches_type(NotifySendResponse, notify, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server doesn't support callbacks yet")
     @parametrize
     async def test_streaming_response_send(self, async_client: AsyncPrelude) -> None:
         async with async_client.notify.with_streaming_response.send(
