@@ -12,7 +12,7 @@ from ..types import (
     verification_management_delete_phone_number_params,
 )
 from .._types import Body, Query, Headers, NotGiven, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -88,7 +88,7 @@ class VerificationManagementResource(SyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return self._delete(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             body=maybe_transform(
                 {"phone_number": phone_number},
                 verification_management_delete_phone_number_params.VerificationManagementDeletePhoneNumberParams,
@@ -127,7 +127,7 @@ class VerificationManagementResource(SyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return self._get(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -192,7 +192,7 @@ class VerificationManagementResource(SyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return self._post(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             body=maybe_transform(
                 {"phone_number": phone_number},
                 verification_management_set_phone_number_params.VerificationManagementSetPhoneNumberParams,
@@ -300,7 +300,7 @@ class AsyncVerificationManagementResource(AsyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return await self._delete(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             body=await async_maybe_transform(
                 {"phone_number": phone_number},
                 verification_management_delete_phone_number_params.VerificationManagementDeletePhoneNumberParams,
@@ -339,7 +339,7 @@ class AsyncVerificationManagementResource(AsyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return await self._get(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -404,7 +404,7 @@ class AsyncVerificationManagementResource(AsyncAPIResource):
         if not action:
             raise ValueError(f"Expected a non-empty value for `action` but received {action!r}")
         return await self._post(
-            f"/v2/verification/management/phone-numbers/{action}",
+            path_template("/v2/verification/management/phone-numbers/{action}", action=action),
             body=await async_maybe_transform(
                 {"phone_number": phone_number},
                 verification_management_set_phone_number_params.VerificationManagementSetPhoneNumberParams,

@@ -16,7 +16,7 @@ from ..types import (
     notify_list_subscription_phone_number_events_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -87,7 +87,7 @@ class NotifyResource(SyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}",
+            path_template("/v2/notify/management/subscriptions/{config_id}", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -124,7 +124,11 @@ class NotifyResource(SyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -219,7 +223,11 @@ class NotifyResource(SyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -274,7 +282,7 @@ class NotifyResource(SyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers",
+            path_template("/v2/notify/management/subscriptions/{config_id}/phone_numbers", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -513,7 +521,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}",
+            path_template("/v2/notify/management/subscriptions/{config_id}", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -550,7 +558,11 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -645,7 +657,11 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -700,7 +716,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers",
+            path_template("/v2/notify/management/subscriptions/{config_id}/phone_numbers", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
