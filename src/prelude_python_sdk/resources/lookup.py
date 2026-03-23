@@ -9,7 +9,7 @@ import httpx
 
 from ..types import lookup_lookup_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -25,6 +25,10 @@ __all__ = ["LookupResource", "AsyncLookupResource"]
 
 
 class LookupResource(SyncAPIResource):
+    """
+    Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+    """
+
     @cached_property
     def with_raw_response(self) -> LookupResourceWithRawResponse:
         """
@@ -80,7 +84,7 @@ class LookupResource(SyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return self._get(
-            f"/v2/lookup/{phone_number}",
+            path_template("/v2/lookup/{phone_number}", phone_number=phone_number),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -93,6 +97,10 @@ class LookupResource(SyncAPIResource):
 
 
 class AsyncLookupResource(AsyncAPIResource):
+    """
+    Retrieve detailed information about a phone number including carrier data, line type, and portability status.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncLookupResourceWithRawResponse:
         """
@@ -148,7 +156,7 @@ class AsyncLookupResource(AsyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return await self._get(
-            f"/v2/lookup/{phone_number}",
+            path_template("/v2/lookup/{phone_number}", phone_number=phone_number),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

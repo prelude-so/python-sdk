@@ -14,6 +14,8 @@ class WatchSendEventsParams(TypedDict, total=False):
 
 
 class EventTarget(TypedDict, total=False):
+    """The event target. Only supports phone numbers for now."""
+
     type: Required[Literal["phone_number", "email_address"]]
     """The type of the target. Either "phone_number" or "email_address"."""
 

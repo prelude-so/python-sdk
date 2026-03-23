@@ -20,7 +20,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestVerification:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_method_create(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -31,7 +30,6 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_method_create_with_all_params(self, client: Prelude) -> None:
         verification = client.verification.create(
@@ -49,7 +47,6 @@ class TestVerification:
                 "callback_url": "callback_url",
                 "code_size": 5,
                 "custom_code": "123456",
-                "integration": "auth0",
                 "locale": "el-GR",
                 "method": "auto",
                 "preferred_channel": "sms",
@@ -62,7 +59,7 @@ class TestVerification:
                 "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
                 "device_model": "iPhone17,2",
                 "device_platform": "ios",
-                "ip": "192.0.2.1",
+                "ip": "203.0.113.123",
                 "is_trusted_user": False,
                 "ja4_fingerprint": "t13d1516h2_8daaf6152771_e5627efa2ab1",
                 "os_version": "18.0.1",
@@ -71,7 +68,6 @@ class TestVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_raw_response_create(self, client: Prelude) -> None:
         response = client.verification.with_raw_response.create(
@@ -86,7 +82,6 @@ class TestVerification:
         verification = response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_streaming_response_create(self, client: Prelude) -> None:
         with client.verification.with_streaming_response.create(
@@ -152,7 +147,6 @@ class TestAsyncVerification:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_method_create(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -163,7 +157,6 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncPrelude) -> None:
         verification = await async_client.verification.create(
@@ -181,7 +174,6 @@ class TestAsyncVerification:
                 "callback_url": "callback_url",
                 "code_size": 5,
                 "custom_code": "123456",
-                "integration": "auth0",
                 "locale": "el-GR",
                 "method": "auto",
                 "preferred_channel": "sms",
@@ -194,7 +186,7 @@ class TestAsyncVerification:
                 "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
                 "device_model": "iPhone17,2",
                 "device_platform": "ios",
-                "ip": "192.0.2.1",
+                "ip": "203.0.113.123",
                 "is_trusted_user": False,
                 "ja4_fingerprint": "t13d1516h2_8daaf6152771_e5627efa2ab1",
                 "os_version": "18.0.1",
@@ -203,7 +195,6 @@ class TestAsyncVerification:
         )
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncPrelude) -> None:
         response = await async_client.verification.with_raw_response.create(
@@ -218,7 +209,6 @@ class TestAsyncVerification:
         verification = await response.parse()
         assert_matches_type(VerificationCreateResponse, verification, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncPrelude) -> None:
         async with async_client.verification.with_streaming_response.create(

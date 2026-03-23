@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMetadata", "FeedbackSignals"]
+__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMetadata"]
 
 
 class WatchSendFeedbacksParams(TypedDict, total=False):
@@ -14,6 +14,8 @@ class WatchSendFeedbacksParams(TypedDict, total=False):
 
 
 class FeedbackTarget(TypedDict, total=False):
+    """The feedback target. Only supports phone numbers for now."""
+
     type: Required[Literal["phone_number", "email_address"]]
     """The type of the target. Either "phone_number" or "email_address"."""
 
@@ -22,58 +24,13 @@ class FeedbackTarget(TypedDict, total=False):
 
 
 class FeedbackMetadata(TypedDict, total=False):
+    """The metadata for this feedback."""
+
     correlation_id: str
     """A user-defined identifier to correlate this feedback with.
 
     It is returned in the response and any webhook events that refer to this
     feedback.
-    """
-
-
-class FeedbackSignals(TypedDict, total=False):
-    app_version: str
-    """The version of your application."""
-
-    device_id: str
-    """The unique identifier for the user's device.
-
-    For Android, this corresponds to the `ANDROID_ID` and for iOS, this corresponds
-    to the `identifierForVendor`.
-    """
-
-    device_model: str
-    """The model of the user's device."""
-
-    device_platform: Literal["android", "ios", "ipados", "tvos", "web"]
-    """The type of the user's device."""
-
-    ip: str
-    """The IP address of the user's device."""
-
-    is_trusted_user: bool
-    """
-    This signal should provide a higher level of trust, indicating that the user is
-    genuine. Contact us to discuss your use case. For more details, refer to
-    [Signals](/verify/v2/documentation/prevent-fraud#signals).
-    """
-
-    ja4_fingerprint: str
-    """The JA4 fingerprint observed for the connection.
-
-    Prelude will infer it automatically when requests go through our client SDK
-    (which uses Prelude's edge), but you can also provide it explicitly if you
-    terminate TLS yourself.
-    """
-
-    os_version: str
-    """The version of the user's device operating system."""
-
-    user_agent: str
-    """The user agent of the user's device.
-
-    If the individual fields (os_version, device_platform, device_model) are
-    provided, we will prioritize those values instead of parsing them from the user
-    agent string.
     """
 
 
@@ -84,15 +41,5 @@ class Feedback(TypedDict, total=False):
     type: Required[Literal["verification.started", "verification.completed"]]
     """The type of feedback."""
 
-    dispatch_id: str
-    """The identifier of the dispatch that came from the front-end SDK."""
-
     metadata: FeedbackMetadata
     """The metadata for this feedback."""
-
-    signals: FeedbackSignals
-    """The signals used for anti-fraud.
-
-    For more details, refer to
-    [Signals](/verify/v2/documentation/prevent-fraud#signals).
-    """

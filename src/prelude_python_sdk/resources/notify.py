@@ -16,7 +16,7 @@ from ..types import (
     notify_list_subscription_phone_number_events_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -40,6 +40,8 @@ __all__ = ["NotifyResource", "AsyncNotifyResource"]
 
 
 class NotifyResource(SyncAPIResource):
+    """Send transactional and marketing messages with compliance enforcement."""
+
     @cached_property
     def with_raw_response(self) -> NotifyResourceWithRawResponse:
         """
@@ -85,7 +87,7 @@ class NotifyResource(SyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}",
+            path_template("/v2/notify/management/subscriptions/{config_id}", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -122,7 +124,11 @@ class NotifyResource(SyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -217,7 +223,11 @@ class NotifyResource(SyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -272,7 +282,7 @@ class NotifyResource(SyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers",
+            path_template("/v2/notify/management/subscriptions/{config_id}/phone_numbers", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -297,6 +307,7 @@ class NotifyResource(SyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -324,6 +335,9 @@ class NotifyResource(SyncAPIResource):
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
               message.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -360,6 +374,7 @@ class NotifyResource(SyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -382,6 +397,7 @@ class NotifyResource(SyncAPIResource):
         to: SequenceNotStr[str],
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_batch_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -406,6 +422,9 @@ class NotifyResource(SyncAPIResource):
           callback_url: The URL where webhooks will be sent for delivery events.
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.
@@ -437,6 +456,7 @@ class NotifyResource(SyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -454,6 +474,8 @@ class NotifyResource(SyncAPIResource):
 
 
 class AsyncNotifyResource(AsyncAPIResource):
+    """Send transactional and marketing messages with compliance enforcement."""
+
     @cached_property
     def with_raw_response(self) -> AsyncNotifyResourceWithRawResponse:
         """
@@ -499,7 +521,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}",
+            path_template("/v2/notify/management/subscriptions/{config_id}", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -536,7 +558,11 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -631,7 +657,11 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not phone_number:
             raise ValueError(f"Expected a non-empty value for `phone_number` but received {phone_number!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+            path_template(
+                "/v2/notify/management/subscriptions/{config_id}/phone_numbers/{phone_number}/events",
+                config_id=config_id,
+                phone_number=phone_number,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -686,7 +716,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         if not config_id:
             raise ValueError(f"Expected a non-empty value for `config_id` but received {config_id!r}")
         return await self._get(
-            f"/v2/notify/management/subscriptions/{config_id}/phone_numbers",
+            path_template("/v2/notify/management/subscriptions/{config_id}/phone_numbers", config_id=config_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -711,6 +741,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -738,6 +769,9 @@ class AsyncNotifyResource(AsyncAPIResource):
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
               message.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -774,6 +808,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -796,6 +831,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         to: SequenceNotStr[str],
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: notify_send_batch_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -820,6 +856,9 @@ class AsyncNotifyResource(AsyncAPIResource):
           callback_url: The URL where webhooks will be sent for delivery events.
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.
@@ -851,6 +890,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,

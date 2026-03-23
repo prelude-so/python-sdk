@@ -9,6 +9,8 @@ __all__ = ["NotifyListSubscriptionConfigsResponse", "Config", "ConfigMessages", 
 
 
 class ConfigMessages(BaseModel):
+    """The subscription messages configuration."""
+
     help_message: Optional[str] = None
     """Message sent when user requests help."""
 

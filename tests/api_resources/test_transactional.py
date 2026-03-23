@@ -19,7 +19,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestTransactional:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_method_send(self, client: Prelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -30,7 +29,6 @@ class TestTransactional:
 
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_method_send_with_all_params(self, client: Prelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -39,6 +37,10 @@ class TestTransactional:
                 to="+30123456789",
                 callback_url="callback_url",
                 correlation_id="correlation_id",
+                document={
+                    "filename": "invoice.pdf",
+                    "url": "https://example.com/invoice.pdf",
+                },
                 expires_at="expires_at",
                 from_="from",
                 locale="el-GR",
@@ -48,7 +50,6 @@ class TestTransactional:
 
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_raw_response_send(self, client: Prelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -62,7 +63,6 @@ class TestTransactional:
         transactional = response.parse()
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     def test_streaming_response_send(self, client: Prelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -84,7 +84,6 @@ class TestAsyncTransactional:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_method_send(self, async_client: AsyncPrelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -95,7 +94,6 @@ class TestAsyncTransactional:
 
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_method_send_with_all_params(self, async_client: AsyncPrelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -104,6 +102,10 @@ class TestAsyncTransactional:
                 to="+30123456789",
                 callback_url="callback_url",
                 correlation_id="correlation_id",
+                document={
+                    "filename": "invoice.pdf",
+                    "url": "https://example.com/invoice.pdf",
+                },
                 expires_at="expires_at",
                 from_="from",
                 locale="el-GR",
@@ -113,7 +115,6 @@ class TestAsyncTransactional:
 
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_raw_response_send(self, async_client: AsyncPrelude) -> None:
         with pytest.warns(DeprecationWarning):
@@ -127,7 +128,6 @@ class TestAsyncTransactional:
         transactional = await response.parse()
         assert_matches_type(TransactionalSendResponse, transactional, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support callbacks yet")
     @parametrize
     async def test_streaming_response_send(self, async_client: AsyncPrelude) -> None:
         with pytest.warns(DeprecationWarning):

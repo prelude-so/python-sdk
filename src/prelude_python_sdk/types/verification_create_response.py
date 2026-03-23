@@ -9,6 +9,8 @@ __all__ = ["VerificationCreateResponse", "Metadata", "Silent"]
 
 
 class Metadata(BaseModel):
+    """The metadata for this verification."""
+
     correlation_id: Optional[str] = None
     """A user-defined identifier to correlate this verification with.
 
@@ -18,6 +20,8 @@ class Metadata(BaseModel):
 
 
 class Silent(BaseModel):
+    """The silent verification specific properties."""
+
     request_url: str
     """The URL to start the silent verification towards."""
 
@@ -29,8 +33,16 @@ class VerificationCreateResponse(BaseModel):
     method: Literal["email", "message", "silent", "voice"]
     """The method used for verifying this phone number."""
 
-    status: Literal["success", "retry", "blocked"]
-    """The status of the verification."""
+    status: Literal["success", "retry", "challenged", "blocked"]
+    """The status of the verification.
+
+    - `success` - A new verification window was created.
+    - `retry` - A new attempt was created for an existing verification window.
+    - `challenged` - The verification is suspicious and is restricted to non-SMS and
+      non-voice channels only. This mode must be enabled for your customer account
+      by Prelude support.
+    - `blocked` - The verification was blocked.
+    """
 
     channels: Optional[List[Literal["rcs", "silent", "sms", "telegram", "viber", "voice", "whatsapp", "zalo"]]] = None
     """The ordered sequence of channels to be used for verification"""

@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["TransactionalSendParams"]
+__all__ = ["TransactionalSendParams", "Document"]
 
 
 class TransactionalSendParams(TypedDict, total=False):
@@ -25,6 +25,12 @@ class TransactionalSendParams(TypedDict, total=False):
 
     It is returned in the response and any webhook events that refer to this
     transactionalmessage.
+    """
+
+    document: Document
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
     """
 
     expires_at: str
@@ -56,3 +62,16 @@ class TransactionalSendParams(TypedDict, total=False):
 
     variables: Dict[str, str]
     """The variables to be replaced in the template."""
+
+
+class Document(TypedDict, total=False):
+    """A document to attach to the message.
+
+    Only supported on WhatsApp templates that have a document header.
+    """
+
+    filename: Required[str]
+    """The filename to display for the document."""
+
+    url: Required[str]
+    """The URL of the document to attach. Must be a valid HTTP or HTTPS URL."""

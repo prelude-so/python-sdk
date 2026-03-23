@@ -26,6 +26,8 @@ __all__ = ["TransactionalResource", "AsyncTransactionalResource"]
 
 
 class TransactionalResource(SyncAPIResource):
+    """Send transactional messages (deprecated - use Notify API instead)."""
+
     @cached_property
     def with_raw_response(self) -> TransactionalResourceWithRawResponse:
         """
@@ -53,6 +55,7 @@ class TransactionalResource(SyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: transactional_send_params.Document | Omit = omit,
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -80,6 +83,9 @@ class TransactionalResource(SyncAPIResource):
           correlation_id: A user-defined identifier to correlate this transactional message with. It is
               returned in the response and any webhook events that refer to this
               transactionalmessage.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date.
 
@@ -118,6 +124,7 @@ class TransactionalResource(SyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
@@ -134,6 +141,8 @@ class TransactionalResource(SyncAPIResource):
 
 
 class AsyncTransactionalResource(AsyncAPIResource):
+    """Send transactional messages (deprecated - use Notify API instead)."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTransactionalResourceWithRawResponse:
         """
@@ -161,6 +170,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
         to: str,
         callback_url: str | Omit = omit,
         correlation_id: str | Omit = omit,
+        document: transactional_send_params.Document | Omit = omit,
         expires_at: str | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
@@ -188,6 +198,9 @@ class AsyncTransactionalResource(AsyncAPIResource):
           correlation_id: A user-defined identifier to correlate this transactional message with. It is
               returned in the response and any webhook events that refer to this
               transactionalmessage.
+
+          document: A document to attach to the message. Only supported on WhatsApp templates that
+              have a document header.
 
           expires_at: The message expiration date.
 
@@ -226,6 +239,7 @@ class AsyncTransactionalResource(AsyncAPIResource):
                     "to": to,
                     "callback_url": callback_url,
                     "correlation_id": correlation_id,
+                    "document": document,
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
