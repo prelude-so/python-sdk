@@ -1,5 +1,61 @@
 # Changelog
 
+## 0.11.0 (2026-03-23)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/prelude-so/python-sdk/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** api update ([859b8f0](https://github.com/prelude-so/python-sdk/commit/859b8f0cccf997852bc2d1911b1699da74741551))
+* **api:** api update ([4c5c4e2](https://github.com/prelude-so/python-sdk/commit/4c5c4e253a4f490b338d5536201a0ae3d5bc64a7))
+* **api:** api update ([24288cd](https://github.com/prelude-so/python-sdk/commit/24288cdaca292916fbb906003adcbb80f8315343))
+* **api:** api update ([bc95591](https://github.com/prelude-so/python-sdk/commit/bc95591afd9e4e6e09a4c8f83a5730ad3a5ed051))
+* **api:** api update ([c00e5f5](https://github.com/prelude-so/python-sdk/commit/c00e5f5f604a94604140731637d7fb975376188e))
+* **api:** api update ([f7afece](https://github.com/prelude-so/python-sdk/commit/f7afece5c9ea5bb3f3420a8a1f543da1e136bcff))
+* **api:** api update ([94f4fa9](https://github.com/prelude-so/python-sdk/commit/94f4fa9904573e950ae6d01d289cce34e9e70370))
+* **api:** api update ([6ab992c](https://github.com/prelude-so/python-sdk/commit/6ab992cc4da735868c0aed05cd737ed33f2c8d68))
+* **client:** add custom JSON encoder for extended type support ([7b89b88](https://github.com/prelude-so/python-sdk/commit/7b89b884402982ffc74e27f13bfccdff24b8ff75))
+* **client:** add support for binary request streaming ([5cc25b3](https://github.com/prelude-so/python-sdk/commit/5cc25b3416e9fe458d27fb26a0f8ebca1c36312a))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([b60ac10](https://github.com/prelude-so/python-sdk/commit/b60ac109b60c4ae2687087ff30a7544788da2869))
+* **pydantic:** do not pass `by_alias` unless set ([244c7f4](https://github.com/prelude-so/python-sdk/commit/244c7f44d697be140916ba0f1f4abcafde65628f))
+* sanitize endpoint path params ([8fca4f3](https://github.com/prelude-so/python-sdk/commit/8fca4f378aa9cfb72327acba67902fab1caac25c))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([1197a12](https://github.com/prelude-so/python-sdk/commit/1197a1218644530a19719ab9866385a3155581d5))
+* use async_to_httpx_files in patch method ([2a4c51a](https://github.com/prelude-so/python-sdk/commit/2a4c51aa40b31c9709fd482771a5eb1defd60786))
+
+
+### Chores
+
+* add missing docstrings ([6fc2141](https://github.com/prelude-so/python-sdk/commit/6fc2141b36efba6d357336a36c1305864ffec8cb))
+* **ci:** skip uploading artifacts on stainless-internal branches ([c6b3603](https://github.com/prelude-so/python-sdk/commit/c6b360343d0e2115be558ae6b17017235428206d))
+* **ci:** upgrade `actions/github-script` ([37e674a](https://github.com/prelude-so/python-sdk/commit/37e674a17a76e2a0bb3a2f9b29439ea233830109))
+* **docs:** add missing descriptions ([1a73fd8](https://github.com/prelude-so/python-sdk/commit/1a73fd80ad7b60fda2da8ad9746aede6b7d7bf1c))
+* format all `api.md` files ([cafa350](https://github.com/prelude-so/python-sdk/commit/cafa350bb5651faa97e3d5b0ba520a24805e57ae))
+* **internal:** add `--fix` argument to lint script ([aaa77d7](https://github.com/prelude-so/python-sdk/commit/aaa77d73edce4cc03a4cd203b90a7c6f9e145bbd))
+* **internal:** add missing files argument to base client ([84ade2c](https://github.com/prelude-so/python-sdk/commit/84ade2c96740cc217646929248a0b4e60c2434f0))
+* **internal:** add request options to SSE classes ([1d2f5ba](https://github.com/prelude-so/python-sdk/commit/1d2f5baf54ac0ed2e95c94c0c8a5ad97456d8db7))
+* **internal:** bump dependencies ([cd147cc](https://github.com/prelude-so/python-sdk/commit/cd147cc674b99d1f42840dc8be4cbc50abe458cb))
+* **internal:** codegen related update ([72f7709](https://github.com/prelude-so/python-sdk/commit/72f7709ffeae6b6b4ad835f0861136d713aa3ba5))
+* **internal:** fix lint error on Python 3.14 ([6fa1e9a](https://github.com/prelude-so/python-sdk/commit/6fa1e9a65dd600399a33c4184b159693dc5f6fd2))
+* **internal:** make `test_proxy_environment_variables` more resilient ([1ca0a6e](https://github.com/prelude-so/python-sdk/commit/1ca0a6ec1b01fc52bf7c02225a4a63873da0a75b))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([0e5b065](https://github.com/prelude-so/python-sdk/commit/0e5b065a92f740de2a59ad94777ca4890b0aba13))
+* **internal:** tweak CI branches ([9cc5168](https://github.com/prelude-so/python-sdk/commit/9cc516803d1e4844599d97adf21a65b2b367b83c))
+* **internal:** update `actions/checkout` version ([34bf2ba](https://github.com/prelude-so/python-sdk/commit/34bf2ba6a9e133d5287719459da01be9289b115d))
+* **internal:** update gitignore ([05489cd](https://github.com/prelude-so/python-sdk/commit/05489cd78aa65bde7c6769a8f5ce59ebb5a6d1dc))
+* speedup initial import ([5300f18](https://github.com/prelude-so/python-sdk/commit/5300f18a10c0db7b222c1bb3e487402aab9d318e))
+* **test:** do not count install time for mock server timeout ([73aaccf](https://github.com/prelude-so/python-sdk/commit/73aaccf6b2dde8d80b4ee5d090a9057f847b4bac))
+* **tests:** bump steady to v0.19.4 ([9959df7](https://github.com/prelude-so/python-sdk/commit/9959df70122d8e68328b0c6c581c65b76e21aeb6))
+* **tests:** bump steady to v0.19.5 ([3ed3d6b](https://github.com/prelude-so/python-sdk/commit/3ed3d6bc91e659dbd67b78e615c5f6d1c57bdb18))
+* update mock server docs ([85a5da0](https://github.com/prelude-so/python-sdk/commit/85a5da01c2f04110317bd8a8c5a4cec4bd7be831))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([d28c377](https://github.com/prelude-so/python-sdk/commit/d28c377805db75b127ed2c1b090c2e481cc89ccd))
+
 ## 0.10.0 (2025-12-05)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/prelude-so/python-sdk/compare/v0.9.0...v0.10.0)
