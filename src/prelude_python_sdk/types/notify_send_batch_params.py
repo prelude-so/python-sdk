@@ -43,7 +43,7 @@ class NotifySendBatchParams(TypedDict, total=False):
     locale: str
     """A BCP-47 formatted locale string."""
 
-    preferred_channel: Literal["sms", "whatsapp"]
+    preferred_channel: Literal["sms", "rcs", "whatsapp"]
     """Preferred channel for delivery. If unavailable, automatic fallback applies."""
 
     schedule_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

@@ -51,7 +51,7 @@ class NotifySendParams(TypedDict, total=False):
     set on the template will be used.
     """
 
-    preferred_channel: Literal["sms", "whatsapp"]
+    preferred_channel: Literal["sms", "rcs", "whatsapp"]
     """The preferred channel to be used in priority for message delivery.
 
     If the channel is unavailable, the system will fallback to other available

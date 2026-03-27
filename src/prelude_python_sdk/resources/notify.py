@@ -311,7 +311,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -322,8 +322,8 @@ class NotifyResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotifySendResponse:
         """
-        Send transactional and marketing messages to your users via SMS and WhatsApp
-        with automatic compliance enforcement.
+        Send transactional and marketing messages to your users via SMS, RCS and
+        WhatsApp with automatic compliance enforcement.
 
         Args:
           template_id: The template identifier configured by your Customer Success team.
@@ -401,7 +401,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -745,7 +745,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -756,8 +756,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotifySendResponse:
         """
-        Send transactional and marketing messages to your users via SMS and WhatsApp
-        with automatic compliance enforcement.
+        Send transactional and marketing messages to your users via SMS, RCS and
+        WhatsApp with automatic compliance enforcement.
 
         Args:
           template_id: The template identifier configured by your Customer Success team.
@@ -835,7 +835,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
