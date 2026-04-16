@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["NotifySendParams", "Document"]
+__all__ = ["NotifySendParams", "Context", "Document"]
 
 
 class NotifySendParams(TypedDict, total=False):
@@ -20,6 +20,13 @@ class NotifySendParams(TypedDict, total=False):
 
     callback_url: str
     """The URL where webhooks will be sent for message delivery events."""
+
+    context: Context
+    """Context for replying to an inbound message.
+
+    When provided, the message is sent as a WhatsApp reply within the 24-hour
+    conversation window.
+    """
 
     correlation_id: str
     """A user-defined identifier to correlate this message with your internal systems.
@@ -65,8 +72,28 @@ class NotifySendParams(TypedDict, total=False):
     automatically adjusted for compliance with local time window restrictions.
     """
 
+    text: str
+    """The reply message body.
+
+    Required when `context.reply_to` is provided. Used for 2-way WhatsApp messaging
+    to send free-form text replies within a conversation window.
+    """
+
     variables: Dict[str, str]
     """The variables to be replaced in the template."""
+
+
+class Context(TypedDict, total=False):
+    """Context for replying to an inbound message.
+
+    When provided, the message is sent as a WhatsApp reply within the 24-hour conversation window.
+    """
+
+    reply_to: Required[str]
+    """The inbound message ID (prefixed with `im_`) to reply to.
+
+    This ID is provided in the `inbound.message.received` webhook event.
+    """
 
 
 class Document(TypedDict, total=False):

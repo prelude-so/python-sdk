@@ -306,6 +306,7 @@ class NotifyResource(SyncAPIResource):
         template_id: str,
         to: str,
         callback_url: str | Omit = omit,
+        context: notify_send_params.Context | Omit = omit,
         correlation_id: str | Omit = omit,
         document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
@@ -313,6 +314,7 @@ class NotifyResource(SyncAPIResource):
         locale: str | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
+        text: str | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -331,6 +333,9 @@ class NotifyResource(SyncAPIResource):
           to: The recipient's phone number in E.164 format.
 
           callback_url: The URL where webhooks will be sent for message delivery events.
+
+          context: Context for replying to an inbound message. When provided, the message is sent
+              as a WhatsApp reply within the 24-hour conversation window.
 
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
@@ -356,6 +361,10 @@ class NotifyResource(SyncAPIResource):
               can be scheduled up to 90 days in advance and will be automatically adjusted for
               compliance with local time window restrictions.
 
+          text: The reply message body. Required when `context.reply_to` is provided. Used for
+              2-way WhatsApp messaging to send free-form text replies within a conversation
+              window.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -373,6 +382,7 @@ class NotifyResource(SyncAPIResource):
                     "template_id": template_id,
                     "to": to,
                     "callback_url": callback_url,
+                    "context": context,
                     "correlation_id": correlation_id,
                     "document": document,
                     "expires_at": expires_at,
@@ -380,6 +390,7 @@ class NotifyResource(SyncAPIResource):
                     "locale": locale,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
+                    "text": text,
                     "variables": variables,
                 },
                 notify_send_params.NotifySendParams,
@@ -740,6 +751,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         template_id: str,
         to: str,
         callback_url: str | Omit = omit,
+        context: notify_send_params.Context | Omit = omit,
         correlation_id: str | Omit = omit,
         document: notify_send_params.Document | Omit = omit,
         expires_at: Union[str, datetime] | Omit = omit,
@@ -747,6 +759,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         locale: str | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
+        text: str | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -765,6 +778,9 @@ class AsyncNotifyResource(AsyncAPIResource):
           to: The recipient's phone number in E.164 format.
 
           callback_url: The URL where webhooks will be sent for message delivery events.
+
+          context: Context for replying to an inbound message. When provided, the message is sent
+              as a WhatsApp reply within the 24-hour conversation window.
 
           correlation_id: A user-defined identifier to correlate this message with your internal systems.
               It is returned in the response and any webhook events that refer to this
@@ -790,6 +806,10 @@ class AsyncNotifyResource(AsyncAPIResource):
               can be scheduled up to 90 days in advance and will be automatically adjusted for
               compliance with local time window restrictions.
 
+          text: The reply message body. Required when `context.reply_to` is provided. Used for
+              2-way WhatsApp messaging to send free-form text replies within a conversation
+              window.
+
           variables: The variables to be replaced in the template.
 
           extra_headers: Send extra headers
@@ -807,6 +827,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "template_id": template_id,
                     "to": to,
                     "callback_url": callback_url,
+                    "context": context,
                     "correlation_id": correlation_id,
                     "document": document,
                     "expires_at": expires_at,
@@ -814,6 +835,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "locale": locale,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
+                    "text": text,
                     "variables": variables,
                 },
                 notify_send_params.NotifySendParams,
