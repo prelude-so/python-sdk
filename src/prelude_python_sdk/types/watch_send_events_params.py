@@ -10,7 +10,10 @@ __all__ = ["WatchSendEventsParams", "Event", "EventTarget"]
 
 class WatchSendEventsParams(TypedDict, total=False):
     events: Required[Iterable[Event]]
-    """A list of events to dispatch."""
+    """A list of events to dispatch.
+
+    A maximum of 100 events can be sent in a single request.
+    """
 
 
 class EventTarget(TypedDict, total=False):
