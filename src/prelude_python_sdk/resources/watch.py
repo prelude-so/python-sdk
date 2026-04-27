@@ -115,7 +115,8 @@ class WatchResource(SyncAPIResource):
         Events will be analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          events: A list of events to dispatch.
+          events: A list of events to dispatch. A maximum of 100 events can be sent in a single
+              request.
 
           extra_headers: Send extra headers
 
@@ -151,7 +152,8 @@ class WatchResource(SyncAPIResource):
         analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          feedbacks: A list of feedbacks to send.
+          feedbacks: A list of feedbacks to send. A maximum of 100 feedbacks can be sent in a single
+              request.
 
           extra_headers: Send extra headers
 
@@ -261,7 +263,8 @@ class AsyncWatchResource(AsyncAPIResource):
         Events will be analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          events: A list of events to dispatch.
+          events: A list of events to dispatch. A maximum of 100 events can be sent in a single
+              request.
 
           extra_headers: Send extra headers
 
@@ -297,7 +300,8 @@ class AsyncWatchResource(AsyncAPIResource):
         analyzed for proactive fraud prevention and risk scoring.
 
         Args:
-          feedbacks: A list of feedbacks to send.
+          feedbacks: A list of feedbacks to send. A maximum of 100 feedbacks can be sent in a single
+              request.
 
           extra_headers: Send extra headers
 

@@ -10,7 +10,10 @@ __all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMe
 
 class WatchSendFeedbacksParams(TypedDict, total=False):
     feedbacks: Required[Iterable[Feedback]]
-    """A list of feedbacks to send."""
+    """A list of feedbacks to send.
+
+    A maximum of 100 feedbacks can be sent in a single request.
+    """
 
 
 class FeedbackTarget(TypedDict, total=False):
