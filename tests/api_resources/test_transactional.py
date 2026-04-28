@@ -38,8 +38,8 @@ class TestTransactional:
                 callback_url="callback_url",
                 correlation_id="correlation_id",
                 document={
-                    "filename": "invoice.pdf",
                     "url": "https://example.com/invoice.pdf",
+                    "filename": "invoice.pdf",
                 },
                 expires_at="expires_at",
                 from_="from",
@@ -103,8 +103,8 @@ class TestAsyncTransactional:
                 callback_url="callback_url",
                 correlation_id="correlation_id",
                 document={
-                    "filename": "invoice.pdf",
                     "url": "https://example.com/invoice.pdf",
+                    "filename": "invoice.pdf",
                 },
                 expires_at="expires_at",
                 from_="from",

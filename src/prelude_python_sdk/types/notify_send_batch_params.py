@@ -26,9 +26,17 @@ class NotifySendBatchParams(TypedDict, total=False):
     """A user-defined identifier to correlate this request with your internal systems."""
 
     document: Document
-    """A document to attach to the message.
+    """A media attachment to include in the message header.
 
-    Only supported on WhatsApp templates that have a document header.
+    Supported on WhatsApp templates registered with a `DOCUMENT`, `IMAGE`, or
+    `VIDEO` header. The media type is determined by the template's registered header
+    format; send the matching file type for each.
+
+    - `DOCUMENT` headers accept PDF and other document formats; `filename` is
+      required and displayed to the recipient.
+    - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename`
+      is ignored.
+    - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
     """
 
     expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
@@ -57,13 +65,28 @@ class NotifySendBatchParams(TypedDict, total=False):
 
 
 class Document(TypedDict, total=False):
-    """A document to attach to the message.
+    """A media attachment to include in the message header.
 
-    Only supported on WhatsApp templates that have a document header.
+    Supported on
+    WhatsApp templates registered with a `DOCUMENT`, `IMAGE`, or
+    `VIDEO` header. The media type is determined by the template's
+    registered header format; send the matching file type for each.
+
+    - `DOCUMENT` headers accept PDF and other document formats; `filename` is required and displayed to the recipient.
+    - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename` is ignored.
+    - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
     """
 
-    filename: Required[str]
-    """The filename to display for the document."""
-
     url: Required[str]
-    """The URL of the document to attach. Must be a valid HTTP or HTTPS URL."""
+    """HTTPS URL of the media file.
+
+    The file extension must match the template's registered header format (PDF for
+    DOCUMENT; PNG/JPG/JPEG/WEBP for IMAGE; MP4/3GP for VIDEO).
+    """
+
+    filename: str
+    """Filename displayed to the recipient.
+
+    Required for templates with a `DOCUMENT` header; ignored for `IMAGE` and `VIDEO`
+    headers.
+    """
