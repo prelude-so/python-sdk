@@ -265,7 +265,6 @@ class TestNotify:
             template_id="template_01k8ap1btqf5r9fq2c8ax5fhc9",
             to="+33612345678",
             callback_url="https://your-app.com/webhooks/notify",
-            context={"reply_to": "im_01k8aq2zggeyssvt53zgvpx63a"},
             correlation_id="order-12345",
             document={
                 "url": "https://example.com/invoice.pdf",
@@ -276,7 +275,6 @@ class TestNotify:
             locale="el-GR",
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
-            text="Thanks for reaching out! We'll look into your request.",
             variables={
                 "order_id": "12345",
                 "amount": "$49.99",
@@ -614,7 +612,6 @@ class TestAsyncNotify:
             template_id="template_01k8ap1btqf5r9fq2c8ax5fhc9",
             to="+33612345678",
             callback_url="https://your-app.com/webhooks/notify",
-            context={"reply_to": "im_01k8aq2zggeyssvt53zgvpx63a"},
             correlation_id="order-12345",
             document={
                 "url": "https://example.com/invoice.pdf",
@@ -625,7 +622,6 @@ class TestAsyncNotify:
             locale="el-GR",
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
-            text="Thanks for reaching out! We'll look into your request.",
             variables={
                 "order_id": "12345",
                 "amount": "$49.99",
