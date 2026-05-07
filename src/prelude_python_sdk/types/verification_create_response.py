@@ -33,7 +33,7 @@ class VerificationCreateResponse(BaseModel):
     method: Literal["email", "message", "silent", "voice"]
     """The method used for verifying this phone number."""
 
-    status: Literal["success", "retry", "challenged", "blocked"]
+    status: Literal["success", "retry", "challenged", "blocked", "shadow_blocked"]
     """The status of the verification.
 
     - `success` - A new verification window was created.
@@ -42,6 +42,9 @@ class VerificationCreateResponse(BaseModel):
       non-voice channels only. This mode must be enabled for your customer account
       by Prelude support.
     - `blocked` - The verification was blocked.
+    - `shadow_blocked` - The verification triggered a block rule but the decision
+      was not enforced; this is used to dry-run anti-fraud configuration. This mode
+      must be enabled for your customer account by Prelude support.
     """
 
     channels: Optional[List[Literal["rcs", "silent", "sms", "telegram", "viber", "voice", "whatsapp", "zalo"]]] = None
@@ -63,7 +66,7 @@ class VerificationCreateResponse(BaseModel):
     ] = None
     """The reason why the verification was blocked.
 
-    Only present when status is "blocked".
+    Only present when status is "blocked" or "shadow_blocked".
 
     - `expired_signature` - The signature of the SDK signals is expired. They should
       be sent within the hour following their collection.
@@ -99,8 +102,8 @@ class VerificationCreateResponse(BaseModel):
     ] = None
     """The risk factors that contributed to the verification being blocked.
 
-    Only present when status is "blocked" and the anti-fraud system detected
-    specific risk signals.
+    Only present when status is "blocked" or "shadow_blocked" and the anti-fraud
+    system detected specific risk signals.
 
     - `behavioral_pattern` - The phone number past behavior during verification
       flows exhibits suspicious patterns.
