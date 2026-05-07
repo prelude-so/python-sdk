@@ -311,7 +311,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -322,8 +322,8 @@ class NotifyResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotifySendResponse:
         """
-        Send transactional and marketing messages to your users via SMS and WhatsApp
-        with automatic compliance enforcement.
+        Send transactional and marketing messages to your users via SMS, RCS and
+        WhatsApp with automatic compliance enforcement.
 
         Args:
           template_id: The template identifier configured by your Customer Success team.
@@ -336,8 +336,16 @@ class NotifyResource(SyncAPIResource):
               It is returned in the response and any webhook events that refer to this
               message.
 
-          document: A document to attach to the message. Only supported on WhatsApp templates that
-              have a document header.
+          document: A media attachment to include in the message header. Supported on WhatsApp
+              templates registered with a `DOCUMENT`, `IMAGE`, or `VIDEO` header. The media
+              type is determined by the template's registered header format; send the matching
+              file type for each.
+
+              - `DOCUMENT` headers accept PDF and other document formats; `filename` is
+                required and displayed to the recipient.
+              - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename`
+                is ignored.
+              - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -401,7 +409,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -423,8 +431,16 @@ class NotifyResource(SyncAPIResource):
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
 
-          document: A document to attach to the message. Only supported on WhatsApp templates that
-              have a document header.
+          document: A media attachment to include in the message header. Supported on WhatsApp
+              templates registered with a `DOCUMENT`, `IMAGE`, or `VIDEO` header. The media
+              type is determined by the template's registered header format; send the matching
+              file type for each.
+
+              - `DOCUMENT` headers accept PDF and other document formats; `filename` is
+                required and displayed to the recipient.
+              - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename`
+                is ignored.
+              - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.
@@ -745,7 +761,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -756,8 +772,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotifySendResponse:
         """
-        Send transactional and marketing messages to your users via SMS and WhatsApp
-        with automatic compliance enforcement.
+        Send transactional and marketing messages to your users via SMS, RCS and
+        WhatsApp with automatic compliance enforcement.
 
         Args:
           template_id: The template identifier configured by your Customer Success team.
@@ -770,8 +786,16 @@ class AsyncNotifyResource(AsyncAPIResource):
               It is returned in the response and any webhook events that refer to this
               message.
 
-          document: A document to attach to the message. Only supported on WhatsApp templates that
-              have a document header.
+          document: A media attachment to include in the message header. Supported on WhatsApp
+              templates registered with a `DOCUMENT`, `IMAGE`, or `VIDEO` header. The media
+              type is determined by the template's registered header format; send the matching
+              file type for each.
+
+              - `DOCUMENT` headers accept PDF and other document formats; `filename` is
+                required and displayed to the recipient.
+              - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename`
+                is ignored.
+              - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
 
           expires_at: The message expiration date in RFC3339 format. The message will not be sent if
               this time is reached.
@@ -835,7 +859,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
-        preferred_channel: Literal["sms", "whatsapp"] | Omit = omit,
+        preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -857,8 +881,16 @@ class AsyncNotifyResource(AsyncAPIResource):
 
           correlation_id: A user-defined identifier to correlate this request with your internal systems.
 
-          document: A document to attach to the message. Only supported on WhatsApp templates that
-              have a document header.
+          document: A media attachment to include in the message header. Supported on WhatsApp
+              templates registered with a `DOCUMENT`, `IMAGE`, or `VIDEO` header. The media
+              type is determined by the template's registered header format; send the matching
+              file type for each.
+
+              - `DOCUMENT` headers accept PDF and other document formats; `filename` is
+                required and displayed to the recipient.
+              - `IMAGE` headers accept `.png`, `.jpg`, `.jpeg`, and `.webp` URLs; `filename`
+                is ignored.
+              - `VIDEO` headers accept `.mp4` and `.3gp` URLs; `filename` is ignored.
 
           expires_at: The message expiration date in RFC3339 format. Messages will not be sent after
               this time.

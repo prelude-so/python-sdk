@@ -267,8 +267,8 @@ class TestNotify:
             callback_url="https://your-app.com/webhooks/notify",
             correlation_id="order-12345",
             document={
-                "filename": "invoice.pdf",
                 "url": "https://example.com/invoice.pdf",
+                "filename": "invoice.pdf",
             },
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
@@ -324,8 +324,8 @@ class TestNotify:
             callback_url="https://your-app.com/webhooks/notify",
             correlation_id="campaign-12345",
             document={
-                "filename": "invoice.pdf",
                 "url": "https://example.com/invoice.pdf",
+                "filename": "invoice.pdf",
             },
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
@@ -614,8 +614,8 @@ class TestAsyncNotify:
             callback_url="https://your-app.com/webhooks/notify",
             correlation_id="order-12345",
             document={
-                "filename": "invoice.pdf",
                 "url": "https://example.com/invoice.pdf",
+                "filename": "invoice.pdf",
             },
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
@@ -671,8 +671,8 @@ class TestAsyncNotify:
             callback_url="https://your-app.com/webhooks/notify",
             correlation_id="campaign-12345",
             document={
-                "filename": "invoice.pdf",
                 "url": "https://example.com/invoice.pdf",
+                "filename": "invoice.pdf",
             },
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",

@@ -33,7 +33,7 @@ class VerificationCreateResponse(BaseModel):
     method: Literal["email", "message", "silent", "voice"]
     """The method used for verifying this phone number."""
 
-    status: Literal["success", "retry", "challenged", "blocked"]
+    status: Literal["success", "retry", "challenged", "blocked", "shadow_blocked"]
     """The status of the verification.
 
     - `success` - A new verification window was created.
@@ -42,6 +42,9 @@ class VerificationCreateResponse(BaseModel):
       non-voice channels only. This mode must be enabled for your customer account
       by Prelude support.
     - `blocked` - The verification was blocked.
+    - `shadow_blocked` - The verification triggered a block rule but the decision
+      was not enforced; this is used to dry-run anti-fraud configuration. This mode
+      must be enabled for your customer account by Prelude support.
     """
 
     channels: Optional[List[Literal["rcs", "silent", "sms", "telegram", "viber", "voice", "whatsapp", "zalo"]]] = None
@@ -63,7 +66,7 @@ class VerificationCreateResponse(BaseModel):
     ] = None
     """The reason why the verification was blocked.
 
-    Only present when status is "blocked".
+    Only present when status is "blocked" or "shadow_blocked".
 
     - `expired_signature` - The signature of the SDK signals is expired. They should
       be sent within the hour following their collection.
@@ -80,6 +83,49 @@ class VerificationCreateResponse(BaseModel):
     """
 
     request_id: Optional[str] = None
+
+    risk_factors: Optional[
+        List[
+            Literal[
+                "behavioral_pattern",
+                "device_attribute",
+                "fraud_database",
+                "location_discrepancy",
+                "network_fingerprint",
+                "poor_conversion_history",
+                "prefix_concentration",
+                "suspected_request_tampering",
+                "suspicious_ip_address",
+                "temporary_phone_number",
+            ]
+        ]
+    ] = None
+    """The risk factors that contributed to the verification being blocked.
+
+    Only present when status is "blocked" or "shadow_blocked" and the anti-fraud
+    system detected specific risk signals.
+
+    - `behavioral_pattern` - The phone number past behavior during verification
+      flows exhibits suspicious patterns.
+    - `device_attribute` - The device exhibits characteristics associated with
+      suspicious activity patterns.
+    - `fraud_database` - The phone number has been flagged as suspicious in one or
+      more of our fraud databases.
+    - `location_discrepancy` - The phone number prefix and IP address discrepancy
+      indicates potential fraud.
+    - `network_fingerprint` - The network connection exhibits characteristics
+      associated with suspicious activity patterns.
+    - `poor_conversion_history` - The phone number has a history of poorly
+      converting to a verified phone number.
+    - `prefix_concentration` - The phone number is part of a range known to be
+      associated with suspicious activity patterns.
+    - `suspected_request_tampering` - The SDK signature is invalid and the request
+      is considered to be tampered with.
+    - `suspicious_ip_address` - The IP address is deemed to be associated with
+      suspicious activity patterns.
+    - `temporary_phone_number` - The phone number is known to be a temporary or
+      disposable number.
+    """
 
     silent: Optional[Silent] = None
     """The silent verification specific properties."""

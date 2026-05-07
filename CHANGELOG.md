@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.12.0 (2026-05-07)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/prelude-so/python-sdk/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** api update ([c3bc944](https://github.com/prelude-so/python-sdk/commit/c3bc944288ac71600ba22fb00aef56f14bb2432b))
+* **api:** api update ([b598005](https://github.com/prelude-so/python-sdk/commit/b5980052a5be1264e2d3ea340d32e1844c251092))
+* **api:** api update ([e01e6ca](https://github.com/prelude-so/python-sdk/commit/e01e6caea6d1afbc0f2312891f5d5261250c9fcf))
+* **api:** api update ([f3abf14](https://github.com/prelude-so/python-sdk/commit/f3abf14f960cb52068e69f9fa60f275f8a1b34d1))
+* **api:** api update ([8815abe](https://github.com/prelude-so/python-sdk/commit/8815abeb478f96801d77c7c187630b1e5c6edc68))
+* **api:** api update ([0d214f3](https://github.com/prelude-so/python-sdk/commit/0d214f3da25e6dc4f75b7d625b7edb9b9f9bb895))
+* **api:** api update ([90730f2](https://github.com/prelude-so/python-sdk/commit/90730f2450572b41201c0a14b3c7fcaf9630061e))
+* **internal:** implement indices array format for query and form serialization ([437e308](https://github.com/prelude-so/python-sdk/commit/437e30885b2ac87a05b9939b907e74bb70466fe3))
+* support setting headers via env ([10a0bc7](https://github.com/prelude-so/python-sdk/commit/10a0bc7da346a5131dede2f815534aef08c2adc8))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([666864b](https://github.com/prelude-so/python-sdk/commit/666864b1a2c85449206dbb817a3411a6ab6f6b5d))
+* ensure file data are only sent as 1 parameter ([b9c71b4](https://github.com/prelude-so/python-sdk/commit/b9c71b448298e2be4a6f73bb8a35516f89ed3d63))
+* use correct field name format for multipart file arrays ([4484cfc](https://github.com/prelude-so/python-sdk/commit/4484cfc77ad8e5c9d93e0638845e92cfc3ea5b28))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([2612cda](https://github.com/prelude-so/python-sdk/commit/2612cda2d7b9dd760834963e3a703e2403dc0df0))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([4dadcbb](https://github.com/prelude-so/python-sdk/commit/4dadcbbfbef3b9174c33611f01af1c9f954bc82c))
+* **internal:** more robust bootstrap script ([db233c2](https://github.com/prelude-so/python-sdk/commit/db233c23adc25ae7c5ae70f1172ea115b0a7ebe3))
+* **internal:** reformat pyproject.toml ([15acd1f](https://github.com/prelude-so/python-sdk/commit/15acd1f547f79fcdccd337ecb8fa8358a9e6affe))
+* **tests:** bump steady to v0.19.6 ([8c37a2c](https://github.com/prelude-so/python-sdk/commit/8c37a2c11e843b0134aeba5ea0e49df5dd21292c))
+* **tests:** bump steady to v0.19.7 ([20ad4f4](https://github.com/prelude-so/python-sdk/commit/20ad4f44a65807c4ff84961e8fe6ef507f39f3e6))
+* **tests:** bump steady to v0.20.1 ([31e19fa](https://github.com/prelude-so/python-sdk/commit/31e19fab13431abe6fab56177a0e6f2aba05300a))
+* **tests:** bump steady to v0.20.2 ([584457f](https://github.com/prelude-so/python-sdk/commit/584457f3077406dedfaeb17f3b3c0cc8150d6ed2))
+* **tests:** bump steady to v0.22.1 ([188779f](https://github.com/prelude-so/python-sdk/commit/188779fa4cb59ec302113c85acd16fa9532f5bff))
+
 ## 0.11.0 (2026-03-23)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/prelude-so/python-sdk/compare/v0.10.0...v0.11.0)
