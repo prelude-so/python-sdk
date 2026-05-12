@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.13.0 (2026-05-12)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/prelude-so/python-sdk/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** api update ([f68ec5a](https://github.com/prelude-so/python-sdk/commit/f68ec5a869149cd4a8d692d71c182b99321c722e))
+* **api:** api update ([6a0fac1](https://github.com/prelude-so/python-sdk/commit/6a0fac18e6cbf18e0ff4b186d91e7410bc4af508))
+* **internal/types:** support eagerly validating pydantic iterators ([258cc74](https://github.com/prelude-so/python-sdk/commit/258cc746fbcdc0d3cbccda531af5d1f75980b626))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([5cfc65d](https://github.com/prelude-so/python-sdk/commit/5cfc65d9a7a72df5be1343aeff2a74aa088baef4))
+
 ## 0.12.0 (2026-05-07)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/prelude-so/python-sdk/compare/v0.11.0...v0.12.0)
