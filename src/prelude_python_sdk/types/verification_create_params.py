@@ -116,6 +116,17 @@ class Options(TypedDict, total=False):
     more details, refer to [Custom Code](/verify/v2/documentation/custom-codes).
     """
 
+    force_challenge: bool
+    """
+    When `true`, the verification is routed through challenge-safe channels
+    (non-SMS/Voice) regardless of country eligibility or any antispam outcome. The
+    resulting verification has `status: "challenged"`. Use this when you have your
+    own signal that the request is suspicious and want stricter routing — the
+    verification is **not** classified as fraud and does not contribute to
+    anti-fraud counters or risk factors. This feature is disabled by default —
+    contact Prelude support to enable it on your account.
+    """
+
     locale: str
     """
     A BCP-47 formatted locale string with the language the text message will be sent
