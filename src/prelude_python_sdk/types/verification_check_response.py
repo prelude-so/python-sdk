@@ -20,8 +20,13 @@ class Metadata(BaseModel):
 
 
 class VerificationCheckResponse(BaseModel):
-    status: Literal["success", "failure", "expired_or_not_found"]
-    """The status of the check."""
+    status: Literal["success", "failure", "expired_or_not_found", "transaction_missing", "transaction_mismatch"]
+    """The status of the check.
+
+    For `prelude:psd2` codes, `transaction_missing` is returned when the `psd2`
+    block is omitted, and `transaction_mismatch` when the submitted variables differ
+    from those provided at issuance.
+    """
 
     id: Optional[str] = None
     """The verification identifier."""

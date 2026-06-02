@@ -110,6 +110,7 @@ class VerificationResource(SyncAPIResource):
         *,
         code: str,
         target: verification_check_params.Target,
+        psd2: verification_check_params.Psd2 | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,6 +127,11 @@ class VerificationResource(SyncAPIResource):
           target: The verification target. Either a phone number or an email address. To use the
               email verification feature contact us to discuss your use case.
 
+          psd2: Required when checking a code issued under the `prelude:psd2` template. The
+              submitted variables must match those provided at issuance; any mismatch
+              invalidates the code (PSD2 SCA RTS Article 5 dynamic linking). Ignored on
+              non-PSD2 verifications.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -140,6 +146,7 @@ class VerificationResource(SyncAPIResource):
                 {
                     "code": code,
                     "target": target,
+                    "psd2": psd2,
                 },
                 verification_check_params.VerificationCheckParams,
             ),
@@ -238,6 +245,7 @@ class AsyncVerificationResource(AsyncAPIResource):
         *,
         code: str,
         target: verification_check_params.Target,
+        psd2: verification_check_params.Psd2 | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -254,6 +262,11 @@ class AsyncVerificationResource(AsyncAPIResource):
           target: The verification target. Either a phone number or an email address. To use the
               email verification feature contact us to discuss your use case.
 
+          psd2: Required when checking a code issued under the `prelude:psd2` template. The
+              submitted variables must match those provided at issuance; any mismatch
+              invalidates the code (PSD2 SCA RTS Article 5 dynamic linking). Ignored on
+              non-PSD2 verifications.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -268,6 +281,7 @@ class AsyncVerificationResource(AsyncAPIResource):
                 {
                     "code": code,
                     "target": target,
+                    "psd2": psd2,
                 },
                 verification_check_params.VerificationCheckParams,
             ),
