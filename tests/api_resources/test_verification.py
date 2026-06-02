@@ -111,6 +111,22 @@ class TestVerification:
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])
 
     @parametrize
+    def test_method_check_with_all_params(self, client: Prelude) -> None:
+        verification = client.verification.check(
+            code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            psd2={
+                "amount": "99999.99",
+                "currency": "EUR",
+                "recipient": "Rainbow LLC",
+            },
+        )
+        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
+
+    @parametrize
     def test_raw_response_check(self, client: Prelude) -> None:
         response = client.verification.with_raw_response.check(
             code="12345",
@@ -234,6 +250,22 @@ class TestAsyncVerification:
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
+            },
+        )
+        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
+
+    @parametrize
+    async def test_method_check_with_all_params(self, async_client: AsyncPrelude) -> None:
+        verification = await async_client.verification.check(
+            code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            psd2={
+                "amount": "99999.99",
+                "currency": "EUR",
+                "recipient": "Rainbow LLC",
             },
         )
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])
