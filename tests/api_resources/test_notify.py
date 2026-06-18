@@ -273,6 +273,7 @@ class TestNotify:
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
             locale="el-GR",
+            max_auto_retries=2,
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
             variables={
@@ -330,6 +331,7 @@ class TestNotify:
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
             locale="el-GR",
+            max_auto_retries=2,
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
             variables={
@@ -620,6 +622,7 @@ class TestAsyncNotify:
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
             locale="el-GR",
+            max_auto_retries=2,
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
             variables={
@@ -677,6 +680,7 @@ class TestAsyncNotify:
             expires_at=parse_datetime("2025-12-25T18:00:00Z"),
             from_="from",
             locale="el-GR",
+            max_auto_retries=2,
             preferred_channel="whatsapp",
             schedule_at=parse_datetime("2025-12-25T10:00:00Z"),
             variables={
