@@ -311,6 +311,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        max_auto_retries: int | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
@@ -357,6 +358,12 @@ class NotifyResource(SyncAPIResource):
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
 
+          max_auto_retries: Maximum number of automatic retry attempts across channels for this send, in
+              addition to the first attempt. For example, `2` allows up to 3 total delivery
+              attempts. Lower values reduce delivery cost on hard-to-reach numbers at the
+              expense of deliverability. When omitted, your account's configured default
+              applies.
+
           preferred_channel: The preferred channel to be used in priority for message delivery. If the
               channel is unavailable, the system will fallback to other available channels.
 
@@ -386,6 +393,7 @@ class NotifyResource(SyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "max_auto_retries": max_auto_retries,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
                     "variables": variables,
@@ -409,6 +417,7 @@ class NotifyResource(SyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        max_auto_retries: int | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
@@ -449,6 +458,12 @@ class NotifyResource(SyncAPIResource):
 
           locale: A BCP-47 formatted locale string.
 
+          max_auto_retries: Maximum number of automatic retry attempts across channels for each send in the
+              batch, in addition to the first attempt. For example, `2` allows up to 3 total
+              delivery attempts per recipient. Lower values reduce delivery cost on
+              hard-to-reach numbers at the expense of deliverability. When omitted, your
+              account's configured default applies.
+
           preferred_channel: Preferred channel for delivery. If unavailable, automatic fallback applies.
 
           schedule_at: Schedule delivery in RFC3339 format. Marketing sends may be adjusted to comply
@@ -476,6 +491,7 @@ class NotifyResource(SyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "max_auto_retries": max_auto_retries,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
                     "variables": variables,
@@ -761,6 +777,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        max_auto_retries: int | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
@@ -807,6 +824,12 @@ class AsyncNotifyResource(AsyncAPIResource):
               code of the phone number. If the language specified doesn't exist, the default
               set on the template will be used.
 
+          max_auto_retries: Maximum number of automatic retry attempts across channels for this send, in
+              addition to the first attempt. For example, `2` allows up to 3 total delivery
+              attempts. Lower values reduce delivery cost on hard-to-reach numbers at the
+              expense of deliverability. When omitted, your account's configured default
+              applies.
+
           preferred_channel: The preferred channel to be used in priority for message delivery. If the
               channel is unavailable, the system will fallback to other available channels.
 
@@ -836,6 +859,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "max_auto_retries": max_auto_retries,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
                     "variables": variables,
@@ -859,6 +883,7 @@ class AsyncNotifyResource(AsyncAPIResource):
         expires_at: Union[str, datetime] | Omit = omit,
         from_: str | Omit = omit,
         locale: str | Omit = omit,
+        max_auto_retries: int | Omit = omit,
         preferred_channel: Literal["sms", "rcs", "whatsapp"] | Omit = omit,
         schedule_at: Union[str, datetime] | Omit = omit,
         variables: Dict[str, str] | Omit = omit,
@@ -899,6 +924,12 @@ class AsyncNotifyResource(AsyncAPIResource):
 
           locale: A BCP-47 formatted locale string.
 
+          max_auto_retries: Maximum number of automatic retry attempts across channels for each send in the
+              batch, in addition to the first attempt. For example, `2` allows up to 3 total
+              delivery attempts per recipient. Lower values reduce delivery cost on
+              hard-to-reach numbers at the expense of deliverability. When omitted, your
+              account's configured default applies.
+
           preferred_channel: Preferred channel for delivery. If unavailable, automatic fallback applies.
 
           schedule_at: Schedule delivery in RFC3339 format. Marketing sends may be adjusted to comply
@@ -926,6 +957,7 @@ class AsyncNotifyResource(AsyncAPIResource):
                     "expires_at": expires_at,
                     "from_": from_,
                     "locale": locale,
+                    "max_auto_retries": max_auto_retries,
                     "preferred_channel": preferred_channel,
                     "schedule_at": schedule_at,
                     "variables": variables,

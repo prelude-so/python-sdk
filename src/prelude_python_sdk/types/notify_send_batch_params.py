@@ -51,6 +51,15 @@ class NotifySendBatchParams(TypedDict, total=False):
     locale: str
     """A BCP-47 formatted locale string."""
 
+    max_auto_retries: int
+    """
+    Maximum number of automatic retry attempts across channels for each send in the
+    batch, in addition to the first attempt. For example, `2` allows up to 3 total
+    delivery attempts per recipient. Lower values reduce delivery cost on
+    hard-to-reach numbers at the expense of deliverability. When omitted, your
+    account's configured default applies.
+    """
+
     preferred_channel: Literal["sms", "rcs", "whatsapp"]
     """Preferred channel for delivery. If unavailable, automatic fallback applies."""
 
