@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, List
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["VerificationCreateParams", "Target", "Metadata", "Options", "OptionsAppRealm", "Signals"]
@@ -102,6 +102,17 @@ class Options(TypedDict, total=False):
     details, refer to [Webhook](/verify/v2/documentation/webhook).
     """
 
+    channels: List[Literal["sms", "rcs", "whatsapp", "viber", "zalo", "telegram"]]
+    """The channels this verification may use, in the order they are tried.
+
+    Channels you omit are never used, including on retries. Every channel you list
+    must be enabled on your account and active in the destination country, otherwise
+    the request fails with `channel_not_enabled_in_region`. Prelude still picks the
+    best provider within each channel. Cannot be combined with `preferred_channel`.
+    Voice is requested through `method` instead. Disabled by default — contact
+    support to enable it.
+    """
+
     code_size: int
     """The size of the code generated.
 
@@ -153,7 +164,7 @@ class Options(TypedDict, total=False):
     on retries while an untried route on that channel remains; once those are
     exhausted, retries fall back to the next best available route. If the channel is
     unavailable (for example, when a verification is challenged), Prelude uses the
-    best available route instead.
+    best available route instead. Cannot be combined with `channels`.
     """
 
     sender_id: str
