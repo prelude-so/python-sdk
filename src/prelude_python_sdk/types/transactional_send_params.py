@@ -55,6 +55,13 @@ class TransactionalSendParams(TypedDict, total=False):
     set on the template will be used.
     """
 
+    max_auto_retries: int
+    """
+    Maximum number of automatic retry attempts across channels for this send, in
+    addition to the first attempt. For example, `2` allows up to 3 total delivery
+    attempts. When omitted, your account's configured default applies.
+    """
+
     preferred_channel: Literal["sms", "rcs", "whatsapp"]
     """The preferred delivery channel for the message.
 

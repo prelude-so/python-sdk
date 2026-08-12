@@ -44,6 +44,7 @@ class TestTransactional:
                 expires_at="expires_at",
                 from_="from",
                 locale="el-GR",
+                max_auto_retries=2,
                 preferred_channel="whatsapp",
                 variables={"foo": "bar"},
             )
@@ -109,6 +110,7 @@ class TestAsyncTransactional:
                 expires_at="expires_at",
                 from_="from",
                 locale="el-GR",
+                max_auto_retries=2,
                 preferred_channel="whatsapp",
                 variables={"foo": "bar"},
             )

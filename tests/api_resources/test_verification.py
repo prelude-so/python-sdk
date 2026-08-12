@@ -45,9 +45,12 @@ class TestVerification:
                     "value": "value",
                 },
                 "callback_url": "callback_url",
+                "channels": ["whatsapp", "sms"],
                 "code_size": 5,
                 "custom_code": "123456",
+                "force_challenge": True,
                 "locale": "el-GR",
+                "max_auto_fallbacks": 0,
                 "method": "auto",
                 "preferred_channel": "sms",
                 "sender_id": "sender_id",
@@ -105,6 +108,22 @@ class TestVerification:
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
+            },
+        )
+        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
+
+    @parametrize
+    def test_method_check_with_all_params(self, client: Prelude) -> None:
+        verification = client.verification.check(
+            code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            psd2={
+                "amount": "99999.99",
+                "currency": "EUR",
+                "recipient": "Rainbow LLC",
             },
         )
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])
@@ -172,9 +191,12 @@ class TestAsyncVerification:
                     "value": "value",
                 },
                 "callback_url": "callback_url",
+                "channels": ["whatsapp", "sms"],
                 "code_size": 5,
                 "custom_code": "123456",
+                "force_challenge": True,
                 "locale": "el-GR",
+                "max_auto_fallbacks": 0,
                 "method": "auto",
                 "preferred_channel": "sms",
                 "sender_id": "sender_id",
@@ -232,6 +254,22 @@ class TestAsyncVerification:
             target={
                 "type": "phone_number",
                 "value": "+30123456789",
+            },
+        )
+        assert_matches_type(VerificationCheckResponse, verification, path=["response"])
+
+    @parametrize
+    async def test_method_check_with_all_params(self, async_client: AsyncPrelude) -> None:
+        verification = await async_client.verification.check(
+            code="12345",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            psd2={
+                "amount": "99999.99",
+                "currency": "EUR",
+                "recipient": "Rainbow LLC",
             },
         )
         assert_matches_type(VerificationCheckResponse, verification, path=["response"])

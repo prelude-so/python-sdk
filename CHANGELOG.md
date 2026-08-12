@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.13.0 (2026-08-07)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/prelude-so/python-sdk/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** api update ([97390d4](https://github.com/prelude-so/python-sdk/commit/97390d49d01770b26cb49f59b60fa7253dbc836f))
+* **api:** api update ([4a0d5d9](https://github.com/prelude-so/python-sdk/commit/4a0d5d9155c911f44d0faa8ab51cfd6388214b98))
+* **api:** api update ([277414a](https://github.com/prelude-so/python-sdk/commit/277414a94acae3079cec518a23b0b74f03245911))
+* **api:** api update ([08fa721](https://github.com/prelude-so/python-sdk/commit/08fa7213a622f8fdad05437e5df803619646f7ca))
+* **api:** api update ([be3ae03](https://github.com/prelude-so/python-sdk/commit/be3ae031fb1c58bae1fad36b89828aa7e866e445))
+* **api:** api update ([b37b236](https://github.com/prelude-so/python-sdk/commit/b37b236a95b9a60e450fa9d708d903a26c53337e))
+* **api:** api update ([6d61c65](https://github.com/prelude-so/python-sdk/commit/6d61c65d0a7c563203e59b510b578b07b1d740e3))
+* **api:** api update ([f68ec5a](https://github.com/prelude-so/python-sdk/commit/f68ec5a869149cd4a8d692d71c182b99321c722e))
+* **api:** api update ([6a0fac1](https://github.com/prelude-so/python-sdk/commit/6a0fac18e6cbf18e0ff4b186d91e7410bc4af508))
+* **internal/types:** support eagerly validating pydantic iterators ([258cc74](https://github.com/prelude-so/python-sdk/commit/258cc746fbcdc0d3cbccda531af5d1f75980b626))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([c449760](https://github.com/prelude-so/python-sdk/commit/c449760b337f38febed5f8ea3295ce704957110b))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([5cfc65d](https://github.com/prelude-so/python-sdk/commit/5cfc65d9a7a72df5be1343aeff2a74aa088baef4))
+
 ## 0.12.0 (2026-05-07)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/prelude-so/python-sdk/compare/v0.11.0...v0.12.0)

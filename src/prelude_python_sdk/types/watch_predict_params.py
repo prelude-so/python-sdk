@@ -9,7 +9,7 @@ __all__ = ["WatchPredictParams", "Target", "Metadata", "Signals"]
 
 class WatchPredictParams(TypedDict, total=False):
     target: Required[Target]
-    """The prediction target. Only supports phone numbers for now."""
+    """The signup identifier to score — a phone number or email address."""
 
     dispatch_id: str
     """The identifier of the dispatch that came from the front-end SDK."""
@@ -26,7 +26,7 @@ class WatchPredictParams(TypedDict, total=False):
 
 
 class Target(TypedDict, total=False):
-    """The prediction target. Only supports phone numbers for now."""
+    """The signup identifier to score — a phone number or email address."""
 
     type: Required[Literal["phone_number", "email_address"]]
     """The type of the target. Either "phone_number" or "email_address"."""
