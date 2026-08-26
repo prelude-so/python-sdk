@@ -69,6 +69,15 @@ class Signals(TypedDict, total=False):
     device_platform: Literal["android", "ios", "ipados", "tvos", "web"]
     """The type of the user's device."""
 
+    existing_user: bool
+    """
+    Whether the end-user already exists in your system, for example an existing
+    account signing in again rather than a first-time signup. Unlike
+    `is_trusted_user`, this signal does not bypass fraud checks; it is taken into
+    account as one additional anti-fraud signal. For more details, refer to
+    [Signals](/verify/v2/documentation/prevent-fraud#signals).
+    """
+
     ip: str
     """The public IP v4 or v6 address of the end-user's device.
 
