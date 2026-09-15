@@ -75,6 +75,8 @@ class NotifyResource(SyncAPIResource):
         """
         Retrieve a specific subscription management configuration by its ID.
 
+        In order to get access to this endpoint, contact our support team.
+
         Args:
           extra_headers: Send extra headers
 
@@ -109,6 +111,8 @@ class NotifyResource(SyncAPIResource):
         """
         Retrieve the current subscription status for a specific phone number within a
         subscription configuration.
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           extra_headers: Send extra headers
@@ -153,6 +157,8 @@ class NotifyResource(SyncAPIResource):
 
         Each configuration represents a subscription management setup with phone numbers
         for receiving opt-out/opt-in requests and a callback URL for webhook events.
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
@@ -204,6 +210,8 @@ class NotifyResource(SyncAPIResource):
         phone number within a subscription configuration.
 
         Events are ordered by timestamp in descending order (most recent first).
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
@@ -263,6 +271,8 @@ class NotifyResource(SyncAPIResource):
         specific subscription configuration.
 
         You can optionally filter by subscription state (SUB or UNSUB).
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
@@ -541,6 +551,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         """
         Retrieve a specific subscription management configuration by its ID.
 
+        In order to get access to this endpoint, contact our support team.
+
         Args:
           extra_headers: Send extra headers
 
@@ -575,6 +587,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         """
         Retrieve the current subscription status for a specific phone number within a
         subscription configuration.
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           extra_headers: Send extra headers
@@ -619,6 +633,8 @@ class AsyncNotifyResource(AsyncAPIResource):
 
         Each configuration represents a subscription management setup with phone numbers
         for receiving opt-out/opt-in requests and a callback URL for webhook events.
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
@@ -670,6 +686,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         phone number within a subscription configuration.
 
         Events are ordered by timestamp in descending order (most recent first).
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
@@ -729,6 +747,8 @@ class AsyncNotifyResource(AsyncAPIResource):
         specific subscription configuration.
 
         You can optionally filter by subscription state (SUB or UNSUB).
+
+        In order to get access to this endpoint, contact our support team.
 
         Args:
           cursor: Pagination cursor from the previous response
