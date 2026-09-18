@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from prelude_python_sdk import Prelude, AsyncPrelude
 from prelude_python_sdk.types import (
     WatchPredictResponse,
+    WatchEvaluateResponse,
     WatchSendEventsResponse,
     WatchSendFeedbacksResponse,
 )
@@ -20,6 +21,77 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestWatch:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @parametrize
+    def test_method_evaluate(self, client: Prelude) -> None:
+        watch = client.watch.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        )
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    def test_method_evaluate_with_all_params(self, client: Prelude) -> None:
+        watch = client.watch.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            attributes={
+                "plan_tier": "free",
+                "account_age_days": "3",
+            },
+            dispatch_id="123e4567-e89b-12d3-a456-426614174000",
+            signals={
+                "app_version": "1.2.34",
+                "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
+                "device_model": "iPhone17,2",
+                "device_platform": "ios",
+                "existing_user": False,
+                "ip": "203.0.113.123",
+                "is_trusted_user": False,
+                "ja4_fingerprint": "t13d1516h2_8daaf6152771_e5627efa2ab1",
+                "os_version": "18.0.1",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+            },
+        )
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    def test_raw_response_evaluate(self, client: Prelude) -> None:
+        response = client.watch.with_raw_response.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        watch = response.parse()
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    def test_streaming_response_evaluate(self, client: Prelude) -> None:
+        with client.watch.with_streaming_response.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            watch = response.parse()
+            assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_predict(self, client: Prelude) -> None:
@@ -203,6 +275,77 @@ class TestAsyncWatch:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @parametrize
+    async def test_method_evaluate(self, async_client: AsyncPrelude) -> None:
+        watch = await async_client.watch.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        )
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_method_evaluate_with_all_params(self, async_client: AsyncPrelude) -> None:
+        watch = await async_client.watch.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+            attributes={
+                "plan_tier": "free",
+                "account_age_days": "3",
+            },
+            dispatch_id="123e4567-e89b-12d3-a456-426614174000",
+            signals={
+                "app_version": "1.2.34",
+                "device_id": "8F0B8FDD-C2CB-4387-B20A-56E9B2E5A0D2",
+                "device_model": "iPhone17,2",
+                "device_platform": "ios",
+                "existing_user": False,
+                "ip": "203.0.113.123",
+                "is_trusted_user": False,
+                "ja4_fingerprint": "t13d1516h2_8daaf6152771_e5627efa2ab1",
+                "os_version": "18.0.1",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1",
+            },
+        )
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_raw_response_evaluate(self, async_client: AsyncPrelude) -> None:
+        response = await async_client.watch.with_raw_response.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        watch = await response.parse()
+        assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_evaluate(self, async_client: AsyncPrelude) -> None:
+        async with async_client.watch.with_streaming_response.evaluate(
+            flow_id="flo_01jc0t6fwwfgfsq1md24mhyztj",
+            target={
+                "type": "phone_number",
+                "value": "+30123456789",
+            },
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            watch = await response.parse()
+            assert_matches_type(WatchEvaluateResponse, watch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_predict(self, async_client: AsyncPrelude) -> None:

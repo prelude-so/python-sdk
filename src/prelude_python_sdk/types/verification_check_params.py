@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
-__all__ = ["VerificationCheckParams", "Target", "Psd2"]
+from .shared_params.target import Target
+
+__all__ = ["VerificationCheckParams", "Psd2"]
 
 
 class VerificationCheckParams(TypedDict, total=False):
@@ -25,19 +27,6 @@ class VerificationCheckParams(TypedDict, total=False):
     invalidates the code (PSD2 SCA RTS Article 5 dynamic linking). Ignored on
     non-PSD2 verifications.
     """
-
-
-class Target(TypedDict, total=False):
-    """The verification target.
-
-    Either a phone number or an email address. To use the email verification feature contact us to discuss your use case.
-    """
-
-    type: Required[Literal["phone_number", "email_address"]]
-    """The type of the target. Either "phone_number" or "email_address"."""
-
-    value: Required[str]
-    """An E.164 formatted phone number or an email address."""
 
 
 class Psd2(TypedDict, total=False):

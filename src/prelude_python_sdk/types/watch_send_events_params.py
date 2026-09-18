@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["WatchSendEventsParams", "Event", "EventTarget"]
+from .shared_params.target import Target
+
+__all__ = ["WatchSendEventsParams", "Event"]
 
 
 class WatchSendEventsParams(TypedDict, total=False):
@@ -14,16 +16,6 @@ class WatchSendEventsParams(TypedDict, total=False):
 
     A maximum of 100 events can be sent in a single request.
     """
-
-
-class EventTarget(TypedDict, total=False):
-    """The event target. Only supports phone numbers for now."""
-
-    type: Required[Literal["phone_number", "email_address"]]
-    """The type of the target. Either "phone_number" or "email_address"."""
-
-    value: Required[str]
-    """An E.164 formatted phone number or an email address."""
 
 
 class Event(TypedDict, total=False):
@@ -43,5 +35,5 @@ class Event(TypedDict, total=False):
     label: Required[str]
     """A label to describe what the event refers to."""
 
-    target: Required[EventTarget]
+    target: Required[Target]
     """The event target. Only supports phone numbers for now."""

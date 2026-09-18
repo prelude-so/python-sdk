@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+from .shared import Target as Target, Signals as Signals
 from .notify_send_params import NotifySendParams as NotifySendParams
+from .notify_reply_params import NotifyReplyParams as NotifyReplyParams
 from .lookup_lookup_params import LookupLookupParams as LookupLookupParams
 from .notify_send_response import NotifySendResponse as NotifySendResponse
 from .watch_predict_params import WatchPredictParams as WatchPredictParams
+from .notify_reply_response import NotifyReplyResponse as NotifyReplyResponse
+from .watch_evaluate_params import WatchEvaluateParams as WatchEvaluateParams
 from .lookup_lookup_response import LookupLookupResponse as LookupLookupResponse
 from .watch_predict_response import WatchPredictResponse as WatchPredictResponse
+from .watch_evaluate_response import WatchEvaluateResponse as WatchEvaluateResponse
 from .notify_send_batch_params import NotifySendBatchParams as NotifySendBatchParams
 from .watch_send_events_params import WatchSendEventsParams as WatchSendEventsParams
 from .transactional_send_params import TransactionalSendParams as TransactionalSendParams

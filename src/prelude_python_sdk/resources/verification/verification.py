@@ -4,26 +4,40 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import verification_check_params, verification_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import verification_check_params, verification_create_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.verification_check_response import VerificationCheckResponse
-from ..types.verification_create_response import VerificationCreateResponse
+from .phone.phone import (
+    PhoneResource,
+    AsyncPhoneResource,
+    PhoneResourceWithRawResponse,
+    AsyncPhoneResourceWithRawResponse,
+    PhoneResourceWithStreamingResponse,
+    AsyncPhoneResourceWithStreamingResponse,
+)
+from ..._base_client import make_request_options
+from ...types.shared_params.target import Target
+from ...types.shared_params.signals import Signals
+from ...types.verification_check_response import VerificationCheckResponse
+from ...types.verification_create_response import VerificationCreateResponse
 
 __all__ = ["VerificationResource", "AsyncVerificationResource"]
 
 
 class VerificationResource(SyncAPIResource):
     """Verify phone numbers."""
+
+    @cached_property
+    def phone(self) -> PhoneResource:
+        return PhoneResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> VerificationResourceWithRawResponse:
@@ -47,11 +61,11 @@ class VerificationResource(SyncAPIResource):
     def create(
         self,
         *,
-        target: verification_create_params.Target,
+        target: Target,
         dispatch_id: str | Omit = omit,
         metadata: verification_create_params.Metadata | Omit = omit,
         options: verification_create_params.Options | Omit = omit,
-        signals: verification_create_params.Signals | Omit = omit,
+        signals: Signals | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,7 +123,7 @@ class VerificationResource(SyncAPIResource):
         self,
         *,
         code: str,
-        target: verification_check_params.Target,
+        target: Target,
         psd2: verification_check_params.Psd2 | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -161,6 +175,10 @@ class AsyncVerificationResource(AsyncAPIResource):
     """Verify phone numbers."""
 
     @cached_property
+    def phone(self) -> AsyncPhoneResource:
+        return AsyncPhoneResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncVerificationResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -182,11 +200,11 @@ class AsyncVerificationResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        target: verification_create_params.Target,
+        target: Target,
         dispatch_id: str | Omit = omit,
         metadata: verification_create_params.Metadata | Omit = omit,
         options: verification_create_params.Options | Omit = omit,
-        signals: verification_create_params.Signals | Omit = omit,
+        signals: Signals | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -244,7 +262,7 @@ class AsyncVerificationResource(AsyncAPIResource):
         self,
         *,
         code: str,
-        target: verification_check_params.Target,
+        target: Target,
         psd2: verification_check_params.Psd2 | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -303,6 +321,10 @@ class VerificationResourceWithRawResponse:
             verification.check,
         )
 
+    @cached_property
+    def phone(self) -> PhoneResourceWithRawResponse:
+        return PhoneResourceWithRawResponse(self._verification.phone)
+
 
 class AsyncVerificationResourceWithRawResponse:
     def __init__(self, verification: AsyncVerificationResource) -> None:
@@ -314,6 +336,10 @@ class AsyncVerificationResourceWithRawResponse:
         self.check = async_to_raw_response_wrapper(
             verification.check,
         )
+
+    @cached_property
+    def phone(self) -> AsyncPhoneResourceWithRawResponse:
+        return AsyncPhoneResourceWithRawResponse(self._verification.phone)
 
 
 class VerificationResourceWithStreamingResponse:
@@ -327,6 +353,10 @@ class VerificationResourceWithStreamingResponse:
             verification.check,
         )
 
+    @cached_property
+    def phone(self) -> PhoneResourceWithStreamingResponse:
+        return PhoneResourceWithStreamingResponse(self._verification.phone)
+
 
 class AsyncVerificationResourceWithStreamingResponse:
     def __init__(self, verification: AsyncVerificationResource) -> None:
@@ -338,3 +368,7 @@ class AsyncVerificationResourceWithStreamingResponse:
         self.check = async_to_streamed_response_wrapper(
             verification.check,
         )
+
+    @cached_property
+    def phone(self) -> AsyncPhoneResourceWithStreamingResponse:
+        return AsyncPhoneResourceWithStreamingResponse(self._verification.phone)
