@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from prelude_python_sdk import Prelude, AsyncPrelude
 from prelude_python_sdk.types import (
     NotifySendResponse,
+    NotifyReplyResponse,
     NotifySendBatchResponse,
     NotifyGetSubscriptionConfigResponse,
     NotifyListSubscriptionConfigsResponse,
@@ -250,6 +251,54 @@ class TestNotify:
             client.notify.with_raw_response.list_subscription_phone_numbers(
                 config_id="",
             )
+
+    @parametrize
+    def test_method_reply(self, client: Prelude) -> None:
+        notify = client.notify.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        )
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    def test_method_reply_with_all_params(self, client: Prelude) -> None:
+        notify = client.notify.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+            callback_url="https://your-app.com/webhooks/notify",
+            correlation_id="support-ticket-42",
+        )
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    def test_raw_response_reply(self, client: Prelude) -> None:
+        response = client.notify.with_raw_response.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        notify = response.parse()
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    def test_streaming_response_reply(self, client: Prelude) -> None:
+        with client.notify.with_streaming_response.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            notify = response.parse()
+            assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_send(self, client: Prelude) -> None:
@@ -599,6 +648,54 @@ class TestAsyncNotify:
             await async_client.notify.with_raw_response.list_subscription_phone_numbers(
                 config_id="",
             )
+
+    @parametrize
+    async def test_method_reply(self, async_client: AsyncPrelude) -> None:
+        notify = await async_client.notify.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        )
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    async def test_method_reply_with_all_params(self, async_client: AsyncPrelude) -> None:
+        notify = await async_client.notify.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+            callback_url="https://your-app.com/webhooks/notify",
+            correlation_id="support-ticket-42",
+        )
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    async def test_raw_response_reply(self, async_client: AsyncPrelude) -> None:
+        response = await async_client.notify.with_raw_response.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        notify = await response.parse()
+        assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_reply(self, async_client: AsyncPrelude) -> None:
+        async with async_client.notify.with_streaming_response.reply(
+            reply_to="im_01k8aq2zggeyssvt53zgvpx63a",
+            text="Thanks for reaching out! We'll look into your request.",
+            to="+33612345678",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            notify = await response.parse()
+            assert_matches_type(NotifyReplyResponse, notify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_send(self, async_client: AsyncPrelude) -> None:

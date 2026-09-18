@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.0 (2026-09-18)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/prelude-so/python-sdk/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** manual updates ([6f8fe45](https://github.com/prelude-so/python-sdk/commit/6f8fe45cb794e6283855863693c12143ec2b4871))
+
 ## 0.14.0 (2026-09-15)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/prelude-so/python-sdk/compare/v0.13.0...v0.14.0)

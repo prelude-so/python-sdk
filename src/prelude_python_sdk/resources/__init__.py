@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .intel import (
+    IntelResource,
+    AsyncIntelResource,
+    IntelResourceWithRawResponse,
+    AsyncIntelResourceWithRawResponse,
+    IntelResourceWithStreamingResponse,
+    AsyncIntelResourceWithStreamingResponse,
+)
 from .watch import (
     WatchResource,
     AsyncWatchResource,
@@ -86,4 +94,10 @@ __all__ = [
     "AsyncWatchResourceWithRawResponse",
     "WatchResourceWithStreamingResponse",
     "AsyncWatchResourceWithStreamingResponse",
+    "IntelResource",
+    "AsyncIntelResource",
+    "IntelResourceWithRawResponse",
+    "AsyncIntelResourceWithRawResponse",
+    "IntelResourceWithStreamingResponse",
+    "AsyncIntelResourceWithStreamingResponse",
 ]
