@@ -10,6 +10,7 @@ import httpx
 
 from ..types import (
     notify_send_params,
+    notify_reply_params,
     notify_send_batch_params,
     notify_list_subscription_configs_params,
     notify_list_subscription_phone_numbers_params,
@@ -27,6 +28,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.notify_send_response import NotifySendResponse
+from ..types.notify_reply_response import NotifyReplyResponse
 from ..types.notify_send_batch_response import NotifySendBatchResponse
 from ..types.notify_get_subscription_config_response import NotifyGetSubscriptionConfigResponse
 from ..types.notify_list_subscription_configs_response import NotifyListSubscriptionConfigsResponse
@@ -308,6 +310,66 @@ class NotifyResource(SyncAPIResource):
                 ),
             ),
             cast_to=NotifyListSubscriptionPhoneNumbersResponse,
+        )
+
+    def reply(
+        self,
+        *,
+        reply_to: str,
+        text: str,
+        to: str,
+        callback_url: str | Omit = omit,
+        correlation_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> NotifyReplyResponse:
+        """
+        Send a free-form text reply to an inbound WhatsApp message within the 24-hour
+        conversation window. See
+        [WhatsApp 2-Way Messaging](/notify/v2/documentation/whatsapp) for details.
+
+        Args:
+          reply_to: The inbound message ID (prefixed with `im_`) to reply to. This ID is provided in
+              the `inbound.message.received` webhook event.
+
+          text: The reply message body sent as a free-form WhatsApp text.
+
+          to: The recipient's phone number in E.164 format. Must match the phone number that
+              sent the original inbound message.
+
+          callback_url: The URL where webhooks will be sent for delivery events of this reply.
+
+          correlation_id: A user-defined identifier to correlate this reply with your internal systems. It
+              is returned in the response and any webhook events that refer to this message.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v2/notify/reply",
+            body=maybe_transform(
+                {
+                    "reply_to": reply_to,
+                    "text": text,
+                    "to": to,
+                    "callback_url": callback_url,
+                    "correlation_id": correlation_id,
+                },
+                notify_reply_params.NotifyReplyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NotifyReplyResponse,
         )
 
     def send(
@@ -786,6 +848,66 @@ class AsyncNotifyResource(AsyncAPIResource):
             cast_to=NotifyListSubscriptionPhoneNumbersResponse,
         )
 
+    async def reply(
+        self,
+        *,
+        reply_to: str,
+        text: str,
+        to: str,
+        callback_url: str | Omit = omit,
+        correlation_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> NotifyReplyResponse:
+        """
+        Send a free-form text reply to an inbound WhatsApp message within the 24-hour
+        conversation window. See
+        [WhatsApp 2-Way Messaging](/notify/v2/documentation/whatsapp) for details.
+
+        Args:
+          reply_to: The inbound message ID (prefixed with `im_`) to reply to. This ID is provided in
+              the `inbound.message.received` webhook event.
+
+          text: The reply message body sent as a free-form WhatsApp text.
+
+          to: The recipient's phone number in E.164 format. Must match the phone number that
+              sent the original inbound message.
+
+          callback_url: The URL where webhooks will be sent for delivery events of this reply.
+
+          correlation_id: A user-defined identifier to correlate this reply with your internal systems. It
+              is returned in the response and any webhook events that refer to this message.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v2/notify/reply",
+            body=await async_maybe_transform(
+                {
+                    "reply_to": reply_to,
+                    "text": text,
+                    "to": to,
+                    "callback_url": callback_url,
+                    "correlation_id": correlation_id,
+                },
+                notify_reply_params.NotifyReplyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NotifyReplyResponse,
+        )
+
     async def send(
         self,
         *,
@@ -1010,6 +1132,9 @@ class NotifyResourceWithRawResponse:
         self.list_subscription_phone_numbers = to_raw_response_wrapper(
             notify.list_subscription_phone_numbers,
         )
+        self.reply = to_raw_response_wrapper(
+            notify.reply,
+        )
         self.send = to_raw_response_wrapper(
             notify.send,
         )
@@ -1036,6 +1161,9 @@ class AsyncNotifyResourceWithRawResponse:
         )
         self.list_subscription_phone_numbers = async_to_raw_response_wrapper(
             notify.list_subscription_phone_numbers,
+        )
+        self.reply = async_to_raw_response_wrapper(
+            notify.reply,
         )
         self.send = async_to_raw_response_wrapper(
             notify.send,
@@ -1064,6 +1192,9 @@ class NotifyResourceWithStreamingResponse:
         self.list_subscription_phone_numbers = to_streamed_response_wrapper(
             notify.list_subscription_phone_numbers,
         )
+        self.reply = to_streamed_response_wrapper(
+            notify.reply,
+        )
         self.send = to_streamed_response_wrapper(
             notify.send,
         )
@@ -1090,6 +1221,9 @@ class AsyncNotifyResourceWithStreamingResponse:
         )
         self.list_subscription_phone_numbers = async_to_streamed_response_wrapper(
             notify.list_subscription_phone_numbers,
+        )
+        self.reply = async_to_streamed_response_wrapper(
+            notify.reply,
         )
         self.send = async_to_streamed_response_wrapper(
             notify.send,

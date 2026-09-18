@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackTarget", "FeedbackMetadata"]
+from .shared_params.target import Target
+
+__all__ = ["WatchSendFeedbacksParams", "Feedback", "FeedbackMetadata"]
 
 
 class WatchSendFeedbacksParams(TypedDict, total=False):
@@ -14,16 +16,6 @@ class WatchSendFeedbacksParams(TypedDict, total=False):
 
     A maximum of 100 feedbacks can be sent in a single request.
     """
-
-
-class FeedbackTarget(TypedDict, total=False):
-    """The feedback target. Only supports phone numbers for now."""
-
-    type: Required[Literal["phone_number", "email_address"]]
-    """The type of the target. Either "phone_number" or "email_address"."""
-
-    value: Required[str]
-    """An E.164 formatted phone number or an email address."""
 
 
 class FeedbackMetadata(TypedDict, total=False):
@@ -38,7 +30,7 @@ class FeedbackMetadata(TypedDict, total=False):
 
 
 class Feedback(TypedDict, total=False):
-    target: Required[FeedbackTarget]
+    target: Required[Target]
     """The feedback target. Only supports phone numbers for now."""
 
     type: Required[Literal["verification.started", "verification.completed"]]

@@ -6,33 +6,48 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
+from ...types import (
     verification_management_set_phone_number_params,
     verification_management_submit_sender_id_params,
     verification_management_delete_phone_number_params,
 )
-from .._types import Body, Query, Headers, NotGiven, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .sandbox import (
+    SandboxResource,
+    AsyncSandboxResource,
+    SandboxResourceWithRawResponse,
+    AsyncSandboxResourceWithRawResponse,
+    SandboxResourceWithStreamingResponse,
+    AsyncSandboxResourceWithStreamingResponse,
+)
+from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.verification_management_list_sender_ids_response import VerificationManagementListSenderIDsResponse
-from ..types.verification_management_set_phone_number_response import VerificationManagementSetPhoneNumberResponse
-from ..types.verification_management_submit_sender_id_response import VerificationManagementSubmitSenderIDResponse
-from ..types.verification_management_list_phone_numbers_response import VerificationManagementListPhoneNumbersResponse
-from ..types.verification_management_delete_phone_number_response import VerificationManagementDeletePhoneNumberResponse
+from ..._base_client import make_request_options
+from ...types.verification_management_list_sender_ids_response import VerificationManagementListSenderIDsResponse
+from ...types.verification_management_set_phone_number_response import VerificationManagementSetPhoneNumberResponse
+from ...types.verification_management_submit_sender_id_response import VerificationManagementSubmitSenderIDResponse
+from ...types.verification_management_list_phone_numbers_response import VerificationManagementListPhoneNumbersResponse
+from ...types.verification_management_delete_phone_number_response import (
+    VerificationManagementDeletePhoneNumberResponse,
+)
 
 __all__ = ["VerificationManagementResource", "AsyncVerificationManagementResource"]
 
 
 class VerificationManagementResource(SyncAPIResource):
     """Verify phone numbers."""
+
+    @cached_property
+    def sandbox(self) -> SandboxResource:
+        """Verify phone numbers."""
+        return SandboxResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> VerificationManagementResourceWithRawResponse:
@@ -245,6 +260,11 @@ class VerificationManagementResource(SyncAPIResource):
 
 class AsyncVerificationManagementResource(AsyncAPIResource):
     """Verify phone numbers."""
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResource:
+        """Verify phone numbers."""
+        return AsyncSandboxResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncVerificationManagementResourceWithRawResponse:
@@ -475,6 +495,11 @@ class VerificationManagementResourceWithRawResponse:
             verification_management.submit_sender_id,
         )
 
+    @cached_property
+    def sandbox(self) -> SandboxResourceWithRawResponse:
+        """Verify phone numbers."""
+        return SandboxResourceWithRawResponse(self._verification_management.sandbox)
+
 
 class AsyncVerificationManagementResourceWithRawResponse:
     def __init__(self, verification_management: AsyncVerificationManagementResource) -> None:
@@ -495,6 +520,11 @@ class AsyncVerificationManagementResourceWithRawResponse:
         self.submit_sender_id = async_to_raw_response_wrapper(
             verification_management.submit_sender_id,
         )
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResourceWithRawResponse:
+        """Verify phone numbers."""
+        return AsyncSandboxResourceWithRawResponse(self._verification_management.sandbox)
 
 
 class VerificationManagementResourceWithStreamingResponse:
@@ -517,6 +547,11 @@ class VerificationManagementResourceWithStreamingResponse:
             verification_management.submit_sender_id,
         )
 
+    @cached_property
+    def sandbox(self) -> SandboxResourceWithStreamingResponse:
+        """Verify phone numbers."""
+        return SandboxResourceWithStreamingResponse(self._verification_management.sandbox)
+
 
 class AsyncVerificationManagementResourceWithStreamingResponse:
     def __init__(self, verification_management: AsyncVerificationManagementResource) -> None:
@@ -537,3 +572,8 @@ class AsyncVerificationManagementResourceWithStreamingResponse:
         self.submit_sender_id = async_to_streamed_response_wrapper(
             verification_management.submit_sender_id,
         )
+
+    @cached_property
+    def sandbox(self) -> AsyncSandboxResourceWithStreamingResponse:
+        """Verify phone numbers."""
+        return AsyncSandboxResourceWithStreamingResponse(self._verification_management.sandbox)

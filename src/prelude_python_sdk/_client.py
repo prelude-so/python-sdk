@@ -35,13 +35,17 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import watch, lookup, notify, verification, transactional, verification_management
+    from .resources import intel, watch, lookup, notify, verification, transactional, verification_management
     from .resources.watch import WatchResource, AsyncWatchResource
     from .resources.lookup import LookupResource, AsyncLookupResource
     from .resources.notify import NotifyResource, AsyncNotifyResource
-    from .resources.verification import VerificationResource, AsyncVerificationResource
+    from .resources.intel.intel import IntelResource, AsyncIntelResource
     from .resources.transactional import TransactionalResource, AsyncTransactionalResource
-    from .resources.verification_management import VerificationManagementResource, AsyncVerificationManagementResource
+    from .resources.verification.verification import VerificationResource, AsyncVerificationResource
+    from .resources.verification_management.verification_management import (
+        VerificationManagementResource,
+        AsyncVerificationManagementResource,
+    )
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Prelude", "AsyncPrelude", "Client", "AsyncClient"]
 
@@ -153,6 +157,12 @@ class Prelude(SyncAPIClient):
         from .resources.watch import WatchResource
 
         return WatchResource(self)
+
+    @cached_property
+    def intel(self) -> IntelResource:
+        from .resources.intel import IntelResource
+
+        return IntelResource(self)
 
     @cached_property
     def with_raw_response(self) -> PreludeWithRawResponse:
@@ -376,6 +386,12 @@ class AsyncPrelude(AsyncAPIClient):
         return AsyncWatchResource(self)
 
     @cached_property
+    def intel(self) -> AsyncIntelResource:
+        from .resources.intel import AsyncIntelResource
+
+        return AsyncIntelResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncPreludeWithRawResponse:
         return AsyncPreludeWithRawResponse(self)
 
@@ -538,6 +554,12 @@ class PreludeWithRawResponse:
 
         return WatchResourceWithRawResponse(self._client.watch)
 
+    @cached_property
+    def intel(self) -> intel.IntelResourceWithRawResponse:
+        from .resources.intel import IntelResourceWithRawResponse
+
+        return IntelResourceWithRawResponse(self._client.intel)
+
 
 class AsyncPreludeWithRawResponse:
     _client: AsyncPrelude
@@ -589,6 +611,12 @@ class AsyncPreludeWithRawResponse:
 
         return AsyncWatchResourceWithRawResponse(self._client.watch)
 
+    @cached_property
+    def intel(self) -> intel.AsyncIntelResourceWithRawResponse:
+        from .resources.intel import AsyncIntelResourceWithRawResponse
+
+        return AsyncIntelResourceWithRawResponse(self._client.intel)
+
 
 class PreludeWithStreamedResponse:
     _client: Prelude
@@ -639,6 +667,12 @@ class PreludeWithStreamedResponse:
         from .resources.watch import WatchResourceWithStreamingResponse
 
         return WatchResourceWithStreamingResponse(self._client.watch)
+
+    @cached_property
+    def intel(self) -> intel.IntelResourceWithStreamingResponse:
+        from .resources.intel import IntelResourceWithStreamingResponse
+
+        return IntelResourceWithStreamingResponse(self._client.intel)
 
 
 class AsyncPreludeWithStreamedResponse:
@@ -692,6 +726,12 @@ class AsyncPreludeWithStreamedResponse:
         from .resources.watch import AsyncWatchResourceWithStreamingResponse
 
         return AsyncWatchResourceWithStreamingResponse(self._client.watch)
+
+    @cached_property
+    def intel(self) -> intel.AsyncIntelResourceWithStreamingResponse:
+        from .resources.intel import AsyncIntelResourceWithStreamingResponse
+
+        return AsyncIntelResourceWithStreamingResponse(self._client.intel)
 
 
 Client = Prelude
