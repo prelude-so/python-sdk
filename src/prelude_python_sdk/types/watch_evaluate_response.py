@@ -9,7 +9,7 @@ __all__ = ["WatchEvaluateResponse", "Recipe", "RecipeRule"]
 
 
 class RecipeRule(BaseModel):
-    outcome: Literal["TRIGGERED", "NOT_TRIGGERED", "NOT_EVALUATED"]
+    outcome: Literal["TRIGGERED", "NOT_TRIGGERED", "NOT_EVALUATED", "SKIPPED"]
     """What the rule concluded.
 
     - `TRIGGERED` - The condition held; `weight` was added to the score.
@@ -17,6 +17,10 @@ class RecipeRule(BaseModel):
     - `NOT_EVALUATED` - The rule could not run, because something it reads never
       arrived. This is not a quieter `NOT_TRIGGERED`: it contributed nothing either
       way, and it is why `partial_evidence` is set on the recipe.
+    - `SKIPPED` - The rule was not run, because another rule had already determined
+      the recipe's verdict — see `determined_by`. Nothing was missing and nothing
+      failed, so `partial_evidence` is not set: `determined_by` is what accounts for
+      the recipe's score resting on fewer rules.
     """
 
     rule_id: str
@@ -24,6 +28,16 @@ class RecipeRule(BaseModel):
 
     Present whatever the rule's visibility, so a rule you cannot see the condition
     of is still one you can reweight, switch off, or ask us about.
+    """
+
+    type: Literal["MANAGED", "CUSTOM"]
+    """
+    Who authored the rule, which is what says how much of the rest of this result
+    you get.
+
+    - `MANAGED` - Prelude-owned, shared with customers: `name` and `version_id` are
+      omitted, and `blocked_by` reports only `missing_data`.
+    - `CUSTOM` - Yours: every field is returned.
     """
 
     weight: int
@@ -51,6 +65,13 @@ class RecipeRule(BaseModel):
     request. `outcome` is `NOT_EVALUATED` and the failure is ours to fix.
     """
 
+    version_id: Optional[str] = None
+    """
+    The version of the rule that scored — the one this recipe is pinned to, or the
+    version current at evaluation time when it is not pinned. Present for a rule you
+    authored, and omitted for a Prelude-managed one.
+    """
+
 
 class Recipe(BaseModel):
     partial_evidence: bool
@@ -67,7 +88,9 @@ class Recipe(BaseModel):
     """One result per rule in the recipe, in membership order.
 
     Every rule runs — a score is only meaningful when complete, so there is no
-    short-circuit on the first trigger.
+    short-circuit on the first trigger. The exception is a recipe whose verdict a
+    preempting rule has already determined, where a rule that could no longer change
+    it may report `SKIPPED` instead.
     """
 
     score: int
