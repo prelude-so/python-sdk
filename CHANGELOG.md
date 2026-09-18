@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.14.0 (2026-09-15)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/prelude-so/python-sdk/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** api update ([dbe97f6](https://github.com/prelude-so/python-sdk/commit/dbe97f6119990b49754989c0d73418661fc34f39))
+* **api:** api update ([a26c822](https://github.com/prelude-so/python-sdk/commit/a26c8229337934a3d8aa9538c3f77aed50e27946))
+* **api:** api update ([0cb1485](https://github.com/prelude-so/python-sdk/commit/0cb148510657037c636847d21929c1c104a45a70))
+
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([1e250e9](https://github.com/prelude-so/python-sdk/commit/1e250e9c868f9b2b2840153a2c66e9e4b4cc30ad))
+
 ## 0.13.0 (2026-08-07)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/prelude-so/python-sdk/compare/v0.12.0...v0.13.0)
